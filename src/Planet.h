@@ -17,6 +17,7 @@ public:
 	void update();
 	void draw();
 private:
+	ofImage texture; // texture used on planet
 };
 
 #endif /* PLANET_H_ */
