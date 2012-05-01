@@ -1,18 +1,24 @@
 #include "testApp.h"
 
+/*
+ * The testApp will function as a controller. Relaying resources to/from planets via network
+ */
+
 //--------------------------------------------------------------
 void testApp::setup(){
+	// TODO: init all views, all resources and local planets
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-
+	// TODO: update all planets
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-
+	// TODO: invoke active view and draw
+	activeView.draw();
 }
 
 //--------------------------------------------------------------
@@ -57,5 +63,16 @@ void testApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
+
+}
+void testApp::udpBroadcast() {
+
+}
+
+void testApp::udpListener() {
+
+}
+
+void testApp::udpSender(Resource resource) {
 
 }

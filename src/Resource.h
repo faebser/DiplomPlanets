@@ -12,6 +12,11 @@ class Resource {
 public:
 	Resource();
 	virtual ~Resource();
+	char* getType();
+	int getAmount();
+private:
+	char* type;
+	int amount;
 };
 
 #endif /* RESOURCE_H_ */

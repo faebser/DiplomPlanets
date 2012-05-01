@@ -12,6 +12,11 @@ class Planet {
 public:
 	Planet();
 	virtual ~Planet();
+	void getResource(Resource incomingResource);
+	void sendResource(Resource outgoingResource);
+	void update();
+	void draw();
+private:
 };
 
 #endif /* PLANET_H_ */

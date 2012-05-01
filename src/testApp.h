@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include <vector>
+using namespace std;
+
 
 class testApp : public ofBaseApp{
 
@@ -18,5 +21,13 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+		//Networking related
+		void udpBroadcast();
+		void udpListener();
+		void udpSender(Resource outwardResource);
+	private:
+		vector<Planet> planets;
+		vector<View> views;
+		View activeView;
 };

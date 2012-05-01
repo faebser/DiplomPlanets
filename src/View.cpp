@@ -9,7 +9,11 @@
 
 View::View() {
 	// TODO Auto-generated constructor stub
+	// TODO load all resources
 
+}
+void View::draw(vector<Planet> planets) {
+	// TODO draw all the planets
 }
 
 View::~View() {

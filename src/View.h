@@ -12,6 +12,7 @@ class View {
 public:
 	View();
 	virtual ~View();
+	void draw(vector<Planet> Planets);
 };
 
 #endif /* VIEW_H_ */

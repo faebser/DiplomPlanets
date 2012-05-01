@@ -11,7 +11,13 @@ Resource::Resource() {
 	// TODO Auto-generated constructor stub
 
 }
+char* Resource::getType() {
+	return type;
+}
 
+int Resource::getAmount() {
+	return amount;
+}
 Resource::~Resource() {
 	// TODO Auto-generated destructor stub
 }
