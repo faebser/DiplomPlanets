@@ -6,6 +6,7 @@
  */
 
 #include "Planet.h"
+#include "Resource.h"
 
 Planet::Planet() {
 	// TODO Auto-generated constructor stub
