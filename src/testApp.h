@@ -2,7 +2,9 @@
 
 #include "ofMain.h"
 #include <vector>
-using namespace std;
+#include "Planet.h"
+#include "View.h"
+
 
 
 class testApp : public ofBaseApp{

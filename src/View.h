@@ -8,6 +8,8 @@
 #ifndef VIEW_H_
 #define VIEW_H_
 
+#include "Planet.h"
+
 class View {
 public:
 	View();

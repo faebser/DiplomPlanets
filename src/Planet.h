@@ -8,6 +8,9 @@
 #ifndef PLANET_H_
 #define PLANET_H_
 
+#include "Resource.h"
+#include "ofMain.h"
+
 class Planet {
 public:
 	Planet();

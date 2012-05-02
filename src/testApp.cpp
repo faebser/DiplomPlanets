@@ -18,7 +18,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	// TODO: invoke active view and draw
-	activeView.draw();
+	//activeView.draw();
 }
 
 //--------------------------------------------------------------

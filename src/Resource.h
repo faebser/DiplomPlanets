@@ -8,7 +8,7 @@
 #ifndef RESOURCE_H_
 #define RESOURCE_H_
 
-#include <string>
+#include "ofMain.h"
 
 class Resource {
 public:
