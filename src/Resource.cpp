@@ -11,7 +11,7 @@ Resource::Resource() {
 	// TODO Auto-generated constructor stub
 
 }
-char* Resource::getType() {
+string Resource::getType() {
 	return type;
 }
 

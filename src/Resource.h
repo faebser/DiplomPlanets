@@ -8,14 +8,16 @@
 #ifndef RESOURCE_H_
 #define RESOURCE_H_
 
+#include <string>
+
 class Resource {
 public:
 	Resource();
 	virtual ~Resource();
-	char* getType();
+	string getType();
 	int getAmount();
 private:
-	char* type;
+	string type;
 	int amount;
 };
 
