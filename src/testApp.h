@@ -5,7 +5,8 @@
 #include "Planet.h"
 #include "View.h"
 
-
+#include "json/json.h"
+//example für json http://jsoncpp.sourceforge.net/
 
 class testApp : public ofBaseApp{
 

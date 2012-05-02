@@ -10,14 +10,14 @@ OF_ROOT = ../../..
 # for example search paths like:
 # USER_CFLAGS = -I src/objects
 
-USER_CFLAGS = $(addprefix -I, $(shell find src -type d)) 
+USER_CFLAGS = $(addprefix -I, $(shell find src -type d)) -I libs/include 
 
 
 # USER_LDFLAGS allows to pass custom flags to the linker
 # for example libraries like:
 # USER_LDFLAGS = libs/libawesomelib.a
 
-USER_LDFLAGS =
+USER_LDFLAGS = libs/linux64/libcurlpp.a libs/linux64/libutilspp.a 
 
 
 EXCLUDE_FROM_SOURCE="bin,.xcodeproj,obj"
