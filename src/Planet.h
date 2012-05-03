@@ -21,6 +21,10 @@ public:
 	void draw();
 private:
 	ofImage texture; // texture used on planet
+	string type;
+	float radius;
+	bool isPlayer;
+	string playerName, planetName;
 };
 
 #endif /* PLANET_H_ */

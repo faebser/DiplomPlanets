@@ -8,7 +8,7 @@
 #include "Planet.h"
 
 Planet::Planet() {
-	// TODO Auto-generated constructor stub
+	// TODO generate planet
 
 }
 void Planet::getResource(Resource incomingResource) {
@@ -29,4 +29,3 @@ void Planet::draw() {
 Planet::~Planet() {
 	// TODO Auto-generated destructor stub
 }
-

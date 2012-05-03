@@ -4,6 +4,10 @@
  * The testApp will function as a controller. Relaying resources to/from planets via network
  */
 
+/* static values used as config */
+vector<string> testApp::planetTypes ("fire", "rock", "gas", "water");
+vector<string> testApp::resourecTypes ("fire", "water", "gas");
+
 //--------------------------------------------------------------
 void testApp::setup(){
 	// TODO: init all views, all resources and local planets
@@ -73,6 +77,10 @@ void testApp::udpListener() {
 
 }
 
-void testApp::udpSender(Resource resource) {
+void testApp::udpSender(string json) {
+
+}
+
+void testApp::showNotification(string title, string message) {
 
 }

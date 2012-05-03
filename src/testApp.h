@@ -1,10 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
-#include <vector>
 #include "Planet.h"
 #include "View.h"
-
 #include "json/json.h"
 //example für json http://jsoncpp.sourceforge.net/
 
@@ -25,11 +23,21 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
+		void showNotification(string title, string message);
+
 		//Networking related
 		void udpBroadcast();
 		void udpListener();
-		void udpSender(Resource outwardResource);
+		void udpSender(string json);
+
+		Json::Value resourceToJson(Resource* input);
+		Resource resourceFromtJson(string json);
+
+		Json::Value planetToJson(Planet* input);
+		Planet* planetFromJson(string input);
+
 	private:
+		static vector<string> planetTypes, resourecTypes;
 		vector<Planet> planets;
 		vector<View> views;
 		View activeView;
