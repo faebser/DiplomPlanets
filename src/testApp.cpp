@@ -5,8 +5,8 @@
  */
 
 /* static values used as config */
-vector<string> testApp::planetTypes ("fire", "rock", "gas", "water");
-vector<string> testApp::resourecTypes ("fire", "water", "gas");
+vector<string> testApp::planetTypes (string("star"), string("rock"), string("gas"), string("water"), string("sun"));
+vector<string> testApp::resourceTypes ("fire", "water", "gas");
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -82,5 +82,19 @@ void testApp::udpSender(string json) {
 }
 
 void testApp::showNotification(string title, string message) {
+
+}
+
+Json::Value resourceToJson(Resource* input) {
+
+}
+Resource resourceFromtJson(string json) {
+
+}
+
+Json::Value planetToJson(Planet* input) {
+
+}
+Planet* planetFromJson(string input) {
 
 }

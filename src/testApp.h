@@ -37,7 +37,7 @@ class testApp : public ofBaseApp{
 		Planet* planetFromJson(string input);
 
 	private:
-		static vector<string> planetTypes, resourecTypes;
+		static vector<std::string> planetTypes, resourceTypes;
 		vector<Planet> planets;
 		vector<View> views;
 		View activeView;
