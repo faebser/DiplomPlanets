@@ -39,7 +39,7 @@ class testApp : public ofBaseApp{
 
 		static string getRandomPlanetType();
 		static float habitableZone, maxRadius, minRadius;
-		static vector<string> planetTypes, resourceTypes;
+		static vector<string> planetTypes, resourceTypes, viewTypes;
 	private:
 		vector<Planet> planets;
 		vector<View> views;

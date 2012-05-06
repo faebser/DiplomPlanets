@@ -7,6 +7,7 @@
 /* static values used as config */
 vector<string> testApp::planetTypes;
 vector<string> testApp::resourceTypes;
+vector<string> testApp::viewTypes;
 float testApp::habitableZone = 500;
 float testApp::maxRadius = 1000;
 float testApp::minRadius = 10;
@@ -23,6 +24,9 @@ void testApp::setup(){
 	testApp::resourceTypes.push_back("fire");
 	testApp::resourceTypes.push_back("water");
 	testApp::resourceTypes.push_back("gas");
+
+	testApp::viewTypes.push_back("overview");
+	testApp::viewTypes.push_back("singlePlanet");
 }
 
 //--------------------------------------------------------------

@@ -7,11 +7,12 @@
 
 #include "View.h"
 
-View::View(string type) {
+View::View() {
 	// TODO Auto-generated constructor stub
 	// TODO load all resources
+}
+View::View(string type) {
 	this->type = type;
-
 }
 void View::draw(vector<Planet> planets) {
 	// TODO draw all the planets

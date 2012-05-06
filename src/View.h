@@ -12,9 +12,10 @@
 
 class View {
 public:
+	View();
 	View(string type);
-	virtual ~View();
 	void draw(vector<Planet> Planets);
+	virtual ~View();
 private:
 	string type;
 };
