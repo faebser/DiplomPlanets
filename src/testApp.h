@@ -4,7 +4,8 @@
 #include "Planet.h"
 #include "View.h"
 #include "json/json.h"
-//example für json http://jsoncpp.sourceforge.net/
+
+//example für json shttp://jsoncpp.sourceforge.net/
 
 class testApp : public ofBaseApp{
 
@@ -36,8 +37,10 @@ class testApp : public ofBaseApp{
 		Json::Value planetToJson(Planet* input);
 		Planet* planetFromJson(string input);
 
+		static string getRandomPlanetType();
+		static float habitableZone, maxRadius, minRadius;
+		static vector<string> planetTypes, resourceTypes;
 	private:
-		static vector<std::string> planetTypes, resourceTypes;
 		vector<Planet> planets;
 		vector<View> views;
 		View activeView;

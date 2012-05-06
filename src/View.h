@@ -12,9 +12,11 @@
 
 class View {
 public:
-	View();
+	View(string type);
 	virtual ~View();
 	void draw(vector<Planet> Planets);
+private:
+	string type;
 };
 
 #endif /* VIEW_H_ */

@@ -5,13 +5,24 @@
  */
 
 /* static values used as config */
-vector<string> testApp::planetTypes (string("star"), string("rock"), string("gas"), string("water"), string("sun"));
-vector<string> testApp::resourceTypes ("fire", "water", "gas");
+vector<string> testApp::planetTypes;
+vector<string> testApp::resourceTypes;
+float testApp::habitableZone = 500;
+float testApp::maxRadius = 1000;
+float testApp::minRadius = 10;
 
 //--------------------------------------------------------------
 void testApp::setup(){
 	// TODO: init all views, all resources and local planets
+	testApp::planetTypes.push_back(string("star"));
+	testApp::planetTypes.push_back(string("rock"));
+	testApp::planetTypes.push_back(string("gas"));
+	testApp::planetTypes.push_back(string("water"));
+	testApp::planetTypes.push_back(string("sun"));
 
+	testApp::resourceTypes.push_back("fire");
+	testApp::resourceTypes.push_back("water");
+	testApp::resourceTypes.push_back("gas");
 }
 
 //--------------------------------------------------------------
@@ -83,6 +94,11 @@ void testApp::udpSender(string json) {
 
 void testApp::showNotification(string title, string message) {
 
+}
+
+string testApp::getRandomPlanetType() {
+	int random = (int)ofRandom((float)testApp::planetTypes.size());
+	return testApp::planetTypes[random];
 }
 
 Json::Value resourceToJson(Resource* input) {
