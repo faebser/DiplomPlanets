@@ -43,5 +43,7 @@ class testApp : public ofBaseApp{
 	private:
 		vector<Planet> planets;
 		vector<View> views;
-		View activeView;
+		View* activeView;
+
+
 };

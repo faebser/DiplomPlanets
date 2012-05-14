@@ -14,10 +14,14 @@ class View {
 public:
 	View();
 	View(string type);
-	void draw(vector<Planet> Planets);
+	void update(vector<Planet>* planets);
+	void draw(vector<Planet>* planets);
+	void drawOverview(vector<Planet>* planets);
+	void drawPlanet(vector<Planet>* planets);
 	virtual ~View();
 private:
 	string type;
+
 };
 
 #endif /* VIEW_H_ */

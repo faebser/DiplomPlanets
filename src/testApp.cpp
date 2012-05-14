@@ -15,11 +15,11 @@ float testApp::minRadius = 10;
 //--------------------------------------------------------------
 void testApp::setup(){
 	// TODO: init all views, all resources and local planets
-	testApp::planetTypes.push_back(string("star"));
-	testApp::planetTypes.push_back(string("rock"));
-	testApp::planetTypes.push_back(string("gas"));
-	testApp::planetTypes.push_back(string("water"));
-	testApp::planetTypes.push_back(string("sun"));
+	testApp::planetTypes.push_back("star");
+	testApp::planetTypes.push_back("rock");
+	testApp::planetTypes.push_back("gas");
+	testApp::planetTypes.push_back("water");
+	testApp::planetTypes.push_back("sun");
 
 	testApp::resourceTypes.push_back("fire");
 	testApp::resourceTypes.push_back("water");
@@ -27,17 +27,21 @@ void testApp::setup(){
 
 	testApp::viewTypes.push_back("overview");
 	testApp::viewTypes.push_back("singlePlanet");
+
+	views.push_back(View("overview"));
+	views.push_back(View("singlePlanet"));
+
+	activeView = &views[0];
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	// TODO: update all planets
+	activeView->update(&this->planets);
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	// TODO: invoke active view and draw
-	//activeView.draw();
+	activeView->draw(&this->planets);
 }
 
 //--------------------------------------------------------------
@@ -105,16 +109,16 @@ string testApp::getRandomPlanetType() {
 	return testApp::planetTypes[random];
 }
 
-Json::Value resourceToJson(Resource* input) {
+Json::Value testApp::resourceToJson(Resource* input) {
 
 }
-Resource resourceFromtJson(string json) {
+Resource testApp::resourceFromtJson(string json) {
 
 }
 
-Json::Value planetToJson(Planet* input) {
+Json::Value testApp::planetToJson(Planet* input) {
 
 }
-Planet* planetFromJson(string input) {
+Planet* testApp::planetFromJson(string input) {
 
 }

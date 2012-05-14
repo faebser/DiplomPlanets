@@ -9,13 +9,29 @@
 
 View::View() {
 	// TODO Auto-generated constructor stub
-	// TODO load all resources
 }
 View::View(string type) {
 	this->type = type;
 }
-void View::draw(vector<Planet> planets) {
-	// TODO draw all the planets
+
+void View::update(vector<Planet>* planets) {
+
+}
+
+void View::draw(vector<Planet>* planets) {
+	if(this->type == "overview") {
+		this->drawOverview(planets);
+	}
+	else if(this->type == "singlePlanet") {
+		this->drawPlanet(planets);
+	}
+}
+void View::drawOverview(vector<Planet>* planets) {
+
+}
+
+void View::drawPlanet(vector<Planet>* planets) {
+
 }
 
 View::~View() {
