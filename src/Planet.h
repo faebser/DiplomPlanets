@@ -14,17 +14,27 @@
 class Planet {
 public:
 	Planet();
+	Planet(string planetName);
 	virtual ~Planet();
-	void getResource(Resource incomingResource);
-	void sendResource(Resource outgoingResource);
+	void getResource(Resource* incomingResource);
+	void sendResource(Resource* outgoingResource, string* planetName);
 	void update();
 	void draw();
+	void generateTexture();
+
+	// getter / setter
+	string* getPlanetName();
+	string* getPlayerName();
+	float* getRadius();
+	void setPlanetName(string name), setPlayerName(string name), setRadius(float radius);
 private:
-	ofImage texture; // texture used on planet
+	vector<ofImage> textures; // texture used on planet
+	vector<Resource> resources;
 	string type;
 	float radius;
 	bool isPlayer;
 	string playerName, planetName;
+
 };
 
 #endif /* PLANET_H_ */

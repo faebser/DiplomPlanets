@@ -38,10 +38,16 @@ class testApp : public ofBaseApp{
 		Planet* planetFromJson(string input);
 
 		static string getRandomPlanetType();
+		static float getRandomPlanetRadius();
+		static int getRandomStartAmount();
+		static void relayResource(Resource* resource, string* planetName);
+
+		static int minStartAmount, maxStartAmount;
 		static float habitableZone, maxRadius, minRadius;
 		static vector<string> planetTypes, resourceTypes, viewTypes;
 	private:
 		vector<Planet> planets;
+		ofFile config;
 		vector<View> views;
 		View* activeView;
 

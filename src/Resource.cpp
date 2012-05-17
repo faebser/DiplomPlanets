@@ -6,10 +6,15 @@
  */
 
 #include "Resource.h"
+#include "testApp.h"
 
 Resource::Resource() {
 	// TODO Auto-generated constructor stub
 
+}
+Resource::Resource(string type) {
+	this->type = type;
+	this->amount = testApp::getRandomStartAmount();
 }
 string Resource::getType() {
 	return type;
@@ -17,6 +22,9 @@ string Resource::getType() {
 
 int Resource::getAmount() {
 	return amount;
+}
+void Resource::addAmount(int amount) {
+	this->amount += amount;
 }
 Resource::~Resource() {
 	// TODO Auto-generated destructor stub
