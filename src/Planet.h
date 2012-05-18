@@ -11,10 +11,12 @@
 #include "Resource.h"
 #include "ofMain.h"
 
+class testApp;
 class Planet {
 public:
 	Planet();
-	Planet(string planetName);
+	Planet(testApp* parentApp);
+	Planet(string planetName, testApp* parent);
 	virtual ~Planet();
 	void getResource(Resource* incomingResource);
 	void sendResource(Resource* outgoingResource, string* planetName);
@@ -34,7 +36,7 @@ private:
 	float radius;
 	bool isPlayer;
 	string playerName, planetName;
-
+	testApp* parent;
 };
 
 #endif /* PLANET_H_ */

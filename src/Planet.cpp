@@ -18,13 +18,25 @@ Planet::Planet() { //used for a really new planet
 	this->radius = testApp::getRandomPlanetRadius();
 	// ::update and ::generateTexture will be called after creation of Planet
 }
-Planet::Planet(string planetName) { // used for already existing planets
+Planet::Planet(testApp* parentApp) { //used for a really new planet
+	this->type = testApp::getRandomPlanetType();
+	int maxI = testApp::resourceTypes.size();
+	for(int i = 0; i < maxI;i++) {
+		string resourceType = testApp::resourceTypes[i];
+		this->resources.push_back(Resource(resourceType));
+	}
+	this->radius = testApp::getRandomPlanetRadius();
+	this->parent = parent;
+	// ::update and ::generateTexture will be called after creation of Planet
+}
+Planet::Planet(string planetName, testApp* parent) { // used for already existing planets
 	this->planetName = planetName;
 	int maxI = testApp::resourceTypes.size();
 	for(int i = 0; i < maxI;i++) {
 		string resourceType = testApp::resourceTypes[i];
 		this->resources.push_back(Resource(resourceType));
 	}
+	this->parent = parent;
 }
 void Planet::getResource(Resource* incomingResource) {
 	vector<Resource>::iterator it;
@@ -37,7 +49,7 @@ void Planet::getResource(Resource* incomingResource) {
 	}
 }
 void Planet::sendResource(Resource* outgoingResource, string* planetName) {
-	//testApp::relayResource(outgoingResource, planetName);
+	this->parent->relayResource(outgoingResource, planetName);
 }
 void Planet::update() {
 	// TODO add new resources

@@ -32,24 +32,29 @@ class testApp : public ofBaseApp{
 		void udpSender(string json);
 
 		Json::Value resourceToJson(Resource* input);
-		Resource resourceFromtJson(string json);
+		Resource resourceFromJson(Json::Value* json);
 
 		Json::Value planetToJson(Planet* input);
-		Planet* planetFromJson(string input);
+		Planet planetFromJson(Json::Value* input);
+
+		void relayResource(Resource* resource, string* planetName);
 
 		static string getRandomPlanetType();
 		static float getRandomPlanetRadius();
 		static int getRandomStartAmount();
-		static void relayResource(Resource* resource, string* planetName);
 
 		static int minStartAmount, maxStartAmount;
 		static float habitableZone, maxRadius, minRadius;
 		static vector<string> planetTypes, resourceTypes, viewTypes;
 	private:
 		vector<Planet> planets;
-		ofFile config;
+		ofFile configFile;
 		vector<View> views;
 		View* activeView;
+		Json::Value configJson;
+		Json::Reader jsonReader;
+		bool waitForInput,newPlayer;
+		string inputString;
 
 
 };
