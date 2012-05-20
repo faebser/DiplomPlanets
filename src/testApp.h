@@ -38,6 +38,7 @@ class testApp : public ofBaseApp{
 		Planet planetFromJson(Json::Value* input);
 
 		void relayResource(Resource* resource, string* planetName);
+		void getNames();
 
 		static string getRandomPlanetType();
 		static float getRandomPlanetRadius();
@@ -53,8 +54,8 @@ class testApp : public ofBaseApp{
 		View* activeView;
 		Json::Value configJson;
 		Json::Reader jsonReader;
-		bool waitForInput,newPlayer;
-		string inputString;
+		bool waitForInput,newPlayer, playerNameReady, planetNameReady;
+		string inputString, newPlayerName, newPlanetName;
 
 
 };

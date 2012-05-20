@@ -60,17 +60,30 @@ void testApp::setup(){
 	}
 	else {
 		newPlayer = true;
-		// todo put that down into draw
 		waitForInput = true;
-		while (waitForInput == true) {
-			string outputString = "Pleaser enter your Name";
-			outputString.append(inputString);
-			ofDrawBitmapString(outputString, 100, 100);
-		}
-		// TODO make a new planet for player
+		newPlanetName = "";
+		newPlayerName = "";
+		planetNameReady = false;
+		playerNameReady = false;
 	}
 }
+void testApp::getNames() {
+	if(waitForInput == true) {
+		if(planetNameReady == false) {
+			string outputString = "Pleaser enter your Planets Name: ";
+			outputString.append(inputString);
+			ofDrawBitmapString(outputString, 100, 100);
+			newPlayerName.append(inputString);
+		}
+		if(playerNameReady == false && planetNameReady == true) {
+			string outputString = "Pleaser enter your Name: ";
+			outputString.append(inputString);
+			ofDrawBitmapString(outputString, 100, 100);
+			newPlanetName.append(inputString);
+		}
+	}
 
+}
 //--------------------------------------------------------------
 void testApp::update(){
 	activeView->update(&this->planets);
@@ -78,10 +91,14 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+	if(newPlayer == true) {
+		this->getNames();
+	} else {
+		activeView->draw(&this->planets);
+	}
 	ofSetBackgroundColor(0, 0, 0);
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2);
 	ofDrawBitmapString(fpsStr, 20,20);
-	activeView->draw(&this->planets);
 }
 
 //--------------------------------------------------------------
@@ -90,7 +107,21 @@ void testApp::keyPressed(int key){
 		inputString.append(ofToString((char)key));
 	}
 	else if(key == OF_KEY_RETURN && waitForInput == true) {
-		waitForInput = false;
+		if(playerNameReady == false) {
+			if(newPlayerName.length() >= 1) {
+				playerNameReady = true;
+				inputString.clear();
+			}
+		}
+		if(planetNameReady == false) {
+			if(newPlanetName.length() >= 1) {
+				planetNameReady = true;
+				inputString.clear();
+			}
+		}
+		else {
+			waitForInput = false;
+		}
 	}
 }
 
