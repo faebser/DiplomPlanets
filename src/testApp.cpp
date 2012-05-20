@@ -73,13 +73,13 @@ void testApp::getNames() {
 			string outputString = "Pleaser enter your Planets Name: ";
 			outputString.append(inputString);
 			ofDrawBitmapString(outputString, 100, 100);
-			newPlayerName.append(inputString);
+			newPlanetName.append(inputString);
 		}
 		if(playerNameReady == false && planetNameReady == true) {
 			string outputString = "Pleaser enter your Name: ";
 			outputString.append(inputString);
 			ofDrawBitmapString(outputString, 100, 100);
-			newPlanetName.append(inputString);
+			newPlayerName.append(inputString);
 		}
 	}
 
@@ -108,13 +108,13 @@ void testApp::keyPressed(int key){
 	}
 	else if(key == OF_KEY_RETURN && waitForInput == true) {
 		if(playerNameReady == false) {
-			if(newPlayerName.length() >= 1) {
+			if(newPlayerName.compare("") != 0) {
 				playerNameReady = true;
 				inputString.clear();
 			}
 		}
 		if(planetNameReady == false) {
-			if(newPlanetName.length() >= 1) {
+			if(newPlanetName.compare("") != 0) {
 				planetNameReady = true;
 				inputString.clear();
 			}
