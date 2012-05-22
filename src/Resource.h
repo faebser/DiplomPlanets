@@ -16,8 +16,10 @@ public:
 	Resource(string type);
 	virtual ~Resource();
 	string getType();
+	void setType(string type);
 	int getAmount();
 	void addAmount(int amount);
+	bool operator<(const Resource& a) const;
 private:
 	string type;
 	int amount;

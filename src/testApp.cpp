@@ -1,10 +1,5 @@
 #include "testApp.h"
 
-bool compareByLength(Resource &a, Resource &b)
-{
-	return a.getAmount() > b.getAmount();
-}
-
 /*
  * The testApp will function as a controller. Relaying resources to/from planets via network
  */
@@ -82,10 +77,18 @@ void testApp::getNames() {
 			newPlayerName.append(inputString);
 		}
 	}
-
+	else if(waitForInput == false && planetNameReady == true && playerNameReady == true) {
+		Planet newPlanet = Planet(this);
+		newPlanet.setPlanetName(newPlanetName);
+		newPlanet.setPlayerName(newPlanetName);
+		planets.push_back(newPlanet);
+		waitForInput = false;
+		newPlayer = false;
+	}
 }
 //--------------------------------------------------------------
 void testApp::update(){
+	ofBackground(0, 0, 0);
 	activeView->update(&this->planets);
 }
 
@@ -96,7 +99,7 @@ void testApp::draw(){
 	} else {
 		activeView->draw(&this->planets);
 	}
-	ofSetBackgroundColor(0, 0, 0);
+
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2);
 	ofDrawBitmapString(fpsStr, 20,20);
 }

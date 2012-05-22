@@ -3,6 +3,7 @@
 #include "ofAppGlutWindow.h"
 
 //========================================================================
+
 int main( ){
 
     ofAppGlutWindow window;
@@ -14,3 +15,5 @@ int main( ){
 	ofRunApp( new testApp());
 
 }
+
+

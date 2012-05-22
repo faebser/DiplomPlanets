@@ -10,7 +10,6 @@
 
 Resource::Resource() {
 	// TODO Auto-generated constructor stub
-
 }
 Resource::Resource(string type) {
 	this->type = type;
@@ -19,9 +18,11 @@ Resource::Resource(string type) {
 string Resource::getType() {
 	return type;
 }
-
 int Resource::getAmount() {
 	return amount;
+}
+void Resource::setType(string type) {
+	this->type = type;
 }
 void Resource::addAmount(int amount) {
 	this->amount += amount;

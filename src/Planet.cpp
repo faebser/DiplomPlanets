@@ -1,3 +1,4 @@
+
 /*
  * Planet.cpp
  *
@@ -8,12 +9,18 @@
 #include "Planet.h"
 #include "testApp.h"
 
+bool compareByLength( Resource a, Resource b)
+{
+	return a.getAmount() > b.getAmount();
+}
+
 Planet::Planet() { //used for a really new planet
 	this->type = testApp::getRandomPlanetType();
 	int maxI = testApp::resourceTypes.size();
 	for(int i = 0; i < maxI;i++) {
 		string resourceType = testApp::resourceTypes[i];
 		this->resources.push_back(Resource(resourceType));
+		cout << "added resourceType: " << resourceType << endl;
 	}
 	this->radius = testApp::getRandomPlanetRadius();
 	// ::update and ::generateTexture will be called after creation of Planet
@@ -52,12 +59,15 @@ void Planet::sendResource(Resource* outgoingResource, string* planetName) {
 	this->parent->relayResource(outgoingResource, planetName);
 }
 void Planet::update() {
-	// TODO add new resources
-	//std::sort(this->resources.begin(), this->resources.end(), compareByLength); // TODO sort by amount
+	std::sort(this->resources.begin(), this->resources.end(), compareByLength); // TODO sort by amount
 	this->generateTexture();
 }
 void Planet::generateTexture() {
-
+	vector<Resource>::iterator it;
+		for(it = this->resources.begin(); it < this->resources.end(); ++it) {
+				//cout << "typ: " << (*it).getType() << " amount: " << (*it).getAmount() << endl;
+				break;
+		}
 }
 void Planet::draw() {
 

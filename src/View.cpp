@@ -15,7 +15,12 @@ View::View(string type) {
 }
 
 void View::update(vector<Planet>* planets) {
+	vector<Planet>::iterator it, end;
+	end = planets->end();
 
+	for(it = planets->begin();it < end; ++it) {
+		(*it).update();
+	}
 }
 
 void View::draw(vector<Planet>* planets) {
@@ -27,10 +32,24 @@ void View::draw(vector<Planet>* planets) {
 	}
 }
 void View::drawOverview(vector<Planet>* planets) {
+	// TODO draw sun, radius, planets
+	ofPushStyle();
+	ofSetColor(255);
+	ofSphere(ofGetWindowWidth()/2,ofGetWindowHeight()/2 , 20);
 
+	vector<Planet>::iterator it, end;
+	end = planets->end();
+	ofNoFill();
+	for(it = planets->begin();it < end; ++it) {
+		float* radius = (*it).getRadius();
+		ofCircle(ofGetWindowWidth()/2, ofGetWindowHeight()/2, *radius);
+		//delete radius;
+	}
+	ofPopStyle();
 }
 
 void View::drawPlanet(vector<Planet>* planets) {
+	//TODO draw big planet
 
 }
 
