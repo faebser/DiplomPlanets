@@ -42,38 +42,6 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
-	6513AE07156BFA6F004792FE /* jsvalue.h */ = {
-		isa = PBXFileReference;
-		fileEncoding = 4;
-		lastKnownFileType = sourcecode.c.h;
-		name = jsvalue.h;
-		path = /Users/Daniel/Documents/openFrameworks/apps/fabian/DiplomPlanets/libs/include/js/jsvalue.h;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {572, 16367}}";
-			sepNavSelRange = "{10329, 0}";
-			sepNavVisRange = "{10109, 372}";
-		};
-	};
-	6513AE5A156BFA8C004792FE /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "'JSVAL_NULL' was not declared in this scope";
-		fRef = 6513AE07156BFA6F004792FE /* jsvalue.h */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 342;
-		rType = 1;
-	};
-	6513AE5B156BFA8C004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 6513AE07156BFA6F004792FE /* jsvalue.h */;
-		name = "jsvalue.h: 343";
-		rLen = 0;
-		rLoc = 10329;
-		rType = 0;
-		vrLen = 372;
-		vrLoc = 10109;
-	};
 	6513AE5C156BFA8D004792FE /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */;
@@ -83,84 +51,6 @@
 		rType = 0;
 		vrLen = 414;
 		vrLoc = 0;
-	};
-	6513AE5D156BFA8D004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */;
-		name = "testApp.cpp: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 738;
-		vrLoc = 0;
-	};
-	6513AE5E156BFA8D004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = E4B69E1F0A3A1BDC003C02F2 /* testApp.h */;
-		name = "testApp.h: 6";
-		rLen = 0;
-		rLoc = 82;
-		rType = 0;
-		vrLen = 662;
-		vrLoc = 0;
-	};
-	6513AE5F156BFA8D004792FE /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "'JSVAL_NULL' was not declared in this scope";
-		fRef = 6513AE07156BFA6F004792FE /* jsvalue.h */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 342;
-		rType = 1;
-	};
-	6513AE60156BFA8D004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 6513AE07156BFA6F004792FE /* jsvalue.h */;
-		name = "jsvalue.h: 343";
-		rLen = 0;
-		rLoc = 10329;
-		rType = 0;
-		vrLen = 557;
-		vrLoc = 9925;
-	};
-	6513AE63156BFAAD004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = E4B69E1F0A3A1BDC003C02F2 /* testApp.h */;
-		name = "testApp.h: 6";
-		rLen = 0;
-		rLoc = 82;
-		rType = 0;
-		vrLen = 667;
-		vrLoc = 0;
-	};
-	6513AE64156BFAAD004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = E4B69E1F0A3A1BDC003C02F2 /* testApp.h */;
-		name = "testApp.h: 6";
-		rLen = 0;
-		rLoc = 82;
-		rType = 0;
-		vrLen = 662;
-		vrLoc = 0;
-	};
-	6513AE68156BFAED004792FE /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "'ofSetBackgroundColor' was not declared in this scope";
-		fRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 98;
-		rType = 1;
-	};
-	6513AE69156BFAED004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */;
-		name = "testApp.cpp: 99";
-		rLen = 0;
-		rLoc = 2803;
-		rType = 0;
-		vrLen = 558;
-		vrLoc = 2803;
 	};
 	6513AE71156BFB65004792FE /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -172,24 +62,13 @@
 		vrLen = 662;
 		vrLoc = 0;
 	};
-	6513AE72156BFB65004792FE /* XCBuildMessageTextBookmark */ = {
+	6513AE72156BFB65004792FE /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		comments = "'ofSetBackgroundColor' was not declared in this scope";
 		fRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */;
-		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
 		rLoc = 98;
 		rType = 1;
-	};
-	6513AE73156BFB65004792FE /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */;
-		name = "testApp.cpp: 99";
-		rLen = 0;
-		rLoc = 2803;
-		rType = 0;
-		vrLen = 753;
-		vrLoc = 2445;
 	};
 	E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 		activeBuildConfigurationName = Debug;
@@ -233,7 +112,7 @@
 					542,
 					60,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 				);
@@ -247,24 +126,13 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 359397866;
-			PBXWorkspaceStateSaveDate = 359397866;
+			PBXPerProjectTemplateStateSaveDate = 359399611;
+			PBXWorkspaceStateSaveDate = 359399611;
 		};
 		perUserProjectItems = {
-			6513AE5A156BFA8C004792FE /* XCBuildMessageTextBookmark */ = 6513AE5A156BFA8C004792FE /* XCBuildMessageTextBookmark */;
-			6513AE5B156BFA8C004792FE /* PBXTextBookmark */ = 6513AE5B156BFA8C004792FE /* PBXTextBookmark */;
 			6513AE5C156BFA8D004792FE /* PBXTextBookmark */ = 6513AE5C156BFA8D004792FE /* PBXTextBookmark */;
-			6513AE5D156BFA8D004792FE /* PBXTextBookmark */ = 6513AE5D156BFA8D004792FE /* PBXTextBookmark */;
-			6513AE5E156BFA8D004792FE /* PBXTextBookmark */ = 6513AE5E156BFA8D004792FE /* PBXTextBookmark */;
-			6513AE5F156BFA8D004792FE /* XCBuildMessageTextBookmark */ = 6513AE5F156BFA8D004792FE /* XCBuildMessageTextBookmark */;
-			6513AE60156BFA8D004792FE /* PBXTextBookmark */ = 6513AE60156BFA8D004792FE /* PBXTextBookmark */;
-			6513AE63156BFAAD004792FE /* PBXTextBookmark */ = 6513AE63156BFAAD004792FE /* PBXTextBookmark */;
-			6513AE64156BFAAD004792FE /* PBXTextBookmark */ = 6513AE64156BFAAD004792FE /* PBXTextBookmark */;
-			6513AE68156BFAED004792FE /* XCBuildMessageTextBookmark */ = 6513AE68156BFAED004792FE /* XCBuildMessageTextBookmark */;
-			6513AE69156BFAED004792FE /* PBXTextBookmark */ = 6513AE69156BFAED004792FE /* PBXTextBookmark */;
 			6513AE71156BFB65004792FE /* PBXTextBookmark */ = 6513AE71156BFB65004792FE /* PBXTextBookmark */;
-			6513AE72156BFB65004792FE /* XCBuildMessageTextBookmark */ = 6513AE72156BFB65004792FE /* XCBuildMessageTextBookmark */;
-			6513AE73156BFB65004792FE /* PBXTextBookmark */ = 6513AE73156BFB65004792FE /* PBXTextBookmark */;
+			6513AE72156BFB65004792FE /* PBXTextBookmark */ = 6513AE72156BFB65004792FE /* PBXTextBookmark */;
 		};
 		sourceControlManager = 6513AD8D156BF9FA004792FE /* Source Control */;
 		userBuildSettings = {
