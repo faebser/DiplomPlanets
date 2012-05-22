@@ -99,11 +99,7 @@ void testApp::draw(){
 	} else {
 		activeView->draw(&this->planets);
 	}
-<<<<<<< HEAD
 
-=======
-	//ofSetBackgroundColor(0, 0, 0);
->>>>>>> mac version
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2);
 	ofDrawBitmapString(fpsStr, 20,20);
 }
