@@ -1,3 +1,6 @@
 obj/
 bin/DiplomPlanets
 bin/libs
+*.build
+*.app
+*.DS_Store*

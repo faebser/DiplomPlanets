@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "Planet.h"
 #include "View.h"
-#include "json/json.h"
+#include "json.h"
 
 //example für json shttp://jsoncpp.sourceforge.net/
 
