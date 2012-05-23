@@ -252,3 +252,13 @@ void testApp::relayResource(Resource* resource, string* planetName) {
 		}
 	}
 }
+void testApp::addPlanet(Planet planet) {
+	if(this->activeView->getType() == "overview") {
+		this->planets.push_back(planet);
+		this->planetsToDisplay.push_back(&(this->planets.back()));
+	}
+	else if(this->activeView->getType() == "singlePlanet") {
+
+	}
+
+}

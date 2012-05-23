@@ -22,7 +22,7 @@ Planet::Planet() { //used for a really new planet
 		this->resources.push_back(Resource(resourceType));
 	}
 	this->radius = testApp::getRandomPlanetRadius();
-	this->velocity = ofRandom(0.001, 0.003);
+	this->velocity = ofRandom(-0.003, 0.003);
 	this->angle = ofRandom(0,TWO_PI);
 	// ::update and ::generateTexture will be called after creation of Planet
 }
@@ -35,7 +35,7 @@ Planet::Planet(testApp* parentApp) { //used for a really new planet
 	}
 	this->radius = testApp::getRandomPlanetRadius();
 	this->parent = parent;
-	this->velocity = ofRandom(0.001, 0.003);
+	this->velocity = ofRandom(-0.003, 0.003);
 	this->angle = ofRandom(0,TWO_PI);
 	// ::update and ::generateTexture will be called after creation of Planet
 }
@@ -47,7 +47,7 @@ Planet::Planet(string planetName, testApp* parent) { // used for already existin
 		this->resources.push_back(Resource(resourceType));
 	}
 	this->parent = parent;
-	this->velocity = ofRandom(0.001, 0.003);
+	this->velocity = ofRandom(-0.003, 0.003);
 	this->angle = ofRandom(0,TWO_PI);
 }
 void Planet::getResource(Resource* incomingResource) {
@@ -69,7 +69,8 @@ void Planet::update() {
 	this->generateTexture();
 }
 void Planet::generateTexture() {
-	Resource res = resources[0]; // TODO korrigieren
+	// TODO prototype: remove and rewrite
+	Resource res = resources[0];
 	string type = res.getType();
 	if (type == "fire") {
 		testColor.set(244, 148, 11);
@@ -86,11 +87,6 @@ void Planet::generateTexture() {
 	else {
 		testColor.set(255, 0, 0);
 	}
-	/*vector<Resource>::iterator it;
-		for(it = this->resources.begin(); it < this->resources.end(); ++it) {
-
-			break;
-		}*/
 }
 void Planet::clicked(int player) {
 
@@ -100,12 +96,11 @@ void Planet::draw() {
 	ofCircle(pos.x, pos.y, this->getSize());
 }
 void Planet::newRound() {
-	//todo push resources and stuff
+	//TODO prototyp: erase and rewrite
 	vector<Resource>::iterator it;
 	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
 		(*it).addAmount(testApp::getRandomStartAmount());
 	}
-	cout << "new round called" << endl;
 }
 // getter
 string* Planet::getPlanetName() {
