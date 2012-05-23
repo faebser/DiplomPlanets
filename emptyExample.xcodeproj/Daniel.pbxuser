@@ -24,6 +24,8 @@
 		executableUserSymbolLevel = 0;
 		libgmallocEnabled = 0;
 		name = emptyExample;
+		savedGlobals = {
+		};
 		showTypeColumn = 0;
 		sourceDirectories = (
 		);
@@ -41,6 +43,22 @@
 	6513AD8E156BF9FA004792FE /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
+	};
+	6513AD8F156BFA21004792FE /* Planet.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {726, 1885}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{2475, 623}";
+			sepNavWindowFrame = "{{38, 294}, {750, 558}}";
+		};
+	};
+	6513AE1B156BFA6F004792FE /* config.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {691, 559}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1330}";
+			sepNavWindowFrame = "{{15, 315}, {750, 558}}";
+		};
 	};
 	6513AE5C156BFA8D004792FE /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -83,13 +101,13 @@
 		);
 		perUserDictionary = {
 			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
-				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingDirectionKey = 1;
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					582,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 					20,
@@ -126,13 +144,13 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 359399611;
-			PBXWorkspaceStateSaveDate = 359399611;
+			PBXPerProjectTemplateStateSaveDate = 359474264;
+			PBXWorkspaceStateSaveDate = 359474264;
 		};
 		perUserProjectItems = {
-			6513AE5C156BFA8D004792FE /* PBXTextBookmark */ = 6513AE5C156BFA8D004792FE /* PBXTextBookmark */;
-			6513AE71156BFB65004792FE /* PBXTextBookmark */ = 6513AE71156BFB65004792FE /* PBXTextBookmark */;
-			6513AE72156BFB65004792FE /* PBXTextBookmark */ = 6513AE72156BFB65004792FE /* PBXTextBookmark */;
+			6513AE5C156BFA8D004792FE = 6513AE5C156BFA8D004792FE /* PBXTextBookmark */;
+			6513AE71156BFB65004792FE = 6513AE71156BFB65004792FE /* PBXTextBookmark */;
+			6513AE72156BFB65004792FE = 6513AE72156BFB65004792FE /* PBXTextBookmark */;
 		};
 		sourceControlManager = 6513AD8D156BF9FA004792FE /* Source Control */;
 		userBuildSettings = {
