@@ -21,7 +21,6 @@ Planet::Planet() { //used for a really new planet
 	for(int i = 0; i < maxI;i++) {
 		string resourceType = testApp::resourceTypes[i];
 		this->resources.push_back(Resource(resourceType));
-		cout << "added resourceType: " << resourceType << endl;
 	}
 	this->radius = testApp::getRandomPlanetRadius();
 	this->velocity = ofRandom(0.001, 0.003);

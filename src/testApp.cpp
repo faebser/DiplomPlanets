@@ -44,8 +44,7 @@ void testApp::setup(){
 	if( configFile.is_open() ) {
 		// TODO read planet config from file
 		bool parsingSuccessful = jsonReader.parse( this->configFile, configJson );
-		if ( !parsingSuccessful )
-		{
+		if ( !parsingSuccessful ) {
 			// report to the user the failure and their locations in the document.
 			std::cout << "Failed to parse configuration\n"
 					<< jsonReader.getFormatedErrorMessages();
