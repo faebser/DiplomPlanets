@@ -51,9 +51,11 @@ void View::drawOverview(vector<Planet>* planets) {
 		ofNoFill();
 		ofCircle(0, 0, this->resizeRadius(*radius));
 		ofFill();
-		ofCircle( sin((*it).getAngle()) * this->resizeRadius(*radius),cos((*it).getAngle()) * this->resizeRadius(*radius), (*it).getSize());
 		ofPushMatrix();
+		ofPushStyle();
+			(*it).setPos(sin((*it).getAngle()) * this->resizeRadius(*radius), cos((*it).getAngle()) * this->resizeRadius(*radius));
 			(*it).draw();
+		ofPopStyle();
 		ofPopMatrix();
 	}
 	ofPopStyle();

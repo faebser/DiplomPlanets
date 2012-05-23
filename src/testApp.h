@@ -54,7 +54,8 @@ class testApp : public ofBaseApp{
 		View* activeView;
 		Json::Value configJson;
 		Json::Reader jsonReader;
-		bool waitForInput,newPlayer, playerNameReady, planetNameReady;
+		int roundDuration;
+		bool waitForInput,newPlayer, playerNameReady, planetNameReady, player1, player2;
 		string inputString, newPlayerName, newPlanetName;
 
 

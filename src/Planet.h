@@ -31,7 +31,10 @@ public:
 	float* getRadius();
 	ofColor* getColor();
 	void setPlanetName(string name), setPlayerName(string name), setRadius(float radius);
+	void setPos(float x, float y);
 	void setAngle(float angle), setVelocity(float v);
+	ofVec2f* getPos();
+	void clicked();
 private:
 	vector<ofImage> textures; // texture used on planet
 	vector<Resource> resources;
@@ -41,6 +44,7 @@ private:
 	string playerName, planetName;
 	testApp* parent;
 	ofColor testColor;
+	ofVec2f pos;
 };
 
 #endif /* PLANET_H_ */

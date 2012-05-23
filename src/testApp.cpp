@@ -10,7 +10,7 @@ vector<string> testApp::resourceTypes;
 vector<string> testApp::viewTypes;
 float testApp::habitableZone = 500;
 float testApp::maxRadius = 1000;
-float testApp::minRadius = 10;
+float testApp::minRadius = 50;
 
 int testApp::minStartAmount = 0;
 int testApp::maxStartAmount = 20;
@@ -96,11 +96,18 @@ void testApp::update(){
 void testApp::draw(){
 	if(newPlayer == true) {
 		this->getNames();
-	} else {
+	}
+	else {
 		activeView->draw(&this->planets);
 	}
-
-	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2);
+	string playerString;
+	if(player1) {
+		playerString = "player 1";
+	}
+	else if(player2) {
+		playerString = "player 2";
+	}
+	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + playerString;
 	ofDrawBitmapString(fpsStr, 20,20);
 }
 
@@ -126,8 +133,18 @@ void testApp::keyPressed(int key){
 			waitForInput = false;
 		}
 	}
+	else if(key == 'n') {
+		planets.push_back(Planet(this));
+	}
+	else if(key == '1') {
+		player1 = true;
+		player2 = false;
+	}
+	else if(key == '2') {
+		player2 = true;
+		player1 = false;
+	}
 }
-
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
 
@@ -150,7 +167,14 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-
+	vector<Planet>::iterator it = planets.begin(), en = planets.end();
+	for(;it < en; ++it) {
+		ofVec2f* pos = (*it).getPos();
+		if(ofDist(pos->x, pos->y, x, y) < (*it).getSize()) {
+			(*it).clicked();
+			break;
+		}
+	}
 }
 
 //--------------------------------------------------------------
