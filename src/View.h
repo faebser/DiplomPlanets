@@ -19,6 +19,7 @@ public:
 	void drawOverview(vector<Planet>* planets);
 	void drawPlanet(vector<Planet>* planets);
 	float resizeRadius(float radius);
+	string getType();
 	virtual ~View();
 	ofVec2f middle;
 private:

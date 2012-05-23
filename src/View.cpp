@@ -21,6 +21,13 @@ void View::update(vector<Planet>* planets) {
 	vector<Planet>::iterator it, end;
 	end = planets->end();
 
+	if(ofGetElapsedTimeMillis() % testApp::roundDuration < 10) {
+		//todo call planets->newRound();
+		for(it = planets->begin();it < end; ++it) {
+			(*it).newRound();
+		}
+	}
+
 	for(it = planets->begin();it < end; ++it) {
 		(*it).update();
 	}
@@ -39,13 +46,13 @@ void View::drawOverview(vector<Planet>* planets) {
 	ofPushStyle();
 	ofPushMatrix();
 	ofTranslate(middle.x, middle.y);
-	ofSetColor(255);
+	ofSetColor(255, 255, 255, 10);
 	ofSphere(0, 0, 20);
 
 	vector<Planet>::iterator it, end;
 	end = planets->end();
 	ofSetCircleResolution(150);
-	ofEnableSmoothing();
+	//ofEnableSmoothing();
 	for(it = planets->begin();it < end; ++it) {
 		float* radius = (*it).getRadius();
 		ofNoFill();
@@ -59,7 +66,7 @@ void View::drawOverview(vector<Planet>* planets) {
 		ofPopMatrix();
 	}
 	ofPopStyle();
-	ofDisableSmoothing();
+	//ofDisableSmoothing();
 	ofSetCircleResolution(22);
 	ofPopMatrix();
 }
@@ -74,7 +81,9 @@ float View::resizeRadius(float radius) {
 void View::drawPlanet(vector<Planet>* planets) {
 	//TODO draw big planet
 }
-
+string View::getType() {
+	return this->type;
+}
 View::~View() {
 	// TODO Auto-generated destructor stub
 }

@@ -37,6 +37,8 @@ class testApp : public ofBaseApp{
 		Json::Value planetToJson(Planet* input);
 		Planet planetFromJson(Json::Value* input);
 
+		void addPlanet(Planet newPlanet);
+
 		void relayResource(Resource* resource, string* planetName);
 		void getNames();
 
@@ -47,16 +49,17 @@ class testApp : public ofBaseApp{
 		static int minStartAmount, maxStartAmount;
 		static float habitableZone, maxRadius, minRadius;
 		static vector<string> planetTypes, resourceTypes, viewTypes;
+		static int roundDuration;
+		static bool newRound();
 	private:
 		vector<Planet> planets;
 		ofFile configFile;
 		vector<View> views;
 		View* activeView;
+		vector<Planet*> planetsToDisplay;
 		Json::Value configJson;
 		Json::Reader jsonReader;
-		int roundDuration;
 		bool waitForInput,newPlayer, playerNameReady, planetNameReady, player1, player2;
 		string inputString, newPlayerName, newPlanetName;
-
-
+		int player;
 };

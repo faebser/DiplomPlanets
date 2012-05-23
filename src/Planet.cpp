@@ -14,7 +14,6 @@ bool compareByLength( Resource a, Resource b)
 {
 	return a.getAmount() > b.getAmount();
 }
-
 Planet::Planet() { //used for a really new planet
 	this->type = testApp::getRandomPlanetType();
 	int maxI = testApp::resourceTypes.size();
@@ -93,12 +92,20 @@ void Planet::generateTexture() {
 			break;
 		}*/
 }
-void Planet::clicked() {
+void Planet::clicked(int player) {
 
 }
 void Planet::draw() {
 	ofSetColor(testColor);
 	ofCircle(pos.x, pos.y, this->getSize());
+}
+void Planet::newRound() {
+	//todo push resources and stuff
+	vector<Resource>::iterator it;
+	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
+		(*it).addAmount(testApp::getRandomStartAmount());
+	}
+	cout << "new round called" << endl;
 }
 // getter
 string* Planet::getPlanetName() {

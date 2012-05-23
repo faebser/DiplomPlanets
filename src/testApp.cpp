@@ -13,7 +13,8 @@ float testApp::maxRadius = 1000;
 float testApp::minRadius = 50;
 
 int testApp::minStartAmount = 0;
-int testApp::maxStartAmount = 20;
+int testApp::maxStartAmount = 5;
+int testApp::roundDuration = 10000;
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -21,6 +22,8 @@ void testApp::setup(){
 	waitForInput = false;
 	inputString = "";
 	newPlayer = false;
+
+	ofSetFrameRate(60);
 
 	testApp::planetTypes.push_back("star");
 	testApp::planetTypes.push_back("rock");
@@ -38,8 +41,8 @@ void testApp::setup(){
 
 	views.push_back(View("overview"));
 	views.push_back(View("singlePlanet"));
-
 	activeView = &views[0];
+
 	this->configFile.open(ofToDataPath("config.json"), ofFile::ReadWrite, false);
 	if( configFile.is_open() ) {
 		// TODO read planet config from file
@@ -99,14 +102,7 @@ void testApp::draw(){
 	else {
 		activeView->draw(&this->planets);
 	}
-	string playerString;
-	if(player1) {
-		playerString = "player 1";
-	}
-	else if(player2) {
-		playerString = "player 2";
-	}
-	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + playerString;
+	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
 	ofDrawBitmapString(fpsStr, 20,20);
 }
 
@@ -136,12 +132,10 @@ void testApp::keyPressed(int key){
 		planets.push_back(Planet(this));
 	}
 	else if(key == '1') {
-		player1 = true;
-		player2 = false;
+		player = 1;
 	}
 	else if(key == '2') {
-		player2 = true;
-		player1 = false;
+		player = 2;
 	}
 }
 //--------------------------------------------------------------
@@ -166,14 +160,32 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-	vector<Planet>::iterator it = planets.begin(), en = planets.end();
+	if(activeView->getType() == "overview"){
+		vector<Planet>::iterator it = planets.begin(), en = planets.end();
+		for(;it < en; ++it) {
+			ofVec2f* pos = (*it).getPos();
+			if(ofDist(pos->x, pos->y, x, y) < (*it).getSize()) {
+				this->planetsToDisplay.clear();
+				this->planetsToDisplay[0] = &(*it);
+				this->activeView = &views[1];
+				break;
+			}
+		}
+	}
+	else if(activeView->getType() == "singlePlanet") {
+
+	}
+	else {
+
+	}
+	/*vector<Planet>::iterator it = planets.begin(), en = planets.end();
 	for(;it < en; ++it) {
 		ofVec2f* pos = (*it).getPos();
 		if(ofDist(pos->x, pos->y, x, y) < (*it).getSize()) {
-			(*it).clicked();
+			(*it).clicked(player);
 			break;
 		}
-	}
+	}*/
 }
 
 //--------------------------------------------------------------

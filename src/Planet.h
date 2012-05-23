@@ -34,7 +34,8 @@ public:
 	void setPos(float x, float y);
 	void setAngle(float angle), setVelocity(float v);
 	ofVec2f* getPos();
-	void clicked();
+	void clicked(int player);
+	void newRound();
 private:
 	vector<ofImage> textures; // texture used on planet
 	vector<Resource> resources;
