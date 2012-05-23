@@ -78,7 +78,18 @@ float View::resizeRadius(float radius) {
 }
 
 void View::drawPlanet(vector<Planet>* planets) {
-	//TODO draw big planet
+	Planet current = (*planets)[0];
+	ofColor color = (*current.getColor());
+	float size = current.getSize();
+
+	ofPushMatrix();
+	ofPushStyle();
+		ofSetColor(color);
+		ofTranslate(middle.x, middle.y);
+		ofCircle(0,0, size * 10);
+	ofPopStyle();
+	ofPopMatrix();
+
 }
 //getter
 string View::getType() {

@@ -131,6 +131,9 @@ float Planet::getVelocity() {
 ofVec2f Planet::getPos(View* activeView) {
 	return this->pos + activeView->getMiddle();
 }
+ofColor* Planet::getColor() {
+	return &this->testColor;
+}
 // setter
 void Planet::setPlanetName(string name) {
 	this->planetName = name;
