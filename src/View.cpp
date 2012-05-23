@@ -32,7 +32,7 @@ void View::update(vector<Planet>* planets) {
 	}
 }
 
-void View::draw(vector<Planet>* planets) {
+void View::draw(vector<Planet*> planets) {
 	if(this->type == "overview") {
 		this->drawOverview(planets);
 	}
@@ -40,7 +40,7 @@ void View::draw(vector<Planet>* planets) {
 		this->drawPlanet(planets);
 	}
 }
-void View::drawOverview(vector<Planet>* planets) {
+void View::drawOverview(vector<Planet*> planets) {
 	// TODO draw sun, radius, planets
 	ofPushStyle();
 	ofPushMatrix();
@@ -48,19 +48,19 @@ void View::drawOverview(vector<Planet>* planets) {
 	ofSetColor(255, 255, 255, 10);
 	ofSphere(0, 0, 20);
 
-	vector<Planet>::iterator it, end;
-	end = planets->end();
+	vector<Planet*>::iterator it, end;
+	end = planets.end();
 	ofSetCircleResolution(150);
 	//ofEnableSmoothing();
-	for(it = planets->begin();it < end; ++it) {
-		float* radius = (*it).getRadius();
+	for(it = planets.begin();it < end; ++it) {
+		float* radius = (*it)->getRadius();
 		ofNoFill();
 		ofCircle(0, 0, this->resizeRadius(*radius));
 		ofFill();
 		ofPushMatrix();
 		ofPushStyle();
-			(*it).setPos( sin((*it).getAngle()) * this->resizeRadius(*radius) , cos((*it).getAngle()) * this->resizeRadius(*radius) );
-			(*it).draw();
+			(*it)->setPos( sin((*it)->getAngle()) * this->resizeRadius(*radius) , cos((*it)->getAngle()) * this->resizeRadius(*radius) );
+			(*it)->draw();
 		ofPopStyle();
 		ofPopMatrix();
 	}
@@ -77,16 +77,15 @@ float View::resizeRadius(float radius) {
 	return ofMap(radius, min, max, realMin, realMax);
 }
 
-void View::drawPlanet(vector<Planet>* planets) {
-	Planet current = (*planets)[0];
-	ofColor color = (*current.getColor());
-	float size = current.getSize();
-
+void View::drawPlanet(vector<Planet*> planets) {
+	Planet* current = planets[0];
 	ofPushMatrix();
 	ofPushStyle();
-		ofSetColor(color);
+		ofSetColor((*current->getColor()));
 		ofTranslate(middle.x, middle.y);
-		ofCircle(0,0, size * 10);
+		ofCircle(0,0, current->getSize() * 20);
+		ofSetColor(255);
+		ofDrawBitmapString("name: " + *current->getPlanetName(), 20, 20);
 	ofPopStyle();
 	ofPopMatrix();
 

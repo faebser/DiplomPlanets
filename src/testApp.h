@@ -62,6 +62,6 @@ class testApp : public ofBaseApp{
 		Json::Value configJson;
 		Json::Reader jsonReader;
 		bool waitForInput,newPlayer, playerNameReady, planetNameReady, player1, player2;
-		string inputString, newPlayerName, newPlanetName;
+		string inputString, newPlayerName, newPlanetName, outputString;
 		int player;
 };

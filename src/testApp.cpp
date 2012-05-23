@@ -67,17 +67,14 @@ void testApp::setup(){
 void testApp::getNames() {
 	if(waitForInput == true) {
 		if(planetNameReady == false) {
-			string outputString = "Pleaser enter your Planets Name: ";
+			outputString = "Pleaser enter your Planets Name: ";
 			outputString.append(inputString);
-			ofDrawBitmapString(outputString, 100, 100);
-			newPlanetName.append(inputString);
 		}
 		if(playerNameReady == false && planetNameReady == true) {
-			string outputString = "Pleaser enter your Name: ";
+			outputString = "Pleaser enter your Name: ";
 			outputString.append(inputString);
-			ofDrawBitmapString(outputString, 100, 100);
-			newPlayerName.append(inputString);
 		}
+		ofDrawBitmapString(outputString, 100, 100);
 	}
 	else if(waitForInput == false && planetNameReady == true && playerNameReady == true) {
 		Planet newPlanet = Planet(this);
@@ -100,7 +97,7 @@ void testApp::draw(){
 		this->getNames();
 	}
 	else {
-		activeView->draw(&this->planets);
+		activeView->draw(this->planetsToDisplay);
 	}
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
 	ofDrawBitmapString(fpsStr, 20,20);
@@ -110,6 +107,12 @@ void testApp::draw(){
 void testApp::keyPressed(int key){
 	if(key != OF_KEY_RETURN && waitForInput == true) {
 		inputString.append(ofToString((char)key));
+		if(planetNameReady == false) {
+			newPlanetName.append(inputString);
+		}
+		if(playerNameReady == false && planetNameReady == true) {
+			newPlayerName.append(inputString);
+		}
 	}
 	else if(key == OF_KEY_RETURN && waitForInput == true) {
 		if(playerNameReady == false) {
@@ -162,11 +165,11 @@ void testApp::mousePressed(int x, int y, int button){
 void testApp::mouseReleased(int x, int y, int button){
 	if(activeView->getType() == "overview"){
 		vector<Planet>::iterator it = planets.begin(), en = planets.end();
-		for(;it < en; ++it) {
+		for(;it < en; it++) {
 			ofVec2f pos = (*it).getPos(this->activeView);
 			if(ofDist(pos.x, pos.y, x, y) < (*it).getSize()) {
 				this->planetsToDisplay.clear();
-				this->planetsToDisplay[0] = &(*it);
+				this->planetsToDisplay.push_back(&(*it));
 				this->activeView = &views[1];
 				break;
 			}

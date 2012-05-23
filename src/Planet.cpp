@@ -95,6 +95,8 @@ void Planet::clicked(int player) {
 void Planet::draw() {
 	ofSetColor(testColor);
 	ofCircle(pos.x, pos.y, this->getSize());
+	ofSetColor(255);
+	ofDrawBitmapString("name: " + this->planetName, pos.x + 20, pos.y + 20);
 }
 void Planet::newRound() {
 	//TODO prototyp: erase and rewrite
@@ -132,6 +134,7 @@ ofVec2f Planet::getPos(View* activeView) {
 	return this->pos + activeView->getMiddle();
 }
 ofColor* Planet::getColor() {
+	this->generateTexture();
 	return &this->testColor;
 }
 // setter

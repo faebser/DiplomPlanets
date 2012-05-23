@@ -15,9 +15,9 @@ public:
 	View();
 	View(string type);
 	void update(vector<Planet>* planets);
-	void draw(vector<Planet>* planets);
-	void drawOverview(vector<Planet>* planets);
-	void drawPlanet(vector<Planet>* planets);
+	void draw(vector<Planet*> planets);
+	void drawOverview(vector<Planet*> planets);
+	void drawPlanet(vector<Planet*> planets);
 	float resizeRadius(float radius);
 
 	string getType();
