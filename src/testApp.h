@@ -46,6 +46,8 @@ class testApp : public ofBaseApp{
 		static float getRandomPlanetRadius();
 		static int getRandomStartAmount();
 
+		View* getActiveView();
+
 		static int minStartAmount, maxStartAmount;
 		static float habitableZone, maxRadius, minRadius;
 		static vector<string> planetTypes, resourceTypes, viewTypes;

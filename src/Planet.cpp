@@ -14,6 +14,7 @@ bool compareByLength( Resource a, Resource b)
 {
 	return a.getAmount() > b.getAmount();
 }
+// TODO fix constructors and part them
 Planet::Planet() { //used for a really new planet
 	this->type = testApp::getRandomPlanetType();
 	int maxI = testApp::resourceTypes.size();
@@ -22,7 +23,7 @@ Planet::Planet() { //used for a really new planet
 		this->resources.push_back(Resource(resourceType));
 	}
 	this->radius = testApp::getRandomPlanetRadius();
-	this->velocity = ofRandom(-0.003, 0.003);
+	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
 	// ::update and ::generateTexture will be called after creation of Planet
 }
@@ -35,7 +36,7 @@ Planet::Planet(testApp* parentApp) { //used for a really new planet
 	}
 	this->radius = testApp::getRandomPlanetRadius();
 	this->parent = parent;
-	this->velocity = ofRandom(-0.003, 0.003);
+	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
 	// ::update and ::generateTexture will be called after creation of Planet
 }
@@ -47,7 +48,7 @@ Planet::Planet(string planetName, testApp* parent) { // used for already existin
 		this->resources.push_back(Resource(resourceType));
 	}
 	this->parent = parent;
-	this->velocity = ofRandom(-0.003, 0.003);
+	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
 }
 void Planet::getResource(Resource* incomingResource) {
@@ -127,8 +128,8 @@ float Planet::getAngle() {
 float Planet::getVelocity() {
 	return this->velocity;
 }
-ofVec2f* Planet::getPos() {
-	return &this->pos;
+ofVec2f Planet::getPos(View* activeView) {
+	return this->pos + activeView->getMiddle();
 }
 // setter
 void Planet::setPlanetName(string name) {

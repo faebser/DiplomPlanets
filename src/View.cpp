@@ -27,7 +27,6 @@ void View::update(vector<Planet>* planets) {
 			(*it).newRound();
 		}
 	}
-
 	for(it = planets->begin();it < end; ++it) {
 		(*it).update();
 	}
@@ -60,7 +59,7 @@ void View::drawOverview(vector<Planet>* planets) {
 		ofFill();
 		ofPushMatrix();
 		ofPushStyle();
-			(*it).setPos(sin((*it).getAngle()) * this->resizeRadius(*radius), cos((*it).getAngle()) * this->resizeRadius(*radius));
+			(*it).setPos( sin((*it).getAngle()) * this->resizeRadius(*radius) , cos((*it).getAngle()) * this->resizeRadius(*radius) );
 			(*it).draw();
 		ofPopStyle();
 		ofPopMatrix();
@@ -81,8 +80,12 @@ float View::resizeRadius(float radius) {
 void View::drawPlanet(vector<Planet>* planets) {
 	//TODO draw big planet
 }
+//getter
 string View::getType() {
 	return this->type;
+}
+ofVec2f View::getMiddle() {
+	return this->middle;
 }
 View::~View() {
 	// TODO Auto-generated destructor stub

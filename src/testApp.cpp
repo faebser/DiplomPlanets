@@ -53,7 +53,7 @@ void testApp::setup(){
 					<< jsonReader.getFormatedErrorMessages();
 			return;
 		}
-		planets.push_back(this->planetFromJson(&this->configJson));
+		this->addPlanet(this->planetFromJson(&this->configJson));
 	}
 	else {
 		newPlayer = true;
@@ -82,8 +82,8 @@ void testApp::getNames() {
 	else if(waitForInput == false && planetNameReady == true && playerNameReady == true) {
 		Planet newPlanet = Planet(this);
 		newPlanet.setPlanetName(newPlanetName);
-		newPlanet.setPlayerName(newPlanetName);
-		planets.push_back(newPlanet);
+		newPlanet.setPlayerName(newPlayerName);
+		this->addPlanet(newPlanet);
 		waitForInput = false;
 		newPlayer = false;
 	}
@@ -129,7 +129,7 @@ void testApp::keyPressed(int key){
 		}
 	}
 	else if(key == 'n') {
-		planets.push_back(Planet(this));
+		this->addPlanet(Planet(this));
 	}
 	else if(key == '1') {
 		player = 1;
@@ -163,8 +163,8 @@ void testApp::mouseReleased(int x, int y, int button){
 	if(activeView->getType() == "overview"){
 		vector<Planet>::iterator it = planets.begin(), en = planets.end();
 		for(;it < en; ++it) {
-			ofVec2f* pos = (*it).getPos();
-			if(ofDist(pos->x, pos->y, x, y) < (*it).getSize()) {
+			ofVec2f pos = (*it).getPos(this->activeView);
+			if(ofDist(pos.x, pos.y, x, y) < (*it).getSize()) {
 				this->planetsToDisplay.clear();
 				this->planetsToDisplay[0] = &(*it);
 				this->activeView = &views[1];
@@ -173,10 +173,12 @@ void testApp::mouseReleased(int x, int y, int button){
 		}
 	}
 	else if(activeView->getType() == "singlePlanet") {
-
-	}
-	else {
-
+		this->planetsToDisplay.clear();
+		vector<Planet>::iterator it = this->planets.begin(), end = this->planets.end();
+		for(;it < end; ++it) {
+			this->planetsToDisplay.push_back(&(*it));
+		}
+		this->activeView = &views[0];
 	}
 	/*vector<Planet>::iterator it = planets.begin(), en = planets.end();
 	for(;it < en; ++it) {
@@ -228,7 +230,9 @@ float testApp::getRandomPlanetRadius() {
 int testApp::getRandomStartAmount() {
 	return (int)ofRandom((float)testApp::minStartAmount, (float)testApp::maxStartAmount);
 }
-
+View* testApp::getActiveView() {
+	return this->activeView;
+}
 Json::Value testApp::resourceToJson(Resource* input) {
 
 }
@@ -258,7 +262,7 @@ void testApp::addPlanet(Planet planet) {
 		this->planetsToDisplay.push_back(&(this->planets.back()));
 	}
 	else if(this->activeView->getType() == "singlePlanet") {
-
+		this->planets.push_back(planet);
 	}
 
 }

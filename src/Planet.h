@@ -11,6 +11,7 @@
 #include "Resource.h"
 #include "ofMain.h"
 
+class View;
 class testApp;
 class Planet {
 public:
@@ -33,7 +34,7 @@ public:
 	void setPlanetName(string name), setPlayerName(string name), setRadius(float radius);
 	void setPos(float x, float y);
 	void setAngle(float angle), setVelocity(float v);
-	ofVec2f* getPos();
+	ofVec2f getPos(View* activeView);
 	void clicked(int player);
 	void newRound();
 private:
