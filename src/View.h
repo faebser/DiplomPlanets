@@ -18,6 +18,7 @@ public:
 	void draw(vector<Planet*> planets);
 	void drawOverview(vector<Planet*> planets);
 	void drawPlanet(vector<Planet*> planets);
+	void windowResize(int w, int h);
 
 	string getType();
 	ofVec2f getMiddle();

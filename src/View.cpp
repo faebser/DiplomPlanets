@@ -31,6 +31,9 @@ void View::update(vector<Planet>* planets) {
 		(*it).update();
 	}
 }
+void View::windowResize(int w, int h) {
+	this->middle.set(w,h);
+}
 
 void View::draw(vector<Planet*> planets) {
 	if(this->type == "overview") {

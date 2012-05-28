@@ -195,7 +195,7 @@ void testApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
-
+	this->activeView->windowResize(w,h);
 }
 
 //--------------------------------------------------------------
