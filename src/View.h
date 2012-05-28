@@ -18,7 +18,6 @@ public:
 	void draw(vector<Planet*> planets);
 	void drawOverview(vector<Planet*> planets);
 	void drawPlanet(vector<Planet*> planets);
-	float resizeRadius(float radius);
 
 	string getType();
 	ofVec2f getMiddle();

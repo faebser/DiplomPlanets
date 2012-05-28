@@ -70,6 +70,7 @@ void Planet::sendResource(Resource* outgoingResource, string* planetName) {
 void Planet::update() {
 	std::sort(this->resources.begin(), this->resources.end(), compareByLength); // TODO sort by amount
 	angle += velocity;
+	this->pos.set( sin(this->angle) * this->getResizedRadius() , cos(this->angle) * this->getResizedRadius());
 	this->generateTexture();
 }
 void Planet::generateTexture() {
@@ -139,6 +140,10 @@ ofVec2f Planet::getPos(View* activeView) {
 ofColor* Planet::getColor() {
 	this->generateTexture();
 	return &this->testColor;
+}
+float Planet::getResizedRadius() {
+	float realMax = ofGetWindowWidth() * 0.5, realMin = 30;
+	return ofMap(radius, testApp::minRadius, testApp::maxRadius, realMin, realMax);
 }
 // setter
 void Planet::setPlanetName(string name) {

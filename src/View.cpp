@@ -53,13 +53,11 @@ void View::drawOverview(vector<Planet*> planets) {
 	ofSetCircleResolution(150);
 	//ofEnableSmoothing();
 	for(it = planets.begin();it < end; ++it) {
-		float* radius = (*it)->getRadius();
 		ofNoFill();
-		ofCircle(0, 0, this->resizeRadius(*radius));
+		ofCircle(0, 0, (*it)->getResizedRadius());
 		ofFill();
 		ofPushMatrix();
 		ofPushStyle();
-			(*it)->setPos( sin((*it)->getAngle()) * this->resizeRadius(*radius) , cos((*it)->getAngle()) * this->resizeRadius(*radius) );
 			(*it)->draw();
 		ofPopStyle();
 		ofPopMatrix();
@@ -68,13 +66,6 @@ void View::drawOverview(vector<Planet*> planets) {
 	//ofDisableSmoothing();
 	ofSetCircleResolution(22);
 	ofPopMatrix();
-}
-
-float View::resizeRadius(float radius) {
-	float max = testApp::maxRadius;
-	float min = testApp::minRadius;
-	float realMax = ofGetWindowWidth() * 0.5, realMin = 20;
-	return ofMap(radius, min, max, realMin, realMax);
 }
 
 void View::drawPlanet(vector<Planet*> planets) {
@@ -88,7 +79,6 @@ void View::drawPlanet(vector<Planet*> planets) {
 		ofDrawBitmapString("name: " + *current->getPlanetName(), 20, 20);
 	ofPopStyle();
 	ofPopMatrix();
-
 }
 //getter
 string View::getType() {

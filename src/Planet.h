@@ -29,7 +29,7 @@ public:
 	string* getPlanetName();
 	string* getPlayerName();
 	float getSize(), getAngle(), getVelocity();
-	float* getRadius();
+	float* getRadius(), getResizedRadius();
 	ofColor* getColor();
 	void setPlanetName(string name), setPlayerName(string name), setRadius(float radius);
 	void setPos(float x, float y);
