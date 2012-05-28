@@ -51,6 +51,9 @@ Planet::Planet(string planetName, testApp* parent) { // used for already existin
 	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
 }
+void Planet::baseConstructor() {
+
+}
 void Planet::getResource(Resource* incomingResource) {
 	vector<Resource>::iterator it;
 	for(it = this->resources.begin(); it < this->resources.end(); ++it) {

@@ -38,6 +38,7 @@ public:
 	void clicked(int player);
 	void newRound();
 private:
+	void baseConstructor();
 	vector<ofImage> textures; // texture used on planet
 	vector<Resource> resources;
 	string type;
