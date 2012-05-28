@@ -4,6 +4,7 @@
 #include "Planet.h"
 #include "View.h"
 #include "json/json.h"
+#include "Modificator.h"
 
 //example für json shttp://jsoncpp.sourceforge.net/
 
