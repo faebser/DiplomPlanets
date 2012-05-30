@@ -11,6 +11,11 @@
 
 Modificator::Modificator() {
 	// TODO Auto-generated constructor stub
+	operators["fire"] = new Operator<std::plus<float> >;
+	operators["fire"]->Calc((float)30);
+}
+
+void Modificator::run() {
 
 }
 
