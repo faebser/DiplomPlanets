@@ -16,7 +16,7 @@ public:
 	virtual float calculate(float b)=0;
 };
 
-class ComperatorBase {
+class ComparatorBase {
 public:
 	virtual bool compare(float b)=0;
 };
@@ -31,7 +31,7 @@ public:
 	float theValue;
 };
 template<typename Cp>
-class Comperator : public ComperatorBase {
+class Comparator : public ComparatorBase {
 public:
 	bool compare(float b) {
 		Cp c;
@@ -39,18 +39,26 @@ public:
 	}
 	float theValue;
 };
+class ComparatorBetween : public ComparatorBase {
+public:
+	bool compare(float b) {
+		return (b > theValue.x && b < theValue.y);
+	}
+	ofVec2f theValue;
+};
 class Modificator {
 public:
 	Modificator();
 	Modificator(Json::Value jsonInput, Resource parent);
 	void Deserialize(Json::Value jsonInput, Resource parent);
 	void run();
+	void compare();
 	virtual ~Modificator();
 private:
-	vector<string> rangesOperator;
-	map<string, float> ranges;
 	string name;
+	Resource parent;
 	map<string, OperatorBase*> operators;
+	map<string, ComperatorBase*> comperators;
 };
 
 #endif /* MODIFICATOR_H_ */

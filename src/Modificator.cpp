@@ -11,12 +11,20 @@
 
 Modificator::Modificator() {
 	// TODO Auto-generated constructor stub
-	operators["fire"] = new Operator<std::plus<float> >;
-	operators["fire"]->Calc((float)30);
+	//operators["fire"] = new Operator<std::plus<float> >;
+	//operators["fire"]->Calc((float)30);
 }
+Modificator::Modificator(Json::Value jsonInput, Resource parent) {
 
+}
 void Modificator::run() {
 
+}
+
+void Modificator::Deserialize(Json::Value jsonInput, Resource parent) {
+}
+
+void Modificator::compare() {
 }
 
 Modificator::~Modificator() {
