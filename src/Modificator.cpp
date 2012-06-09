@@ -11,7 +11,7 @@
 
 Modificator::Modificator() {
 	// TODO Auto-generated constructor stub
-	//operators["fire"] = new Operator<std::plus<float> >;
+	operators["fire"] = new Operator<std::plus<float> >;
 	//operators["fire"]->Calc((float)30);
 }
 Modificator::Modificator(Json::Value jsonInput, Resource parent) {

@@ -19,6 +19,7 @@ public:
 class ComparatorBase {
 public:
 	virtual bool compare(float b)=0;
+	string valueToWorkWith;
 };
 
 template<typename Op>
@@ -29,6 +30,7 @@ public:
 		return o(theValue, b);
 	}
 	float theValue;
+	string valueToCompareTo;
 };
 template<typename Cp>
 class Comparator : public ComparatorBase {
@@ -58,7 +60,7 @@ private:
 	string name;
 	Resource parent;
 	map<string, OperatorBase*> operators;
-	map<string, ComperatorBase*> comperators;
+	map<string, ComparatorBase*> comperators;
 };
 
 #endif /* MODIFICATOR_H_ */

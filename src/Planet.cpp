@@ -134,7 +134,7 @@ float Planet::getAngle() {
 float Planet::getVelocity() {
 	return this->velocity;
 }
-ofVec2f Planet::getPos(View* activeView) {
+ofVec2f Planet::getPos(View* activeView) { //TODO rewrite this it make it beautiful
 	return this->pos + activeView->getMiddle();
 }
 ofColor* Planet::getColor() {
