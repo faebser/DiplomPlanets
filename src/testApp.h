@@ -6,7 +6,7 @@
 #include "json/json.h"
 #include "Modificator.h"
 
-//example für json shttp://jsoncpp.sourceforge.net/
+//example für json http://jsoncpp.sourceforge.net/
 
 class testApp : public ofBaseApp{
 
@@ -38,6 +38,8 @@ class testApp : public ofBaseApp{
 		Json::Value planetToJson(Planet* input);
 		Planet planetFromJson(Json::Value* input);
 
+		void deserializeModificator();
+
 		void addPlanet(Planet newPlanet);
 
 		void relayResource(Resource* resource, string* planetName);
@@ -56,11 +58,12 @@ class testApp : public ofBaseApp{
 		static bool newRound();
 	private:
 		vector<Planet> planets;
-		ofFile configFile;
+		vector<Modificator> modificators;
+		ofFile configFile, modificatorFile;
 		vector<View> views;
 		View* activeView;
 		vector<Planet*> planetsToDisplay;
-		Json::Value configJson;
+		Json::Value configJson, modifyJson;
 		Json::Reader jsonReader;
 		bool waitForInput,newPlayer, playerNameReady, planetNameReady, player1, player2;
 		string inputString, newPlayerName, newPlanetName, outputString;

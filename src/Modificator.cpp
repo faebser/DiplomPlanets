@@ -7,26 +7,25 @@
 
 #include "Modificator.h"
 
-// the modificators should be generate on startup from a json file for better handling
+// the modificators should be generated on startup from a json file for better handling
 
 Modificator::Modificator() {
 	// TODO Auto-generated constructor stub
-	operators["fire"] = new Operator<std::plus<float> >;
+	//operators["fire"] = new Operator<std::plus<float>>;
 	//operators["fire"]->Calc((float)30);
 }
-Modificator::Modificator(Json::Value jsonInput, Resource parent) {
-
+Modificator::Modificator(string name) {
+	this->name = name;
 }
-void Modificator::run() {
-
+Modificator::Modificator(Json::Value* jsonInput) {
+	this->deserialize(jsonInput);
 }
-
-void Modificator::Deserialize(Json::Value jsonInput, Resource parent) {
+void Modificator::deserialize(Json::Value* jsonInput) {
 }
-
-void Modificator::compare() {
+void Modificator::modify(vector<Resource> resources) {
 }
-
+void Modificator::compare(vector<Resource> resources) {
+}
 Modificator::~Modificator() {
 	// TODO Auto-generated destructor stub
 }

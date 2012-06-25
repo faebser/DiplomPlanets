@@ -30,7 +30,7 @@ public:
 		return o(theValue, b);
 	}
 	float theValue;
-	string valueToCompareTo;
+	string valueToOperateWith;
 };
 template<typename Cp>
 class Comparator : public ComparatorBase {
@@ -51,16 +51,15 @@ public:
 class Modificator {
 public:
 	Modificator();
-	Modificator(Json::Value jsonInput, Resource parent);
-	void Deserialize(Json::Value jsonInput, Resource parent);
-	void run();
-	void compare();
+	Modificator(string name);
+	Modificator(Json::Value* jsonInput);
+	void deserialize(Json::Value* jsonInput);
+	void modify(vector<Resource> resources);
+	void compare(vector<Resource> resources);
 	virtual ~Modificator();
 private:
 	string name;
-	Resource parent;
 	map<string, OperatorBase*> operators;
 	map<string, ComparatorBase*> comperators;
 };
-
 #endif /* MODIFICATOR_H_ */

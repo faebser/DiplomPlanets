@@ -63,6 +63,22 @@ void testApp::setup(){
 		planetNameReady = false;
 		playerNameReady = false;
 	}
+	this->modificatorFile.open(ofToDataPath("mod.json"), ofFile::ReadOnly, false);
+	if(modificatorFile.is_open()) {
+		bool parsingSuccessful = jsonReader.parse( this->modificatorFile, modifyJson );
+		if ( !parsingSuccessful ) {
+			// report to the user the failure and their locations in the document.
+			std::cout << "Failed to parse Mod-File\n"
+					<< jsonReader.getFormatedErrorMessages();
+			return;
+		}
+		else {
+			std::cout << "mod file json root size: " << ofToString(modifyJson.size()) << endl;
+			deserializeModificator();
+
+		}
+		//maybe quit here if file cannot be read
+	}
 }
 void testApp::getNames() {
 	if(waitForInput == true) {
@@ -247,6 +263,19 @@ Json::Value testApp::planetToJson(Planet* input) {
 
 }
 Planet testApp::planetFromJson(Json::Value* input) {
+
+}
+void testApp::deserializeModificator() {
+	if(modificators.size() > 0) {
+		modificators.clear();
+	}
+	vector<string> modificatorNamesList = modifyJson.getMemberNames();
+	vector<string>::iterator it = modificatorNamesList.begin(), end = modificatorNamesList.end();
+	for(;it < end; ++it) {
+		Modificator newMod = Modificator((*it));
+		newMod.deserialize(&(modifyJson[(*it)]));
+		modificators.push_back(newMod);
+	}
 
 }
 void testApp::relayResource(Resource* resource, string* planetName) {
