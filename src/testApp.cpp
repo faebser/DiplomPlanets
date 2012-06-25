@@ -73,9 +73,7 @@ void testApp::setup(){
 			return;
 		}
 		else {
-			std::cout << "mod file json root size: " << ofToString(modifyJson.size()) << endl;
 			deserializeModificator();
-
 		}
 		//maybe quit here if file cannot be read
 	}

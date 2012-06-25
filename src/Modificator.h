@@ -14,27 +14,35 @@
 class OperatorBase {
 public:
 	virtual float calculate(float b)=0;
+	string valueToOperateWith;
+	float theValue;
 };
 
 class ComparatorBase {
 public:
 	virtual bool compare(float b)=0;
-	string valueToWorkWith;
+	string compareTo;
 };
 
 template<typename Op>
 class Operator: public OperatorBase{
 public:
+	Operator(float theValue, string valueToOperateWith) {
+		this->theValue = theValue;
+		this->valueToOperateWith = valueToOperateWith;
+	}
 	float calculate( float b) {
 		Op o;
 		return o(theValue, b);
 	}
-	float theValue;
-	string valueToOperateWith;
 };
 template<typename Cp>
 class Comparator : public ComparatorBase {
 public:
+	Comparator(float theValue, string compareTo) {
+		this->theValue = theValue;
+		this->compareTo = compareTo;
+	}
 	bool compare(float b) {
 		Cp c;
 		return c(theValue, b);
@@ -43,6 +51,10 @@ public:
 };
 class ComparatorBetween : public ComparatorBase {
 public:
+	ComparatorBetween(ofVec2f theValue, string compareTo) {
+		this->compareTo = compareTo;
+		this->theValue = theValue;
+	}
 	bool compare(float b) {
 		return (b > theValue.x && b < theValue.y);
 	}
@@ -59,7 +71,7 @@ public:
 	virtual ~Modificator();
 private:
 	string name;
-	map<string, OperatorBase*> operators;
-	map<string, ComparatorBase*> comperators;
+	vector<OperatorBase*> operators;
+	vector<ComparatorBase*> comperators;
 };
 #endif /* MODIFICATOR_H_ */
