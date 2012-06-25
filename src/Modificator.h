@@ -16,12 +16,20 @@ public:
 	virtual float calculate(float b)=0;
 	string valueToOperateWith;
 	float theValue;
-};
-
-class ComparatorBase {
-public:
-	virtual bool compare(float b)=0;
-	string compareTo;
+	//getter
+	string getValueToOperateWith() {
+		return this->valueToOperateWith;
+	}
+	float getTheValue() {
+		return this->theValue;
+	}
+	//setter
+	void setValueToOperateWith(string newValue) {
+		this->valueToOperateWith = newValue;
+	}
+	void setTheValue(float newValue) {
+		this->theValue = newValue;
+	}
 };
 
 template<typename Op>
@@ -36,6 +44,20 @@ public:
 		return o(theValue, b);
 	}
 };
+
+class ComparatorBase {
+public:
+	virtual bool compare(float b)=0;
+	string compareTo;
+	//getter
+	string getCompareTo() {
+		return this->compareTo;
+	}
+	//setter
+	void setCompareTo(string newCompare) {
+		this->compareTo = newCompare;
+	}
+};
 template<typename Cp>
 class Comparator : public ComparatorBase {
 public:
@@ -48,6 +70,14 @@ public:
 		return c(theValue, b);
 	}
 	float theValue;
+	//getter
+	float getTheValue() {
+		return this->theValue;
+	}
+	//setter
+	void setTheValue(float newValue) {
+		this->theValue = newValue;
+	}
 };
 class ComparatorBetween : public ComparatorBase {
 public:
@@ -59,6 +89,14 @@ public:
 		return (b > theValue.x && b < theValue.y);
 	}
 	ofVec2f theValue;
+	//getter
+	ofVec2f getTheValue() {
+		return this->theValue;
+	}
+	//setter
+	void setTheValue(ofVec2f newValue) {
+		this->theValue = newValue;
+	}
 };
 class Modificator {
 public:
