@@ -20,14 +20,12 @@ View::View(string type) {
 void View::update(vector<Planet>* planets) {
 	vector<Planet>::iterator it, end;
 	end = planets->end();
+	bool newRound = ofGetElapsedTimeMillis() % testApp::roundDuration < 10;
 
-	if(ofGetElapsedTimeMillis() % testApp::roundDuration < 10) {
-		//todo call planets->newRound();
-		for(it = planets->begin();it < end; ++it) {
-			(*it).newRound();
-		}
-	}
+	//todo call planets->newRound();
 	for(it = planets->begin();it < end; ++it) {
+		if(newRound)
+			(*it).newRound();
 		(*it).update();
 	}
 }

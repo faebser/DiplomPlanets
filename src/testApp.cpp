@@ -1,10 +1,12 @@
 #include "testApp.h"
 
-/*
- * The testApp will function as a controller. Relaying resources to/from planets via network
+/**
+ * @class testApp
+ * @brief Default-class from ofx
+ * This class is the starting-point to the whole game.
+ * It sets all other needed classes up.
+ *
  */
-
-/* static values used as config */
 vector<string> testApp::planetTypes;
 vector<string> testApp::resourceTypes;
 vector<string> testApp::viewTypes;
@@ -17,8 +19,13 @@ int testApp::maxStartAmount = 5;
 int testApp::roundDuration = 10000;
 
 //--------------------------------------------------------------
+/**
+ * Here we start the game up, read the files, load the classes
+ */
 void testApp::setup(){
 	// TODO: init all views, all resources and local planets
+	// TODO: make a config class and move everything there
+
 	waitForInput = false;
 	inputString = "";
 	newPlayer = false;
@@ -43,6 +50,22 @@ void testApp::setup(){
 	views.push_back(View("singlePlanet"));
 	activeView = &views[0];
 
+	this->generalConfigFile.open(ofToDataPath("generalConfig.json"), ofFile::ReadOnly, false);
+	if(generalConfigFile.is_open()) {
+		Json::Value generalConfig;
+		bool parsingSuccessful = jsonReader.parse( this->generalConfigFile, generalConfig );
+		if ( !parsingSuccessful ) {
+			// report to the user the failure and their locations in the document.
+			std::cout << "Failed to parse Mod-File\n"
+					<< jsonReader.getFormatedErrorMessages();
+			return;
+		}
+		else {
+			config = Config(generalConfig);
+			deserializeConfig();
+		}
+		//maybe quit here if file cannot be read
+	}
 	this->configFile.open(ofToDataPath("config.json"), ofFile::ReadWrite, false);
 	if( configFile.is_open() ) {
 		// TODO read planet config from file
@@ -237,16 +260,21 @@ void testApp::showNotification(string title, string message) {
 
 }
 
-string testApp::getRandomPlanetType() {
-	int random = (int)ofRandom((float)testApp::planetTypes.size());
-	return testApp::planetTypes[random];
+string testApp::getRandomPlanetType() { //todo move into config
+	vector<string> planetTypes = config.getPlanetTypes();
+	int random = (int)ofRandom((float)planetTypes.size());
+	return planetTypes[random];
 }
 float testApp::getRandomPlanetRadius() {
-	return ofRandom(testApp::minRadius, testApp::maxRadius);
+	return ofRandom(config.getNumber("minRadius"), config.getNumber("maxRadius"));
 }
 int testApp::getRandomStartAmount() {
-	return (int)ofRandom((float)testApp::minStartAmount, (float)testApp::maxStartAmount);
+	return (int)ofRandom(config.getNumber("minStartAmount"), config.getNumber("maxStartAmount"));
 }
+void testApp::deserializeConfig() {
+	config.deserialize();
+}
+
 View* testApp::getActiveView() {
 	return this->activeView;
 }
@@ -294,5 +322,4 @@ void testApp::addPlanet(Planet planet) {
 	else if(this->activeView->getType() == "singlePlanet") {
 		this->planets.push_back(planet);
 	}
-
 }

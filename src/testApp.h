@@ -5,8 +5,9 @@
 #include "View.h"
 #include "json/json.h"
 #include "Modificator.h"
+#include "Config.h"
 
-//example für json http://jsoncpp.sourceforge.net/
+//example for json http://jsoncpp.sourceforge.net/
 
 class testApp : public ofBaseApp{
 
@@ -38,6 +39,7 @@ class testApp : public ofBaseApp{
 		Json::Value planetToJson(Planet* input);
 		Planet planetFromJson(Json::Value* input);
 
+		void deserializeConfig();
 		void deserializeModificator();
 
 		void addPlanet(Planet newPlanet);
@@ -45,9 +47,9 @@ class testApp : public ofBaseApp{
 		void relayResource(Resource* resource, string* planetName);
 		void getNames();
 
-		static string getRandomPlanetType();
-		static float getRandomPlanetRadius();
-		static int getRandomStartAmount();
+		string getRandomPlanetType();
+		float getRandomPlanetRadius();
+		int getRandomStartAmount();
 
 		View* getActiveView();
 
@@ -59,7 +61,7 @@ class testApp : public ofBaseApp{
 	private:
 		vector<Planet> planets;
 		vector<Modificator> modificators;
-		ofFile configFile, modificatorFile;
+		ofFile configFile, modificatorFile, generalConfigFile;
 		vector<View> views;
 		View* activeView;
 		vector<Planet*> planetsToDisplay;
@@ -68,4 +70,5 @@ class testApp : public ofBaseApp{
 		bool waitForInput,newPlayer, playerNameReady, planetNameReady, player1, player2;
 		string inputString, newPlayerName, newPlanetName, outputString;
 		int player;
+		Config config;
 };

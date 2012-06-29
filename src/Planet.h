@@ -25,12 +25,14 @@ public:
 	void draw();
 	void generateTexture();
 
-	// getter / setter
+	// getter
 	string* getPlanetName();
 	string* getPlayerName();
 	float getSize(), getAngle(), getVelocity();
 	float* getRadius(), getResizedRadius();
 	ofColor* getColor();
+	float getResourceValueAsPercent(string resName);
+	// setter
 	void setPlanetName(string name), setPlayerName(string name), setRadius(float radius);
 	void setPos(float x, float y);
 	void setAngle(float angle), setVelocity(float v);

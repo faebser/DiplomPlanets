@@ -13,7 +13,7 @@ Resource::Resource() {
 }
 Resource::Resource(string type) {
 	this->type = type;
-	this->amount = testApp::getRandomStartAmount();
+	//this->amount = parent->getRandomStartAmount();
 }
 string Resource::getType() {
 	return type;

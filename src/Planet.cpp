@@ -16,25 +16,25 @@ bool compareByLength( Resource a, Resource b)
 }
 // TODO fix constructors and part them
 Planet::Planet() { //used for a really new planet
-	this->type = testApp::getRandomPlanetType();
-	int maxI = testApp::resourceTypes.size();
+	this->type = parent->getRandomPlanetType();
+	int maxI = parent->resourceTypes.size();
 	for(int i = 0; i < maxI;i++) {
-		string resourceType = testApp::resourceTypes[i];
+		string resourceType = parent->resourceTypes[i];
 		this->resources.push_back(Resource(resourceType));
 	}
-	this->radius = testApp::getRandomPlanetRadius();
+	this->radius = parent->getRandomPlanetRadius();
 	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
 	// ::update and ::generateTexture will be called after creation of Planet
 }
 Planet::Planet(testApp* parentApp) { //used for a really new planet
-	this->type = testApp::getRandomPlanetType();
-	int maxI = testApp::resourceTypes.size();
+	this->type = parent->getRandomPlanetType();
+	int maxI = parent->resourceTypes.size();
 	for(int i = 0; i < maxI;i++) {
-		string resourceType = testApp::resourceTypes[i];
+		string resourceType = parent->resourceTypes[i];
 		this->resources.push_back(Resource(resourceType));
 	}
-	this->radius = testApp::getRandomPlanetRadius();
+	this->radius = parent->getRandomPlanetRadius();
 	this->parent = parent;
 	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
@@ -42,9 +42,9 @@ Planet::Planet(testApp* parentApp) { //used for a really new planet
 }
 Planet::Planet(string planetName, testApp* parent) { // used for already existing planets
 	this->planetName = planetName;
-	int maxI = testApp::resourceTypes.size();
+	int maxI = parent->resourceTypes.size();
 	for(int i = 0; i < maxI;i++) {
-		string resourceType = testApp::resourceTypes[i];
+		string resourceType = parent->resourceTypes[i];
 		this->resources.push_back(Resource(resourceType));
 	}
 	this->parent = parent;
@@ -106,7 +106,7 @@ void Planet::newRound() {
 	//TODO prototyp: erase and rewrite
 	vector<Resource>::iterator it;
 	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
-		(*it).addAmount(testApp::getRandomStartAmount());
+		(*it).addAmount(parent->getRandomStartAmount());
 	}
 }
 // getter
@@ -134,7 +134,7 @@ float Planet::getAngle() {
 float Planet::getVelocity() {
 	return this->velocity;
 }
-ofVec2f Planet::getPos(View* activeView) { //TODO rewrite this it make it beautiful
+ofVec2f Planet::getPos(View* activeView) { //TODO rewrite this it to make it beautiful
 	return this->pos + activeView->getMiddle();
 }
 ofColor* Planet::getColor() {
@@ -143,7 +143,20 @@ ofColor* Planet::getColor() {
 }
 float Planet::getResizedRadius() {
 	float realMax = ofGetWindowWidth() * 0.5, realMin = 30;
-	return ofMap(radius, testApp::minRadius, testApp::maxRadius, realMin, realMax);
+	return ofMap(radius, parent->minRadius, parent->maxRadius, realMin, realMax);
+}
+float Planet::getResourceValueAsPercent(string resName) {
+	float total, amount;
+	vector<Resource>::iterator it, end;
+	it = resources.begin();
+	end = resources.end();
+	for(;it < end; ++it) {
+		total += (*it).getAmount();
+		if((*it).getType() == resName) {
+			amount = (*it).getAmount();
+		}
+	}
+	return total/amount;
 }
 // setter
 void Planet::setPlanetName(string name) {

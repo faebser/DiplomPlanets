@@ -26,7 +26,6 @@ public:
 	ofVec2f middle;
 private:
 	string type;
-
 };
 
 #endif /* VIEW_H_ */
