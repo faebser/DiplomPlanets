@@ -1,14 +1,16 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Planet.h"
-#include "View.h"
 #include "json/json.h"
-#include "Modificator.h"
 #include "Config.h"
+#include "Modificator.h"
+#include "View.h"
+#include "Planet.h"
+
 
 //example for json http://jsoncpp.sourceforge.net/
 
+class Modificator;
 class testApp : public ofBaseApp{
 
 	public:
@@ -52,11 +54,12 @@ class testApp : public ofBaseApp{
 		int getRandomStartAmount();
 
 		View* getActiveView();
+		Config getConfig();
 
-		static int minStartAmount, maxStartAmount;
+		/*static int minStartAmount, maxStartAmount;
 		static float habitableZone, maxRadius, minRadius;
 		static vector<string> planetTypes, resourceTypes, viewTypes;
-		static int roundDuration;
+		static int roundDuration;*/
 		static bool newRound();
 	private:
 		vector<Planet> planets;
@@ -71,4 +74,5 @@ class testApp : public ofBaseApp{
 		string inputString, newPlayerName, newPlanetName, outputString;
 		int player;
 		Config config;
+		ofEasyCam cam;
 };

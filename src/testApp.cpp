@@ -7,16 +7,6 @@
  * It sets all other needed classes up.
  *
  */
-vector<string> testApp::planetTypes;
-vector<string> testApp::resourceTypes;
-vector<string> testApp::viewTypes;
-float testApp::habitableZone = 500;
-float testApp::maxRadius = 1000;
-float testApp::minRadius = 50;
-
-int testApp::minStartAmount = 0;
-int testApp::maxStartAmount = 5;
-int testApp::roundDuration = 10000;
 
 //--------------------------------------------------------------
 /**
@@ -31,25 +21,6 @@ void testApp::setup(){
 	newPlayer = false;
 
 	ofSetFrameRate(60);
-
-	testApp::planetTypes.push_back("star");
-	testApp::planetTypes.push_back("rock");
-	testApp::planetTypes.push_back("gas");
-	testApp::planetTypes.push_back("water");
-	testApp::planetTypes.push_back("sun");
-
-	testApp::resourceTypes.push_back("fire");
-	testApp::resourceTypes.push_back("water");
-	testApp::resourceTypes.push_back("gas");
-	testApp::resourceTypes.push_back("rock");
-
-	testApp::viewTypes.push_back("overview");
-	testApp::viewTypes.push_back("singlePlanet");
-
-	views.push_back(View("overview"));
-	views.push_back(View("singlePlanet"));
-	activeView = &views[0];
-
 	this->generalConfigFile.open(ofToDataPath("generalConfig.json"), ofFile::ReadOnly, false);
 	if(generalConfigFile.is_open()) {
 		Json::Value generalConfig;
@@ -66,6 +37,13 @@ void testApp::setup(){
 		}
 		//maybe quit here if file cannot be read
 	}
+
+	vector<string> viewList = config.getViewTypes();
+	views.push_back(View(viewList[0]));
+	views.push_back(View(viewList[1]));
+	views[0].setConfig(config);
+	views[1].setConfig(config);
+	activeView = &views[0];
 	this->configFile.open(ofToDataPath("config.json"), ofFile::ReadWrite, false);
 	if( configFile.is_open() ) {
 		// TODO read planet config from file
@@ -114,7 +92,7 @@ void testApp::getNames() {
 		ofDrawBitmapString(outputString, 100, 100);
 	}
 	else if(waitForInput == false && planetNameReady == true && playerNameReady == true) {
-		Planet newPlanet = Planet(this);
+		Planet newPlanet = Planet(&config);
 		newPlanet.setPlanetName(newPlanetName);
 		newPlanet.setPlayerName(newPlayerName);
 		this->addPlanet(newPlanet);
@@ -130,14 +108,18 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+	cam.begin();
+	ofEnableLighting();
 	if(newPlayer == true) {
 		this->getNames();
 	}
 	else {
 		activeView->draw(this->planetsToDisplay);
 	}
+	ofDisableLighting();
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
 	ofDrawBitmapString(fpsStr, 20,20);
+	//cam.end();
 }
 
 //--------------------------------------------------------------
@@ -169,7 +151,7 @@ void testApp::keyPressed(int key){
 		}
 	}
 	else if(key == 'n') {
-		this->addPlanet(Planet(this));
+		this->addPlanet(Planet(&config));
 	}
 	else if(key == '1') {
 		player = 1;
@@ -203,7 +185,7 @@ void testApp::mouseReleased(int x, int y, int button){
 	if(activeView->getType() == "overview"){
 		vector<Planet>::iterator it = planets.begin(), en = planets.end();
 		for(;it < en; it++) {
-			ofVec2f pos = (*it).getPos(this->activeView);
+			ofVec2f pos = (*it).getPos();
 			if(ofDist(pos.x, pos.y, x, y) < (*it).getSize()) {
 				this->planetsToDisplay.clear();
 				this->planetsToDisplay.push_back(&(*it));
@@ -271,8 +253,12 @@ float testApp::getRandomPlanetRadius() {
 int testApp::getRandomStartAmount() {
 	return (int)ofRandom(config.getNumber("minStartAmount"), config.getNumber("maxStartAmount"));
 }
+Config testApp::getConfig() {
+		return config;
+	}
 void testApp::deserializeConfig() {
 	config.deserialize();
+	config.setMiddle(&activeView->middle);
 }
 
 View* testApp::getActiveView() {

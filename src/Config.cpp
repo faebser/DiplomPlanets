@@ -5,13 +5,16 @@
  *      Author: faebser
  */
 
+
 #include "Config.h"
+
 
 Config::Config() {
 	// TODO Auto-generated constructor stub
 }
 
 Config::Config(Json::Value jsonInput) {
+	json = jsonInput;
 }
 
 void Config::deserialize() {
@@ -20,7 +23,7 @@ void Config::deserialize() {
 
 	for(;it < end; ++it) {
 		if(json[(*it)].isNumeric()) {
-			configNumbers.insert( pair<string, float>((*it), ofToFloat(json[(*it)].asString()) ));
+			configNumbers.insert( pair<string, float>( (*it), (float)json[(*it)].asDouble() ));
 		}
 		else if(json[(*it)].isString()) {
 			configStrings.insert( pair<string, string>( (*it), json[(*it)].asString() ));
@@ -29,7 +32,6 @@ void Config::deserialize() {
 			Json::Value currentValue = json[(*it)];
 			int size = currentValue.size();
 			vector<string>* writeTo;
-
 			if((*it) == "planets") {
 				writeTo = &planetTypes;
 			}
@@ -39,11 +41,9 @@ void Config::deserialize() {
 			else {
 				writeTo = &viewTypes;
 			}
-
 			for(int i = 0; i < size; i++) {
 				writeTo->push_back(currentValue[i].asString());
 			}
-			delete writeTo;
 		}
 	}
 }
@@ -86,6 +86,26 @@ vector<string> Config::getViewTypes() const {
 	return viewTypes;
 }
 
+string Config::getRandomPlanetType() { //todo move into config
+	int random = (int)ofRandom((float)planetTypes.size());
+	return planetTypes[random];
+}
+float Config::getRandomPlanetRadius() {
+	return ofRandom(this->configNumbers.at("minRadius"), this->configNumbers.at("maxRadius"));
+}
+int Config::getRandomStartAmount() {
+	return (int)ofRandom(this->configNumbers.at("minStartAmount"), this->configNumbers.at("maxStartAmount"));
+}
+ofVec2f Config::getMiddle() const {
+		return (*middle);
+	}
+
+void Config::setMiddle(ofVec2f* middle) {
+		this->middle = middle;
+	}
 Config::~Config() {
 	// TODO Auto-generated destructor stub
 }
+
+
+

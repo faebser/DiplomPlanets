@@ -5,6 +5,7 @@
  *      Author: faebser
  */
 
+#include "ofMain.h"
 #include "Sound.h"
 
 Sound::Sound() {

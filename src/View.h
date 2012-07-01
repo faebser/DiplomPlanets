@@ -5,11 +5,13 @@
  *      Author: faebser
  */
 
-#ifndef VIEW_H_
-#define VIEW_H_
+#ifndef VIEW_H_INCLUDED__
+#define VIEW_H_INCLUDED__
 
+#include "Config.h"
 #include "Planet.h"
 
+class Planet;
 class View {
 public:
 	View();
@@ -23,9 +25,11 @@ public:
 	string getType();
 	ofVec2f getMiddle();
 	virtual ~View();
+	void setConfig(Config config);
 	ofVec2f middle;
 private:
 	string type;
+	Config config;
 };
 
 #endif /* VIEW_H_ */

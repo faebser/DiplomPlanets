@@ -6,7 +6,6 @@
  */
 
 #include "Resource.h"
-#include "testApp.h"
 
 Resource::Resource() {
 	// TODO Auto-generated constructor stub

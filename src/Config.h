@@ -1,3 +1,4 @@
+#pragma once
 /*
  * Config.h
  *
@@ -8,7 +9,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-#include "testApp.h"
+#include "ofMain.h"
 #include "json/json.h"
 
 class Config {
@@ -27,12 +28,19 @@ public:
 	vector<string> getResourceTypes() const;
 	vector<string> getViewTypes() const;
 
+	string getRandomPlanetType();
+	float getRandomPlanetRadius();
+	int getRandomStartAmount();
+	ofVec2f getMiddle() const;
+	void setMiddle(ofVec2f* middle);
+private:
 	Json::Value json;
 	map<string, float> configNumbers;
 	map<string, string> configStrings;
 	vector<string> planetTypes;
 	vector<string> resourceTypes;
 	vector<string> viewTypes;
+	ofVec2f* middle;
 };
 
 #endif /* CONFIG_H_ */

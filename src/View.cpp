@@ -5,8 +5,9 @@
  *      Author: faebser
  */
 
-#include "View.h"
 #include "testApp.h"
+#include "View.h"
+
 
 
 View::View() {
@@ -20,17 +21,16 @@ View::View(string type) {
 void View::update(vector<Planet>* planets) {
 	vector<Planet>::iterator it, end;
 	end = planets->end();
-	bool newRound = ofGetElapsedTimeMillis() % testApp::roundDuration < 10;
-
-	//todo call planets->newRound();
+	bool newRound = (int)ofGetElapsedTimeMillis() % (int)config.getNumber("roundDuration") < 10;
 	for(it = planets->begin();it < end; ++it) {
-		if(newRound)
+		if(newRound) {
 			(*it).newRound();
+		}
 		(*it).update();
 	}
 }
 void View::windowResize(int w, int h) {
-	this->middle.set(w,h);
+	this->middle.set(w/2, h/2);
 }
 
 void View::draw(vector<Planet*> planets) {
@@ -88,7 +88,11 @@ string View::getType() {
 ofVec2f View::getMiddle() {
 	return this->middle;
 }
+void View::setConfig(Config config) {
+	this->config = config;
+}
 View::~View() {
 	// TODO Auto-generated destructor stub
 }
+
 
