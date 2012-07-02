@@ -37,13 +37,6 @@ void testApp::setup(){
 		}
 		//maybe quit here if file cannot be read
 	}
-
-	vector<string> viewList = config.getViewTypes();
-	views.push_back(View(viewList[0]));
-	views.push_back(View(viewList[1]));
-	views[0].setConfig(config);
-	views[1].setConfig(config);
-	activeView = &views[0];
 	this->configFile.open(ofToDataPath("config.json"), ofFile::ReadWrite, false);
 	if( configFile.is_open() ) {
 		// TODO read planet config from file
@@ -78,6 +71,15 @@ void testApp::setup(){
 		}
 		//maybe quit here if file cannot be read
 	}
+
+	vector<string> viewList = config.getViewTypes();
+	views.push_back(View(viewList[0]));
+	views.push_back(View(viewList[1]));
+	views[0].setConfig(config);
+	views[0].setModificators(&modificators);
+	views[1].setConfig(config);
+	views[1].setModificators(&modificators);
+	activeView = &views[0];
 }
 void testApp::getNames() {
 	if(waitForInput == true) {
@@ -108,18 +110,14 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	cam.begin();
-	ofEnableLighting();
 	if(newPlayer == true) {
 		this->getNames();
 	}
 	else {
 		activeView->draw(this->planetsToDisplay);
 	}
-	ofDisableLighting();
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
 	ofDrawBitmapString(fpsStr, 20,20);
-	//cam.end();
 }
 
 //--------------------------------------------------------------
@@ -288,7 +286,6 @@ void testApp::deserializeModificator() {
 		newMod.deserialize(&(modifyJson[(*it)]));
 		modificators.push_back(newMod);
 	}
-
 }
 void testApp::relayResource(Resource* resource, string* planetName) {
 	vector<Planet>::iterator it;

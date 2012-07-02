@@ -11,7 +11,6 @@
 #include "ofMain.h"
 #include "json/json.h"
 #include "Resource.h"
-#include "Planet.h"
 
 class OperatorBase {
 public:
@@ -107,7 +106,7 @@ public:
 	Modificator(Json::Value* jsonInput);
 	void deserialize(Json::Value* jsonInput);
 	void modify(vector<Resource> resources);
-	bool compare(Planet* planet);
+	bool compare(vector<Resource> resources);
 	virtual ~Modificator();
 private:
 	string name;

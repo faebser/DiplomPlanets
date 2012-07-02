@@ -10,6 +10,7 @@
 #define PLANET_H_INCLUDED__
 
 #include "ofMain.h"
+#include "Modificator.h"
 #include "Resource.h"
 #include "Config.h"
 
@@ -33,10 +34,13 @@ public:
 	ofColor* getColor();
 	float getResourceValueAsPercent(string resName);
 	ofVec2f getPos();
+	vector<Resource> getResources() const;
 	// setter
 	void setPlanetName(string name), setPlayerName(string name), setRadius(float radius);
 	void setPos(float x, float y);
 	void setAngle(float angle), setVelocity(float v);
+	void addModificator(Modificator* newMod);
+	void clearModificator();
 
 	void clicked(int player);
 	void newRound();
@@ -45,6 +49,7 @@ private:
 	Config* config;
 	vector<ofImage> textures; // texture used on planet
 	vector<Resource> resources;
+	vector<Modificator*> modificators;
 	string type;
 	float radius, angle, velocity;
 	bool isPlayer;

@@ -10,7 +10,6 @@
 
 //example for json http://jsoncpp.sourceforge.net/
 
-class Modificator;
 class testApp : public ofBaseApp{
 
 	public:
@@ -74,5 +73,4 @@ class testApp : public ofBaseApp{
 		string inputString, newPlayerName, newPlanetName, outputString;
 		int player;
 		Config config;
-		ofEasyCam cam;
 };

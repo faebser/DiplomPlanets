@@ -10,9 +10,6 @@
 // the modificators should be generated on startup from a json file for better handling
 
 Modificator::Modificator() {
-	// TODO Auto-generated constructor stub
-	//operators["fire"] = new Operator<std::plus<float>>;
-	//operators["fire"]->Calc((float)30);
 }
 Modificator::Modificator(string name) {
 	this->name = name;
@@ -70,16 +67,27 @@ void Modificator::deserialize(Json::Value* jsonInput) {
 	}
 
 }
-bool Modificator::compare(Planet* planet) { // wird von controller aufgerufen, um planeten anschliessend ein pointer zu einem modificator zu übergeben
-	vector<ComparatorBase*>::iterator it, end;
+bool Modificator::compare(vector<Resource> resources) { // wird von controller aufgerufen, um planeten anschliessend ein pointer zu einem modificator zu übergeben
+	vector<ComparatorBase*>::iterator it, end; // TODO rewrite if more than one comparator is needed
 	it = comperators.begin();
 	end = comperators.end();
 	bool result = false;
 
+	float total;
+	vector<Resource>::iterator itR = resources.begin(), endR = resources.end();
+	for(; it < end; ++it) {
+		total += itR->getAmount();
+	}
+
+	itR = resources.begin();
+	endR = resources.end();
 	for(;it < end; ++it) {
-		float valueToCompare = planet->getResourceValueAsPercent((*it)->getCompareTo());
-		if((*it)->compare(valueToCompare)) {
-			result = true;
+		for(; itR < endR; ++itR) {
+			if(itR->getType() == (*it)->compareTo) {
+				if((*it)->compare(total / itR->getAmount())) {
+							result = true;
+				}
+			}
 		}
 	}
 	return result;

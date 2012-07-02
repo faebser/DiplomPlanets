@@ -24,13 +24,20 @@ void View::update(vector<Planet>* planets) {
 	bool newRound = (int)ofGetElapsedTimeMillis() % (int)config.getNumber("roundDuration") < 10;
 	for(it = planets->begin();it < end; ++it) {
 		if(newRound) {
+			(*it).clearModificator();
+			vector<Modificator>::iterator itMod = modificators->begin(), endMo = modificators->end();
+			for(;itMod < endMo; ++itMod) {
+				if((*itMod).compare((*it).getResources())) {
+					(*it).addModificator(&(*itMod));
+				}
+			}
 			(*it).newRound();
 		}
 		(*it).update();
 	}
 }
 void View::windowResize(int w, int h) {
-	this->middle.set(w/2, h/2);
+	this->middle.set(w*0.5, h*0.5);
 }
 
 void View::draw(vector<Planet*> planets) {
@@ -94,5 +101,10 @@ void View::setConfig(Config config) {
 View::~View() {
 	// TODO Auto-generated destructor stub
 }
+
+void View::setModificators(vector<Modificator>* modificators) {
+	this->modificators = modificators;
+}
+
 
 

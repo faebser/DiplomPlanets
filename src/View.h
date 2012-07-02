@@ -26,10 +26,12 @@ public:
 	ofVec2f getMiddle();
 	virtual ~View();
 	void setConfig(Config config);
+	void setModificators(vector<Modificator>* modificators);
 	ofVec2f middle;
 private:
 	string type;
 	Config config;
+	vector<Modificator>* modificators;
 };
 
 #endif /* VIEW_H_ */

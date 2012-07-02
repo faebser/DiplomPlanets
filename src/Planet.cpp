@@ -29,10 +29,22 @@ Planet::Planet(Config* config) { //used for a really new planet
 }
 Planet::Planet(string planetName, Config* config) { // used for already existing planets
 	this->config = config;
-	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
+	this->velocity = ofRandom(-0.003, 0.003); //TODO fmove into config
 	this->angle = ofRandom(0,TWO_PI);
 	baseConstructor();
 }
+void Planet::addModificator(Modificator* newMod) {
+	modificators.push_back(newMod);
+}
+
+void Planet::clearModificator() {
+	/*vector<Modificator*>::iterator it = modificators.begin(), end = modificators.end();
+	for(; it < end; ++it) {
+		delete it;
+	}*/
+	modificators.clear();
+}
+
 void Planet::baseConstructor() {
 	this->type = config->getRandomPlanetType();
 	vector<string> resources = config->getResourceTypes();
@@ -169,3 +181,8 @@ void Planet::setPos(float x, float y) {
 }
 Planet::~Planet() {
 }
+
+vector<Resource> Planet::getResources() const {
+	return resources;
+}
+
