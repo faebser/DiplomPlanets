@@ -21,22 +21,16 @@ void testApp::setup(){
 	newPlayer = false;
 
 	ofSetFrameRate(60);
-	this->generalConfigFile.open(ofToDataPath("generalConfig.json"), ofFile::ReadOnly, false);
-	if(generalConfigFile.is_open()) {
-		Json::Value generalConfig;
-		bool parsingSuccessful = jsonReader.parse( this->generalConfigFile, generalConfig );
-		if ( !parsingSuccessful ) {
-			// report to the user the failure and their locations in the document.
-			std::cout << "Failed to parse Mod-File\n"
-					<< jsonReader.getFormatedErrorMessages();
-			return;
-		}
-		else {
-			config = Config(generalConfig);
-			deserializeConfig();
-		}
-		//maybe quit here if file cannot be read
-	}
+
+	/**
+	 * fire up the methods that load the files and sets up the conifg, the sound
+	 * and the modificators
+	 */
+	deserializeConfig();
+	deserializeSound();
+	deserializeModificator();
+
+
 	this->configFile.open(ofToDataPath("config.json"), ofFile::ReadWrite, false);
 	if( configFile.is_open() ) {
 		// TODO read planet config from file
@@ -57,20 +51,7 @@ void testApp::setup(){
 		planetNameReady = false;
 		playerNameReady = false;
 	}
-	this->modificatorFile.open(ofToDataPath("mod.json"), ofFile::ReadOnly, false);
-	if(modificatorFile.is_open()) {
-		bool parsingSuccessful = jsonReader.parse( this->modificatorFile, modifyJson );
-		if ( !parsingSuccessful ) {
-			// report to the user the failure and their locations in the document.
-			std::cout << "Failed to parse Mod-File\n"
-					<< jsonReader.getFormatedErrorMessages();
-			return;
-		}
-		else {
-			deserializeModificator();
-		}
-		//maybe quit here if file cannot be read
-	}
+
 
 	vector<string> viewList = config.getViewTypes();
 	views.push_back(View(viewList[0]));
@@ -255,8 +236,39 @@ Config testApp::getConfig() {
 		return config;
 	}
 void testApp::deserializeConfig() {
-	config.deserialize();
-	config.setMiddle(&activeView->middle);
+	this->generalConfigFile.open(ofToDataPath("generalConfig.json"), ofFile::ReadOnly, false);
+		if(generalConfigFile.is_open()) {
+			Json::Value generalConfig;
+			bool parsingSuccessful = jsonReader.parse( this->generalConfigFile, generalConfig );
+			if ( !parsingSuccessful ) {
+				// report to the user the failure and their locations in the document.
+				std::cout << "Failed to parse Mod-File\n"
+						<< jsonReader.getFormatedErrorMessages();
+				return;
+			}
+			else {
+				config = Config(generalConfig);
+				config.deserialize();
+				config.setMiddle(&activeView->middle);
+			}
+		}
+}
+void testApp::deserializeSound() {
+	this->soundFile.open(ofToDataPath("sound.json"), ofFile::ReadOnly, false);
+	if(soundFile.is_open()) {
+		Json::Value soundJson;
+		bool parsingSuccessful = jsonReader.parse( this->soundFile, soundJson );
+		if ( !parsingSuccessful ) {
+			// report to the user the failure and their locations in the document.
+			std::cout << "Failed to parse Mod-File\n"
+					<< jsonReader.getFormatedErrorMessages();
+			return;
+		}
+		else {
+			sound = Sound(soundJson);
+			sound.deserialize();
+		}
+	}
 }
 
 View* testApp::getActiveView() {
@@ -276,15 +288,28 @@ Planet testApp::planetFromJson(Json::Value* input) {
 
 }
 void testApp::deserializeModificator() {
-	if(modificators.size() > 0) {
-		modificators.clear();
-	}
-	vector<string> modificatorNamesList = modifyJson.getMemberNames();
-	vector<string>::iterator it = modificatorNamesList.begin(), end = modificatorNamesList.end();
-	for(;it < end; ++it) {
-		Modificator newMod = Modificator((*it));
-		newMod.deserialize(&(modifyJson[(*it)]));
-		modificators.push_back(newMod);
+	this->modificatorFile.open(ofToDataPath("mod.json"), ofFile::ReadOnly, false);
+	if(modificatorFile.is_open()) {
+		bool parsingSuccessful = jsonReader.parse( this->modificatorFile, modifyJson );
+		if ( !parsingSuccessful ) {
+			// report to the user the failure and their locations in the document.
+			std::cout << "Failed to parse Mod-File\n"
+					<< jsonReader.getFormatedErrorMessages();
+			return;
+		}
+		else {
+			if(modificators.size() > 0) {
+					modificators.clear();
+				}
+				vector<string> modificatorNamesList = modifyJson.getMemberNames();
+				vector<string>::iterator it = modificatorNamesList.begin(), end = modificatorNamesList.end();
+				for(;it < end; ++it) {
+					Modificator newMod = Modificator((*it));
+					newMod.deserialize(&(modifyJson[(*it)]));
+					modificators.push_back(newMod);
+				}
+		}
+		//maybe quit here if file cannot be read
 	}
 }
 void testApp::relayResource(Resource* resource, string* planetName) {

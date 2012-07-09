@@ -8,8 +8,8 @@
 #ifndef SOUND_H_
 #define SOUND_H_
 
-#include "ofMain.h";
-#include "json/json.h";
+#include "ofMain.h"
+#include "json/json.h"
 
 class Sound {
 public:

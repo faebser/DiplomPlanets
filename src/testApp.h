@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "json/json.h"
+#include "Sound.h"
 #include "Config.h"
 #include "Modificator.h"
 #include "View.h"
@@ -42,6 +43,7 @@ class testApp : public ofBaseApp{
 
 		void deserializeConfig();
 		void deserializeModificator();
+		void deserializeSound();
 
 		void addPlanet(Planet newPlanet);
 
@@ -63,14 +65,15 @@ class testApp : public ofBaseApp{
 	private:
 		vector<Planet> planets;
 		vector<Modificator> modificators;
-		ofFile configFile, modificatorFile, generalConfigFile;
+		ofFile configFile, modificatorFile, generalConfigFile, soundFile;
 		vector<View> views;
 		View* activeView;
 		vector<Planet*> planetsToDisplay;
-		Json::Value configJson, modifyJson;
+		Json::Value configJson, modifyJson, soundJson;
 		Json::Reader jsonReader;
 		bool waitForInput,newPlayer, playerNameReady, planetNameReady, player1, player2;
 		string inputString, newPlayerName, newPlanetName, outputString;
 		int player;
 		Config config;
+		Sound sound;
 };
