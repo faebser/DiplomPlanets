@@ -1,0 +1,25 @@
+{
+	"habitableZone" : 500,
+	"maxRadius" : 10000,
+	"minRadius" : 50,
+	"minStartAmount" : 0,
+	"maxStartAmount" : 5,
+	"roundDuration" : 10000,
+	"planets" : [
+		"star",
+		"rock",
+		"gas",
+		"water",
+		"sun"
+	],
+	"resources" : [
+		"fire",
+		"water",
+		"gas",
+		"rock"
+	],
+	"views" : [
+		"overview",
+		"singlePlanet"
+	]
+}

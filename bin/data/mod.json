@@ -1,0 +1,39 @@
+{
+	"test": {
+		"modifies" : {
+			"fire": {
+				"operator" : "add",
+				"value" : 2
+			},
+			"water": {
+				"operator": "mult",
+				"value" : 0.5
+			}
+		},
+		"compares": {
+			"fire": {
+				"reference": "bigger",
+				"value": 20
+			}
+		}
+	},
+	"test2": {
+		"modifies" : {
+			"earth": {
+				"operator" : "add",
+				"value" : 3
+			},
+			"snow": {
+				"operator": "mult",
+				"value" : 0.2
+			}
+		},
+		"compares": {
+			"fire": {
+				"reference": "between",
+				"start": 20,
+				"end": 30
+			}
+		}
+	}
+}
