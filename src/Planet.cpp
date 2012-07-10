@@ -44,7 +44,6 @@ void Planet::clearModificator() {
 	}*/
 	modificators.clear();
 }
-
 void Planet::baseConstructor() {
 	this->type = config->getRandomPlanetType();
 	vector<string> resources = config->getResourceTypes();
@@ -52,7 +51,13 @@ void Planet::baseConstructor() {
 	for(int i = 0; i < maxI;i++) {
 		string resourceType = resources[i];
 		this->resources.push_back(Resource(resourceType));
+		if(i < 3) {
+			ofFbo newFbo;
+			newFbo.allocate(800, 600, GL_RGBA, 4);
+			fbos.push_back(newFbo);
+		}
 	}
+	generateTexture();
 }
 void Planet::getResource(Resource* incomingResource) {
 	vector<Resource>::iterator it;
@@ -71,36 +76,91 @@ void Planet::update() {
 	std::sort(this->resources.begin(), this->resources.end(), compareByLength); // TODO sort by amount
 	angle += velocity;
 	this->pos.set( sin(this->angle) * this->getResizedRadius() , cos(this->angle) * this->getResizedRadius());
-	this->generateTexture();
+	//this->generateTexture();
 }
 void Planet::generateTexture() {
-	// TODO prototype: remove and rewrite
-	Resource res = resources[0];
-	string type = res.getType();
-	if (type == "fire") {
-		testColor.set(244, 148, 11);
-	}
-	else if(type == "water") {
-		testColor.set(32, 131, 143);
-	}
-	else if(type == "gas") {
-		testColor.set(148, 121, 74);
-	}
-	else if(type == "rock") {
-		testColor.set(155, 153, 150);
-	}
-	else {
-		testColor.set(255, 0, 0);
-	}
+	//fire, water, gas, rock
+	int xMax = 800;
+	int yMax = 600;
+	float xNoise = 0, yNoise = 0;
+	// gas planet = yInc = 0.1 xInc = 0.0001
+	float yIncrement = 0.0005, xIncrement = 0.008;
+	fbos[0].begin();
+		for(int y = 0; y < yMax; y++) {
+			yNoise = 0;
+			xNoise += xIncrement;
+			for(int x = 0 ; x < xMax; x++) {
+				yNoise += yIncrement;
+				float brig = ofNoise(xNoise, yNoise)*240;
+				if(brig > 100 && brig < 150) {
+					ofSetColor(142, 109, 86, 240);
+				}
+				else {
+					ofSetColor(0, 0, 0, 0);
+				}
+				ofRect(x, y, 150, 150);
+			}
+		}
+	fbos[0].end();
+	fbos[1].begin();
+			for(int y = 0; y < yMax; y++) {
+				yNoise = 0;
+				xNoise += xIncrement;
+				for(int x = 0 ; x < xMax; x++) {
+					yNoise += yIncrement;
+					float brig = ofNoise(xNoise, yNoise)*240;
+					if(brig < 100) {
+						ofSetColor(99, 69, 39, 240);
+						ofRect(x, y, 1, 1);
+					}
+
+				}
+			}
+	fbos[1].end();
+	fbos[1].draw(0,0);
+	fbos[2].begin();
+				for(int y = 0; y < yMax; y++) {
+					yNoise = 0;
+					xNoise += xIncrement;
+					for(int x = 0 ; x < xMax; x++) {
+						yNoise += yIncrement;
+						float brig = ofNoise(xNoise, yNoise)*240;
+						if(brig > 150) {
+							ofSetColor(51, 41, 32, 255);
+							ofRect(x, y, 1, 1);
+						}
+
+					}
+				}
+	fbos[2].end();
 }
 void Planet::clicked(int player) {
 
 }
 void Planet::draw() {
+	vector<ofFbo>::iterator it = fbos.begin(), end = fbos.end();
+	int dist = 2;
+
 	ofTranslate(pos);
-	ofSetColor(testColor);
-	//ofSphere(this->getSize());
-	ofSphere(0, 0, this->getSize());
+
+	ofEnableAlphaBlending();
+	glEnable(GL_DEPTH_TEST); //enable depth comparisons and update the depth buffer
+	glMatrixMode(GL_TEXTURE);
+	glPushMatrix();
+	ofScale(fbos[0].getWidth(), fbos[0].getHeight());
+	glMatrixMode(GL_MODELVIEW);
+
+	for (;it < end; ++it, dist += dist) {
+		(*it).getTextureReference().bind();
+			ofSphere(getSize() + dist);
+		(*it).getTextureReference().unbind();
+	}
+
+	glMatrixMode(GL_TEXTURE);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glDisable(GL_DEPTH_TEST);
+	ofDisableAlphaBlending();
 	ofSetColor(255);
 	ofDrawBitmapString("name: " + this->planetName, 20, 20);
 }
@@ -122,7 +182,7 @@ float* Planet::getRadius() {
 	return &this->radius;
 }
 float Planet::getSize() {
-	float size;
+	float size = 0;
 	vector<Resource>::iterator it;
 	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
 		size += (*it).getAmount();
@@ -148,7 +208,7 @@ float Planet::getResizedRadius() {
 	return ofMap(radius, config->getNumber("minRadius"), config->getNumber("maxRadius"), realMin, realMax);
 }
 float Planet::getResourceValueAsPercent(string resName) {
-	float total, amount;
+	float total = 0, amount = 0;
 	vector<Resource>::iterator it, end;
 	it = resources.begin();
 	end = resources.end();

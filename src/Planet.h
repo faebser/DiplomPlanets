@@ -50,6 +50,7 @@ private:
 	vector<ofImage> textures; // texture used on planet
 	vector<Resource> resources;
 	vector<Modificator*> modificators;
+	vector<ofFbo> fbos;
 	string type;
 	float radius, angle, velocity;
 	bool isPlayer;

@@ -100,7 +100,6 @@ void testApp::draw(){
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
 	ofDrawBitmapString(fpsStr, 20,20);
 }
-
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
 	if(key != OF_KEY_RETURN && waitForInput == true) {
@@ -242,7 +241,7 @@ void testApp::deserializeConfig() {
 			bool parsingSuccessful = jsonReader.parse( this->generalConfigFile, generalConfig );
 			if ( !parsingSuccessful ) {
 				// report to the user the failure and their locations in the document.
-				std::cout << "Failed to parse Mod-File\n"
+				std::cout << "Failed to parse generalConfig-File\n"
 						<< jsonReader.getFormatedErrorMessages();
 				return;
 			}
@@ -260,7 +259,7 @@ void testApp::deserializeSound() {
 		bool parsingSuccessful = jsonReader.parse( this->soundFile, soundJson );
 		if ( !parsingSuccessful ) {
 			// report to the user the failure and their locations in the document.
-			std::cout << "Failed to parse Mod-File\n"
+			std::cout << "Failed to parse Sound-File\n"
 					<< jsonReader.getFormatedErrorMessages();
 			return;
 		}
@@ -293,7 +292,7 @@ void testApp::deserializeModificator() {
 		bool parsingSuccessful = jsonReader.parse( this->modificatorFile, modifyJson );
 		if ( !parsingSuccessful ) {
 			// report to the user the failure and their locations in the document.
-			std::cout << "Failed to parse Mod-File\n"
+			std::cout << "Failed to parse mod-File\n"
 					<< jsonReader.getFormatedErrorMessages();
 			return;
 		}
