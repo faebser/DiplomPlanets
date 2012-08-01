@@ -15,11 +15,12 @@ class Sound {
 public:
 	Sound();
 	Sound(Json::Value jsonInput);
-	void playSound(string sound);
 	void deserialize();
+	const ofSoundPlayer getSoundPlayer(string nameOfSound);
 	virtual ~Sound();
 private:
-	map<string, ofSoundPlayer> players;
+	Json::Value json;
+	map<string, string> sounds;
 };
 
 #endif /* SOUND_H_ */

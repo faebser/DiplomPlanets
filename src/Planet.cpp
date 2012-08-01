@@ -93,7 +93,7 @@ void Planet::generateTexture() {
 				yNoise += yIncrement;
 				float brig = ofNoise(xNoise, yNoise)*240;
 				if(brig > 100 && brig < 150) {
-					ofSetColor(142, 109, 86, 240);
+					ofSetColor(142, 109, 86, 100);
 				}
 				else {
 					ofSetColor(0, 0, 0, 0);
@@ -110,7 +110,7 @@ void Planet::generateTexture() {
 					yNoise += yIncrement;
 					float brig = ofNoise(xNoise, yNoise)*240;
 					if(brig < 100) {
-						ofSetColor(99, 69, 39, 240);
+						ofSetColor(99, 69, 39, 100);
 						ofRect(x, y, 1, 1);
 					}
 
@@ -126,7 +126,7 @@ void Planet::generateTexture() {
 						yNoise += yIncrement;
 						float brig = ofNoise(xNoise, yNoise)*240;
 						if(brig > 150) {
-							ofSetColor(51, 41, 32, 255);
+							ofSetColor(51, 41, 32, 100);
 							ofRect(x, y, 1, 1);
 						}
 

@@ -13,12 +13,24 @@ Sound::Sound() {
 
 }
 Sound::Sound(Json::Value jsonInput) {
-
-}
-void Sound::playSound(string sound) {
+	json = jsonInput;
 }
 
 void Sound::deserialize() {
+	vector<string> members = json.getMemberNames();
+	vector<string>::iterator it = members.begin(), end = members.end();
+	for(; it < end; ++it) {
+		sounds.insert(pair<string, string>((*it), json[(*it)]["path"].asString()));
+	}
+}
+
+const ofSoundPlayer Sound::getSoundPlayer(string nameOfSound) {
+	if(sounds.count(nameOfSound) > 0) {
+		return ofSoundPlayer(sounds.find(nameOfSound)->second);
+	}
+	else {
+		return ofSoundPlayer("error");
+	}
 }
 
 Sound::~Sound() {
