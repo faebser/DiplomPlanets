@@ -25,11 +25,14 @@ void Sound::deserialize() {
 }
 
 const ofSoundPlayer Sound::getSoundPlayer(string nameOfSound) {
+	ofSoundPlayer returnIt;
 	if(sounds.count(nameOfSound) > 0) {
-		return ofSoundPlayer(sounds.find(nameOfSound)->second);
+		returnIt.setMultiPlay(true);
+		returnIt.setLoop(true);
+		return returnIt;
 	}
 	else {
-		return ofSoundPlayer("error");
+		return returnIt;
 	}
 }
 
