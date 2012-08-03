@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "json/json.h"
+#include "PlanetShape.h"
+#include "PlanetFbo.h"
 #include "Sound.h"
 #include "Config.h"
 #include "Modificator.h"
