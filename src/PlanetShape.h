@@ -1,3 +1,4 @@
+#pragma once
 /*
  * PlanetShape.h
  *
@@ -26,13 +27,13 @@ public:
 	void setPos(ofVec2f pos);
 	void addToPoint(int pointIndex, ofVec2f toAdd);
 	float getSize() const;
+	virtual ~PlanetShape();
 private:
 	ofVec2f pos, center;
 	ofVec2f vertexPoints[POINTS];
 	float size;
 	void growMe();
 	void shrinkMe();
-	virtual ~PlanetShape();
 };
 
 #endif /* PLANETSHAPE_H_ */

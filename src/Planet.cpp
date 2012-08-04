@@ -8,7 +8,7 @@
 
 #include "Planet.h"
 
-bool compareByLength( Resource a, Resource b)
+bool compareByAmount( Resource a, Resource b)
 {
 	return a.getAmount() > b.getAmount();
 }
@@ -52,7 +52,7 @@ void Planet::baseConstructor() {
 		string resourceType = resources[i];
 		this->resources.push_back(Resource(resourceType));
 		if(i < 3) {
-			ofFbo newFbo;
+			PlanetFbo newFbo;
 			newFbo.allocate(800, 600, GL_RGBA, 4);
 			fbos.push_back(newFbo);
 		}
@@ -73,73 +73,25 @@ void Planet::sendResource(Resource* outgoingResource, string* planetName) {
 	//this->parent->relayResource(outgoingResource, planetName);
 }
 void Planet::update() {
-	std::sort(this->resources.begin(), this->resources.end(), compareByLength); // TODO sort by amount
+	//sort(resources.begin(), resources.end(), compareByAmount); // TODO sort by amount
 	angle += velocity;
 	this->pos.set( sin(this->angle) * this->getResizedRadius() , cos(this->angle) * this->getResizedRadius());
 	//this->generateTexture();
 }
 void Planet::generateTexture() {
-	//fire, water, gas, rock
-	int xMax = 800;
-	int yMax = 600;
-	float xNoise = 0, yNoise = 0;
-	// gas planet = yInc = 0.1 xInc = 0.0001
-	float yIncrement = 0.0005, xIncrement = 0.008;
-	fbos[0].begin();
-		for(int y = 0; y < yMax; y++) {
-			yNoise = 0;
-			xNoise += xIncrement;
-			for(int x = 0 ; x < xMax; x++) {
-				yNoise += yIncrement;
-				float brig = ofNoise(xNoise, yNoise)*240;
-				if(brig > 100 && brig < 150) {
-					ofSetColor(142, 109, 86, 100);
-				}
-				else {
-					ofSetColor(0, 0, 0, 0);
-				}
-				ofRect(x, y, 150, 150);
-			}
+	sort(resources.begin(), resources.end(), compareByAmount);
+	unsigned int it = 0, end = resources.size();
+	for(;it < end; ++it) {
+		if(it == 0) {
+
 		}
-	fbos[0].end();
-	fbos[1].begin();
-			for(int y = 0; y < yMax; y++) {
-				yNoise = 0;
-				xNoise += xIncrement;
-				for(int x = 0 ; x < xMax; x++) {
-					yNoise += yIncrement;
-					float brig = ofNoise(xNoise, yNoise)*240;
-					if(brig < 100) {
-						ofSetColor(99, 69, 39, 100);
-						ofRect(x, y, 1, 1);
-					}
-
-				}
-			}
-	fbos[1].end();
-	fbos[1].draw(0,0);
-	fbos[2].begin();
-				for(int y = 0; y < yMax; y++) {
-					yNoise = 0;
-					xNoise += xIncrement;
-					for(int x = 0 ; x < xMax; x++) {
-						yNoise += yIncrement;
-						float brig = ofNoise(xNoise, yNoise)*240;
-						if(brig > 150) {
-							ofSetColor(51, 41, 32, 100);
-							ofRect(x, y, 1, 1);
-						}
-
-					}
-				}
-	fbos[2].end();
+	}
 }
 void Planet::clicked(int player) {
-
 }
 void Planet::draw() {
-	vector<ofFbo>::iterator it = fbos.begin(), end = fbos.end();
-	int dist = 2;
+	vector<PlanetFbo>::iterator it = fbos.begin(), end = fbos.end();
+	int dist = 2, distOffset = dist;
 
 	ofTranslate(pos);
 
@@ -150,7 +102,7 @@ void Planet::draw() {
 	ofScale(fbos[0].getWidth(), fbos[0].getHeight());
 	glMatrixMode(GL_MODELVIEW);
 
-	for (;it < end; ++it, dist += dist) {
+	for (;it < end; ++it, dist += distOffset) {
 		(*it).getTextureReference().bind();
 			ofSphere(getSize() + dist);
 		(*it).getTextureReference().unbind();
@@ -201,7 +153,7 @@ ofVec2f Planet::getPos() { //TODO rewrite this it to make it beautiful
 }
 ofColor* Planet::getColor() {
 	this->generateTexture();
-	return &this->testColor;
+	return &this->groundColor;
 }
 float Planet::getResizedRadius() {
 	float realMax = ofGetWindowWidth() * 0.5, realMin = 30;

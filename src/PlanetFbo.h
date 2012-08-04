@@ -1,3 +1,4 @@
+#pragma once
 /*
  * PlanetFbo.h
  *
@@ -9,7 +10,6 @@
 #define PLANETFBO_H_
 
 #include "ofMain.h"
-#include "testApp.h"
 #include "PlanetShape.h"
 
 class PlanetFbo: public ofFbo {
@@ -29,7 +29,7 @@ public:
 	void setColor(ofColor color);
 	virtual ~PlanetFbo();
 private:
-	vector<planetShape> shapes;
+	vector<PlanetShape> shapes;
 	string type;
 	ofColor colorWithMaxAlpha, color;
 };

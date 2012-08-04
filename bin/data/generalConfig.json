@@ -21,5 +21,12 @@
 	"views" : [
 		"overview",
 		"singlePlanet"
-	]
+	],
+	"colors": {
+		"fire" : [255, 0, 0],
+		"water" : [0, 0, 255],
+		"gas"	: [0, 255, 0],
+		"gas1" : [0, 255, 0],
+		"rock" : [240, 240, 240]
+	}
 }

@@ -45,6 +45,19 @@ void Config::deserialize() {
 				writeTo->push_back(currentValue[i].asString());
 			}
 		}
+		else if((*it) == "colors") {
+			vector<string> colorMembers = json[(*it)].getMemberNames();
+			vector<string>::iterator colorIt = colorMembers.begin(), colorEnd = colorMembers.end();
+			for(; colorIt < colorEnd; ++colorIt) {
+				Json::Value currentValue = json[(*it)].get((*colorIt), "no color found");
+				if(currentValue != "no color found") {
+					colors.insert(pair<string, ofColor>( (*colorIt), ofColor(currentValue.get(0u, 255).asInt(), currentValue.get(1u, 255).asInt(), currentValue.get(2u, 255).asInt()) ));
+				}
+				else {
+					cout << "no ofColor-values found for " << (*colorIt) << " in generalConfig.json";
+				}
+			}
+		}
 	}
 }
 float Config::getNumber(string name) {

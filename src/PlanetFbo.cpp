@@ -6,12 +6,11 @@
  */
 
 #include "PlanetFbo.h"
+#define RADIUS 250
 
 PlanetFbo::PlanetFbo() {
 	// TODO Auto-generated constructor stub
-
 }
-
 float PlanetFbo::getRealXPos(float input) {
 	float width = input / getWidth();
 	float returning = (width - (int)width) * getWidth();
@@ -22,7 +21,7 @@ float PlanetFbo::getRealXPos(float input) {
 }
 
 void PlanetFbo::updatePoints() {
-	vector<planetShape>::iterator it = shapes.begin(), end = shapes.end();
+	vector<PlanetShape>::iterator it = shapes.begin(), end = shapes.end();
 	if(type == "shape") {
 		for (; it < end; it++) {
 			it->updatePoints();
@@ -36,11 +35,11 @@ void PlanetFbo::updatePoints() {
 }
 
 void PlanetFbo::generateAttraction() {
-	vector<planetShape>::iterator it = shapes.begin(), end = shapes.end();
+	vector<PlanetShape>::iterator it = shapes.begin(), end = shapes.end();
 	for (; it < end; it++) {
 		const ofVec2f* points = it->getvertexPoints();
 		for(int iP = 0; iP < POINTS; iP++) {
-			vector<planetShape>::iterator innerIt = shapes.begin(), innerEnd = shapes.end();
+			vector<PlanetShape>::iterator innerIt = shapes.begin(), innerEnd = shapes.end();
 			for(;innerIt < innerEnd; ++innerIt) {
 				if(innerIt == it) {
 					continue;
@@ -68,7 +67,7 @@ void PlanetFbo::paintMe() {
 }
 
 void PlanetFbo::paintMeShapes() {
-	vector<planetShape>::iterator it = shapes.begin(), end = shapes.end();
+	vector<PlanetShape>::iterator it = shapes.begin(), end = shapes.end();
 	updatePoints();
 	generateAttraction();
 	this->begin();
@@ -101,7 +100,7 @@ void PlanetFbo::paintMeShapes() {
 }
 
 void PlanetFbo::paintMeLines() {
-	vector<planetShape>::iterator it = shapes.begin(), end = shapes.end();
+	vector<PlanetShape>::iterator it = shapes.begin(), end = shapes.end();
 	ofSetColor(255);
 	ofClear(0,0,0,0);
 	updatePoints();
@@ -136,16 +135,16 @@ void PlanetFbo::generateShapes(int size) {
 	if(type == "shape") {
 		if(size > 5) {
 			float left = size - ofRandom(size * 0.25,size);
-			shapes.push_back(planetShape(getWidth(), getHeight(), left, type));
+			shapes.push_back(PlanetShape(getWidth(), getHeight(), left, type));
 			generateShapes(left);
 		}
 		else {
-			shapes.push_back(planetShape(getWidth(), getHeight(), size, type));
+			shapes.push_back(PlanetShape(getWidth(), getHeight(), size, type));
 		}
 	}
 	else if(type == "line") {
 		for(int i = 0; i < size; i++) {
-			shapes.push_back(planetShape(getWidth(), getHeight(), size, type));
+			shapes.push_back(PlanetShape(getWidth(), getHeight(), size, type));
 		}
 	}
 }

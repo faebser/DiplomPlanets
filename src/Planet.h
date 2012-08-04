@@ -10,6 +10,7 @@
 #define PLANET_H_INCLUDED__
 
 #include "ofMain.h"
+#include "PlanetFbo.h"
 #include "Modificator.h"
 #include "Resource.h"
 #include "Config.h"
@@ -50,12 +51,12 @@ private:
 	vector<ofImage> textures; // texture used on planet
 	vector<Resource> resources;
 	vector<Modificator*> modificators;
-	vector<ofFbo> fbos;
+	vector<PlanetFbo> fbos;
 	string type;
 	float radius, angle, velocity;
 	bool isPlayer;
 	string playerName, planetName;
-	ofColor testColor;
+	ofColor groundColor;
 	ofVec2f pos;
 };
 

@@ -40,6 +40,7 @@ private:
 	vector<string> planetTypes;
 	vector<string> resourceTypes;
 	vector<string> viewTypes;
+	map<string, ofColor> colors;
 	ofVec2f* middle;
 };
 

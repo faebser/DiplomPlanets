@@ -1,0 +1,12 @@
+{
+	"planetNameTest" : {
+		"playerName" : "fabu",
+		"velocity" : 2,
+		"angle" : 1.35,
+		"radius" : 500,
+		"fire" : 20,
+		"water" : 1,
+		"gas" : 2,
+		"rock" : 3
+	}
+}
