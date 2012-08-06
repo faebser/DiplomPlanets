@@ -16,6 +16,15 @@ View::View() {
 View::View(string type) {
 	this->type = type;
 	this->middle = ofVec2f(ofGetWindowWidth() * 0.5, ofGetWindowHeight() * 0.5);
+	// Point lights emit light in all directions //
+	// set the diffuse color, color reflected from the light source //
+	sun.setDiffuseColor( ofColor(249, 245, 224));
+	sunPos = ofVec3f(middle.x, middle.y, 0);
+	sun.setPosition(sunPos);
+
+	// specular color, the highlight/shininess color //
+	sun.setSpecularColor( ofColor(255.f, 255.f, 0.f));
+	sun.setPointLight();
 }
 
 void View::update(vector<Planet>* planets) {
@@ -53,16 +62,18 @@ void View::drawOverview(vector<Planet*> planets) {
 	ofPushStyle();
 	ofPushMatrix();
 	ofTranslate(middle.x, middle.y);
-	ofSetColor(255, 255, 255, 10);
-	ofSphere(0, 0, 20);
+	ofSetColor(255, 255, 255, 230);
 
+
+	ofEnableLighting();
 	vector<Planet*>::iterator it, end;
 	end = planets.end();
 	ofSetCircleResolution(150);
-	//ofEnableSmoothing();
 	for(it = planets.begin();it < end; ++it) {
-		ofNoFill();
-		ofCircle(0, 0, (*it)->getResizedRadius());
+		ofEnableSmoothing();
+			ofNoFill();
+			ofCircle(0, 0, (*it)->getResizedRadius());
+		ofDisableSmoothing();
 		ofFill();
 		ofPushMatrix();
 		ofPushStyle();
@@ -70,10 +81,16 @@ void View::drawOverview(vector<Planet*> planets) {
 		ofPopStyle();
 		ofPopMatrix();
 	}
+	ofDisableLighting();
 	ofPopStyle();
-	//ofDisableSmoothing();
-	ofSetCircleResolution(22);
+	ofSphere(0, 0, 5);
+
 	ofPopMatrix();
+	ofSetCircleResolution(22);
+	ofPushStyle();
+		ofSetColor(255, 0, 0);
+		ofBox(sunPos, 20);
+	ofPopStyle();
 }
 
 void View::drawPlanet(vector<Planet*> planets) {

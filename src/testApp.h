@@ -1,9 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxNetwork.h"
 #include "json/json.h"
-//#include "PlanetShape.h"
-//#include "PlanetFbo.h"
 #include "Sound.h"
 #include "Config.h"
 #include "Modificator.h"
@@ -78,4 +77,6 @@ class testApp : public ofBaseApp{
 		int player;
 		Config config;
 		Sound sound;
+		ofxUDPManager udpConnection;
+
 };

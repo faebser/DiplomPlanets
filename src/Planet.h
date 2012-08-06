@@ -48,7 +48,6 @@ public:
 private:
 	void baseConstructor();
 	Config* config;
-	vector<ofImage> textures; // texture used on planet
 	vector<Resource> resources;
 	vector<Modificator*> modificators;
 	vector<PlanetFbo> fbos;
@@ -56,7 +55,7 @@ private:
 	float radius, angle, velocity;
 	bool isPlayer;
 	string playerName, planetName;
-	ofColor groundColor;
+	ofColor* groundColor;
 	ofVec2f pos;
 };
 

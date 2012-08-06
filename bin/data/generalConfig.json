@@ -1,4 +1,7 @@
 {
+	"udpPort" : 11999;
+	"multicastPort" : 11998,
+	"multicastGroup" : "planetsFabu",
 	"habitableZone" : 500,
 	"maxRadius" : 10000,
 	"minRadius" : 50,
@@ -23,10 +26,21 @@
 		"singlePlanet"
 	],
 	"colors": {
-		"fire" : [255, 0, 0],
-		"water" : [0, 0, 255],
-		"gas"	: [0, 255, 0],
-		"gas1" : [0, 255, 0],
-		"rock" : [240, 240, 240]
+		"fire" : [
+			[241, 135, 72]
+			],
+		"water" : [
+			[60, 65, 84]
+			],
+		"gas"	: [
+			[131, 189, 228],
+			[199, 161, 99]
+		],
+		"rock" : [
+			[65, 52, 52]
+			],
+		"gras" : [
+			[12, 90, 29]
+			]
 	}
 }

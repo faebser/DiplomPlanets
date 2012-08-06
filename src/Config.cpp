@@ -50,15 +50,15 @@ void Config::deserialize() {
 			vector<string>::iterator colorIt = colorMembers.begin(), colorEnd = colorMembers.end();
 			for(; colorIt < colorEnd; ++colorIt) {
 				Json::Value currentValue = json[(*it)].get((*colorIt), "no color found");
-				if(currentValue != "no color found") {
-					colors.insert(pair<string, ofColor>( (*colorIt), ofColor(currentValue.get(0u, 255).asInt(), currentValue.get(1u, 255).asInt(), currentValue.get(2u, 255).asInt()) ));
+				vector<ofColor> newVector;
+				for(unsigned int i = 0; i < currentValue.size(); i++) {
+					newVector.push_back( ofColor(currentValue[i].get(0u, 255).asInt(), currentValue[i].get(1u, 255).asInt(), currentValue[i].get(2u, 255).asInt()) );
 				}
-				else {
-					cout << "no ofColor-values found for " << (*colorIt) << " in generalConfig.json";
-				}
+				colors.insert( pair<string, vector<ofColor> >((*colorIt), newVector) );
 			}
 		}
 	}
+
 }
 float Config::getNumber(string name) {
 	if(configNumbers.find(name) != configNumbers.end()) {
@@ -113,12 +113,21 @@ ofVec2f Config::getMiddle() const {
 		return (*middle);
 	}
 
+ofColor* Config::getColorByName(string name) {
+	unsigned int returnIndex = 0;
+	if(colors.find(name)->second.size()-1 > 0) {
+		returnIndex = round( ofRandom(0, (float)colors.find(name)->second.size()) );
+	}
+	return &colors.find(name)->second[returnIndex];
+}
+
 void Config::setMiddle(ofVec2f* middle) {
 		this->middle = middle;
 	}
 Config::~Config() {
 	// TODO Auto-generated destructor stub
 }
+
 
 
 

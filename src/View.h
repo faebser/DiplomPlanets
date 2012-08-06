@@ -29,6 +29,8 @@ public:
 	void setModificators(vector<Modificator>* modificators);
 	ofVec2f middle;
 private:
+	ofLight sun;
+	ofVec3f sunPos;
 	string type;
 	Config config;
 	vector<Modificator>* modificators;

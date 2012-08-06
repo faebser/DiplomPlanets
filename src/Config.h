@@ -21,6 +21,7 @@ public:
 	void deserialize();
 
 	//getter
+	ofColor* getColorByName(string name);
 	float getNumber(string name);
 	string getString(string name);
 	vector<string> getListOf(string types);
@@ -40,7 +41,7 @@ private:
 	vector<string> planetTypes;
 	vector<string> resourceTypes;
 	vector<string> viewTypes;
-	map<string, ofColor> colors;
+	map<string, vector<ofColor> > colors;
 	ofVec2f* middle;
 };
 

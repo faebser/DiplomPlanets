@@ -5,7 +5,7 @@
  *  Created on: Apr 28, 2012
  *      Author: faebser
  */
-
+#define LERP 0.2
 #include "Planet.h"
 
 bool compareByAmount( Resource a, Resource b)
@@ -51,11 +51,9 @@ void Planet::baseConstructor() {
 	for(int i = 0; i < maxI;i++) {
 		string resourceType = resources[i];
 		this->resources.push_back(Resource(resourceType));
-		if(i < 3) {
-			PlanetFbo newFbo;
-			newFbo.allocate(800, 600, GL_RGBA, 4);
-			fbos.push_back(newFbo);
-		}
+		PlanetFbo newFbo;
+		newFbo.allocate(800, 600, GL_RGBA, 4);
+		fbos.push_back(newFbo);
 	}
 	generateTexture();
 }
@@ -73,17 +71,29 @@ void Planet::sendResource(Resource* outgoingResource, string* planetName) {
 	//this->parent->relayResource(outgoingResource, planetName);
 }
 void Planet::update() {
-	//sort(resources.begin(), resources.end(), compareByAmount); // TODO sort by amount
 	angle += velocity;
 	this->pos.set( sin(this->angle) * this->getResizedRadius() , cos(this->angle) * this->getResizedRadius());
-	//this->generateTexture();
 }
 void Planet::generateTexture() {
 	sort(resources.begin(), resources.end(), compareByAmount);
-	unsigned int it = 0, end = resources.size();
-	for(;it < end; ++it) {
-		if(it == 0) {
-
+	vector<Resource>::iterator resourcesIt = resources.begin(), resourcesEnd = resources.end();
+	vector<PlanetFbo>::iterator fbosIt = fbos.begin(), fbosEnd = fbos.end();
+	for(;resourcesIt < resourcesEnd; ++resourcesIt, ++fbosIt) {
+		if(resourcesIt == resources.begin()) {
+			groundColor = config->getColorByName(resourcesIt->getType());
+		}
+		else {
+			if(fbosIt != fbosEnd) {
+				if(resourcesIt->getType() == "gas") {
+					fbosIt->setType("line");
+				}
+				else {
+					fbosIt->setType("shape");
+				}
+				fbosIt->generateShapes(resourcesIt->getAmount());
+				fbosIt->setColor( config->getColorByName(resourcesIt->getType())->getLerped((*groundColor), LERP) );
+				fbosIt->paintMe();
+			}
 		}
 	}
 }
@@ -102,7 +112,15 @@ void Planet::draw() {
 	ofScale(fbos[0].getWidth(), fbos[0].getHeight());
 	glMatrixMode(GL_MODELVIEW);
 
+	ofSetColor((*groundColor));
+	ofSphere(getSize());
+	ofNoFill();
+	ofEnableSmoothing();
+	ofSphere(getSize());
+	ofDisableSmoothing();
+
 	for (;it < end; ++it, dist += distOffset) {
+		ofSetColor(255); // IMPORTANT: reset color to display textures normal
 		(*it).getTextureReference().bind();
 			ofSphere(getSize() + dist);
 		(*it).getTextureReference().unbind();
@@ -152,8 +170,7 @@ ofVec2f Planet::getPos() { //TODO rewrite this it to make it beautiful
 	return this->pos + config->getMiddle();
 }
 ofColor* Planet::getColor() {
-	this->generateTexture();
-	return &this->groundColor;
+	return this->groundColor;
 }
 float Planet::getResizedRadius() {
 	float realMax = ofGetWindowWidth() * 0.5, realMin = 30;

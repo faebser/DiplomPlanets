@@ -20,15 +20,23 @@ void testApp::setup(){
 	inputString = "";
 	newPlayer = false;
 
+
 	ofSetFrameRate(60);
 
 	/**
-	 * fire up the methods that load the files and sets up the conifg, the sound
+	 * fire up the methods that load the files and sets up the config, the sound
 	 * and the modificators
 	 */
 	deserializeConfig();
 	deserializeSound();
 	deserializeModificator();
+
+	udpConnection.Create();
+	udpConnection.SetEnableBroadcast(true);
+	udpConnection.Bind(config.getNumber("udpPort"));
+	udpConnection.BindMcast((char*)config.getString("multicastGroup").c_str(), config.getNumber("multicastPort"));
+	udpConnection.ConnectMcast((char*)config.getString("multicastGroup").c_str(), config.getNumber("multicastPort"));
+	udpConnection.SetNonBlocking(true);
 
 
 	this->configFile.open(ofToDataPath("config.json"), ofFile::ReadWrite, false);
@@ -86,6 +94,7 @@ void testApp::getNames() {
 //--------------------------------------------------------------
 void testApp::update(){
 	ofBackground(0, 0, 0);
+	udpListener();
 	activeView->update(&this->planets);
 }
 
@@ -160,7 +169,7 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-	if(activeView->getType() == "overview"){
+	/*if(activeView->getType() == "overview"){
 		vector<Planet>::iterator it = planets.begin(), en = planets.end();
 		for(;it < en; it++) {
 			ofVec2f pos = (*it).getPos();
@@ -180,7 +189,7 @@ void testApp::mouseReleased(int x, int y, int button){
 		}
 		this->activeView = &views[0];
 	}
-	/*vector<Planet>::iterator it = planets.begin(), en = planets.end();
+	vector<Planet>::iterator it = planets.begin(), en = planets.end();
 	for(;it < en; ++it) {
 		ofVec2f* pos = (*it).getPos();
 		if(ofDist(pos->x, pos->y, x, y) < (*it).getSize()) {
@@ -207,9 +216,14 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 void testApp::udpBroadcast() {
 
 }
-
+// nc -u 127.0.0.1 11999 connect via udp to localhost:11999
 void testApp::udpListener() {
-
+	char udpMessage[100000];
+	udpConnection.Receive(udpMessage,100000);
+	string message = udpMessage;
+	if(message != "") {
+		cout << message << endl;
+	}
 }
 
 void testApp::udpSender(string json) {
