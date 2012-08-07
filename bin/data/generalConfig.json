@@ -1,5 +1,5 @@
 {
-	"udpPort" : 11999;
+	"udpPort" : 11999,
 	"multicastPort" : 11998,
 	"multicastGroup" : "planetsFabu",
 	"habitableZone" : 500,

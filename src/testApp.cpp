@@ -59,8 +59,6 @@ void testApp::setup(){
 		planetNameReady = false;
 		playerNameReady = false;
 	}
-
-
 	vector<string> viewList = config.getViewTypes();
 	views.push_back(View(viewList[0]));
 	views.push_back(View(viewList[1]));
