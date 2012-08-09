@@ -81,7 +81,7 @@ void testApp::getNames() {
 		ofDrawBitmapString(outputString, 100, 100);
 	}
 	else if(waitForInput == false && planetNameReady == true && playerNameReady == true) {
-		Planet newPlanet = Planet(&config);
+		Planet newPlanet = Planet(&config, &sound);
 		newPlanet.setPlanetName(newPlanetName);
 		newPlanet.setPlayerName(newPlayerName);
 		this->addPlanet(newPlanet);
@@ -136,7 +136,7 @@ void testApp::keyPressed(int key){
 		}
 	}
 	else if(key == 'n') {
-		this->addPlanet(Planet(&config));
+		this->addPlanet(Planet(&config, &sound));
 	}
 	else if(key == '1') {
 		player = 1;
@@ -276,7 +276,7 @@ void testApp::deserializeSound() {
 			return;
 		}
 		else {
-			sound = Sound(soundJson);
+			sound = Sound(soundJson, config.getString("spaceCompareString"));
 			sound.deserialize();
 		}
 	}

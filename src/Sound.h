@@ -14,13 +14,17 @@
 class Sound {
 public:
 	Sound();
-	Sound(Json::Value jsonInput);
+	Sound(Json::Value jsonInput, string compareString);
 	void deserialize();
-	const ofSoundPlayer getSoundPlayer(string nameOfSound);
+	//const ofSoundPlayer getSoundPlayer(string nameOfSound);
+	map<string, ofSoundPlayer> getAllElementPlayers();
+	map<string, ofSoundPlayer> getAllSpacePlayers();
 	virtual ~Sound();
+
+	map<string, string> spaceSounds, elementSounds;
 private:
 	Json::Value json;
-	map<string, string> sounds;
+	string compareString;
 };
 
 #endif /* SOUND_H_ */

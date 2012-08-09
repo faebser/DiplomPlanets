@@ -19,8 +19,9 @@ Planet::Planet() { //used for a really new planet
 	baseConstructor();
 	// ::update and ::generateTexture will be called after creation of Planet
 }
-Planet::Planet(Config* config) { //used for a really new planet
+Planet::Planet(Config* config, Sound* sound) { //used for a really new planet
 	this->config = config;
+	this->sound = sound;
 	this->radius = config->getRandomPlanetRadius();
 	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
@@ -44,6 +45,29 @@ void Planet::clearModificator() {
 	}*/
 	modificators.clear();
 }
+float Planet::getResourceValueNormalized(string resName) {
+	return getResourceValueAsPercent(resName)*0.01;
+}
+
+void Planet::updateSound() {
+	vector<Resource>::iterator it;
+	map<string, ofSoundPlayer>::iterator soundIt;
+	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
+		string type = it->getType();
+		float volume = ofMap(getResourceValueNormalized(type), config->getNumber("setVolumeMin"),config->getNumber("setVolumeMax"), 0, 1);
+		soundIt = elementSounds.find(type);
+		if(soundIt->second.getIsPlaying() == false) { // TODO remove from here
+			soundIt->second.play();
+		}
+		soundIt->second.setVolume(volume);
+		soundIt = spaceSounds.find(type);
+		soundIt->second.setVolume(volume * config->getNumber("dampFromElementToSpace"));
+	}
+	float distance = ((getResizedRadius() - pos.y) / ofGetWindowWidth() * 0.5) * config->getNumber("maxDampingOnYForElements");
+	cout << "distance-> " << distance << endl;
+
+}
+
 void Planet::baseConstructor() {
 	this->type = config->getRandomPlanetType();
 	vector<string> resources = config->getResourceTypes();
@@ -55,6 +79,9 @@ void Planet::baseConstructor() {
 		newFbo.allocate(800, 600, GL_RGBA, 4);
 		fbos.push_back(newFbo);
 	}
+	elementSounds = sound->getAllElementPlayers();
+	spaceSounds = sound->getAllSpacePlayers();
+	updateSound();
 	generateTexture();
 }
 void Planet::getResource(Resource* incomingResource) {
@@ -214,4 +241,8 @@ Planet::~Planet() {
 vector<Resource> Planet::getResources() const {
 	return resources;
 }
+void Planet::setSound(Sound* sound) {
+	this->sound = sound;
+}
+
 

@@ -14,11 +14,12 @@
 #include "Modificator.h"
 #include "Resource.h"
 #include "Config.h"
+#include "Sound.h"
 
 class Planet {
 public:
 	Planet();
-	Planet(Config* config);
+	Planet(Config* config, Sound* sound);
 	Planet(string planetName, Config* config);
 	virtual ~Planet();
 	void getResource(Resource* incomingResource);
@@ -26,6 +27,7 @@ public:
 	void update();
 	void draw();
 	void generateTexture();
+	void updateSound();
 
 	// getter
 	string* getPlanetName();
@@ -34,6 +36,7 @@ public:
 	float* getRadius(), getResizedRadius();
 	ofColor* getColor();
 	float getResourceValueAsPercent(string resName);
+	float getResourceValueNormalized(string resName);
 	ofVec2f getPos();
 	vector<Resource> getResources() const;
 	// setter
@@ -45,8 +48,11 @@ public:
 
 	void clicked(int player);
 	void newRound();
+	void setSound(Sound* sound);
 private:
 	void baseConstructor();
+	map<string, ofSoundPlayer> elementSounds, spaceSounds;
+	Sound* sound;
 	Config* config;
 	vector<Resource> resources;
 	vector<Modificator*> modificators;

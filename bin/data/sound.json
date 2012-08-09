@@ -1,47 +1,27 @@
 {
 	"fire" : {
 		"path" : "sound/fire.mp3"
-	}
-}
-
-{
+	},
 	"gas" : {
 		"path" : "sound/gas.mp3"
-	}
-}
+	},
 
-{
 	"rock" : {
 		"path" : "sound/rock.mp3"
-	}
-}
-
-{
+	},
 	"water" : {
 		"path" : "sound/water.mp3"
-	}
-}
-
-{
-	"spaceFire" : {
+	},
+	"spacefire" : {
 		"path" : "sound/spaceFire.mp3"
-	}
-}
-
-{
-	"spaceGas" : {
+	},
+	"spacegas" : {
 		"path" : "sound/spaceGas.mp3"
-	}
-}
-
-{
-	"spaceRock" : {
+	},
+	"spacerock" : {
 		"path" : "sound/spaceRock.mp3"
-	}
-}
-
-{
-	"spaceWater" : {
+	},
+	"spacewater" : {
 		"path" : "sound/spaceWater.mp3"
 	}
 }
