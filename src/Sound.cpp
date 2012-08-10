@@ -23,7 +23,7 @@ void Sound::deserialize() {
 		if ( (*it).compare(0, compareString.length(), compareString) == 0) {
 			size_t pos = compareString.length();
 			string insertString = (*it).substr(pos);
-			spaceSounds.insert( pair<string, string>(insertString, json[(*it)]["path"].asString()) );7
+			spaceSounds.insert( pair<string, string>(insertString, json[(*it)]["path"].asString()) );
 		}
 		else {
 			elementSounds.insert( pair<string, string>((*it), json[(*it)]["path"].asString()) );
