@@ -31,12 +31,12 @@ void testApp::setup(){
 	deserializeSound();
 	deserializeModificator();
 
-	udpConnection.Create();
+	/*udpConnection.Create();
 	udpConnection.SetEnableBroadcast(true);
 	udpConnection.Bind(config.getNumber("udpPort"));
 	udpConnection.BindMcast((char*)config.getString("multicastGroup").c_str(), config.getNumber("multicastPort"));
 	udpConnection.ConnectMcast((char*)config.getString("multicastGroup").c_str(), config.getNumber("multicastPort"));
-	udpConnection.SetNonBlocking(true);
+	udpConnection.SetNonBlocking(true);*/
 
 
 	this->configFile.open(ofToDataPath("config.json"), ofFile::ReadWrite, false);
@@ -219,12 +219,12 @@ void testApp::udpBroadcast() {
 }
 // nc -u 127.0.0.1 11999 connect via udp to localhost:11999
 void testApp::udpListener() {
-	char udpMessage[100000];
+	/*char udpMessage[100000];
 	udpConnection.Receive(udpMessage,100000);
 	string message = udpMessage;
 	if(message != "") {
 		cout << message << endl;
-	}
+	}*/
 }
 
 void testApp::udpSender(string json) {

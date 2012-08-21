@@ -25,6 +25,11 @@ void Sound::deserialize() {
 			string insertString = (*it).substr(pos);
 			spaceSounds.insert( pair<string, string>(insertString, json[(*it)]["path"].asString()) );
 		}
+		else if( (*it) == "genesis") {
+			genesis.loadSound(json[(*it)]["path"].asString());
+			genesis.setLoop(true);
+			genesis.setMultiPlay(true);
+		}
 		else {
 			elementSounds.insert( pair<string, string>((*it), json[(*it)]["path"].asString()) );
 		}

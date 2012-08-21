@@ -19,12 +19,14 @@ public:
 	//const ofSoundPlayer getSoundPlayer(string nameOfSound);
 	map<string, ofSoundPlayer> getAllElementPlayers();
 	map<string, ofSoundPlayer> getAllSpacePlayers();
+	void playSound(string name);
 	virtual ~Sound();
 
 	map<string, string> spaceSounds, elementSounds;
 private:
 	Json::Value json;
 	string compareString;
+	ofSoundPlayer genesis;
 };
 
 #endif /* SOUND_H_ */

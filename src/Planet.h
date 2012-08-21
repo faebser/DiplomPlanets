@@ -28,6 +28,7 @@ public:
 	void draw();
 	void generateTexture();
 	void updateSound();
+	void updateSoundOnDraw();
 
 	// getter
 	string* getPlanetName();

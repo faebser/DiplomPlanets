@@ -1,2 +1,0 @@
-ofxThread
-ofxNetwork

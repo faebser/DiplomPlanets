@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxNetwork.h"
+//#include "ofxNetwork.h"
 #include "json/json.h"
 #include "Sound.h"
 #include "Config.h"
@@ -77,6 +77,6 @@ class testApp : public ofBaseApp{
 		int player;
 		Config config;
 		Sound sound;
-		ofxUDPManager udpConnection;
+		//ofxUDPManager udpConnection;
 
 };

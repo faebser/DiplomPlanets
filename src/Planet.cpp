@@ -65,7 +65,11 @@ void Planet::updateSound() {
 	}
 	float distance = ((getResizedRadius() - pos.y) / ofGetWindowWidth() * 0.5) * config->getNumber("maxDampingOnYForElements");
 	cout << "distance-> " << distance << endl;
+}
 
+void Planet::updateSoundOnDraw() {
+	ofVec2f cameraPos = ofVec2f(0,0);
+	ofVec2f dist = cameraPos - pos;
 }
 
 void Planet::baseConstructor() {
