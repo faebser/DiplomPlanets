@@ -56,12 +56,12 @@ void Planet::updateSound() {
 		string type = it->getType();
 		float volume = ofMap(getResourceValueNormalized(type), config->getNumber("setVolumeMin"),config->getNumber("setVolumeMax"), 0, 1);
 		soundIt = elementSounds.find(type);
-		if(soundIt->second.getIsPlaying() == false) { // TODO remove from here
-			soundIt->second.play();
-		}
+		soundIt->second.play();
 		soundIt->second.setVolume(volume);
-		soundIt = spaceSounds.find(type);
-		soundIt->second.setVolume(volume * config->getNumber("dampFromElementToSpace"));
+		soundIt->second.setSpeed(2);
+		cout << "volume " << soundIt->second.getVolume() << endl;
+		//soundIt = spaceSounds.find(type);
+		//soundIt->second.setVolume(volume * config->getNumber("dampFromElementToSpace");
 	}
 	float distance = ((getResizedRadius() - pos.y) / ofGetWindowWidth() * 0.5) * config->getNumber("maxDampingOnYForElements");
 	cout << "distance-> " << distance << endl;

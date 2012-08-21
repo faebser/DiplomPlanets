@@ -136,7 +136,10 @@ void testApp::keyPressed(int key){
 		}
 	}
 	else if(key == 'n') {
-		this->addPlanet(Planet(&config, &sound));
+		Planet newPlanet = Planet(&config, &sound);
+		newPlanet.setPlanetName("123");
+		newPlanet.setPlayerName("1234");
+		this->addPlanet(newPlanet);
 	}
 	else if(key == '1') {
 		player = 1;
