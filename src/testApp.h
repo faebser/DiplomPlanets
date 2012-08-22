@@ -77,6 +77,7 @@ class testApp : public ofBaseApp{
 		int player;
 		Config config;
 		Sound sound;
+		ofEasyCam cam1;
 		//ofxUDPManager udpConnection;
 
 };

@@ -22,6 +22,8 @@ void testApp::setup(){
 
 
 	ofSetFrameRate(60);
+	cam1.setDistance(200);
+
 
 	/**
 	 * fire up the methods that load the files and sets up the config, the sound
@@ -67,6 +69,8 @@ void testApp::setup(){
 	views[1].setConfig(config);
 	views[1].setModificators(&modificators);
 	activeView = &views[0];
+	config.setMiddle(&activeView->middle);
+	cam1.setTarget(ofVec3f(activeView->middle.x, activeView->middle.y, 0));
 }
 void testApp::getNames() {
 	if(waitForInput == true) {
@@ -102,7 +106,9 @@ void testApp::draw(){
 		this->getNames();
 	}
 	else {
+		cam1.begin();
 		activeView->draw(this->planetsToDisplay);
+		cam1.end();
 	}
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
 	ofDrawBitmapString(fpsStr, 20,20);
@@ -147,6 +153,18 @@ void testApp::keyPressed(int key){
 	else if(key == '2') {
 		player = 2;
 	}
+	switch(key) {
+			case 'M':
+			case 'm':
+				if(cam1.getMouseInputEnabled()) cam1.disableMouseInput();
+				else cam1.enableMouseInput();
+				break;
+
+			case 'F':
+			case 'f':
+				ofToggleFullscreen();
+				break;
+		}
 }
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
@@ -263,7 +281,6 @@ void testApp::deserializeConfig() {
 			else {
 				config = Config(generalConfig);
 				config.deserialize();
-				config.setMiddle(&activeView->middle);
 			}
 		}
 }

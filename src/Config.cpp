@@ -128,11 +128,11 @@ Config::~Config() {
 	// TODO Auto-generated destructor stub
 }
 
-ofCamera Config::getCam() const {
+ofEasyCam Config::getCam() const {
 	return cam;
 }
 
-void Config::setCam(ofCamera cam) {
+void Config::setCam(ofEasyCam cam) {
 	this->cam = cam;
 }
 
