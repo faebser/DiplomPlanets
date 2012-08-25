@@ -25,15 +25,12 @@ View::View(string type) {
 	// specular color, the highlight/shininess color //
 	sun.setSpecularColor( ofColor(255.f, 255.f, 0.f));
 	sun.setPointLight();
-
-	//config.getCam().setPosition(20, 20 ,-100);
-	//config.getCam().setTarget(sunPos);
 }
 
 void View::update(vector<Planet>* planets) {
 	vector<Planet>::iterator it, end;
 	end = planets->end();
-	bool newRound = (int)ofGetElapsedTimeMillis() % (int)config.getNumber("roundDuration") < 10;
+	bool newRound = (int)ofGetElapsedTimeMillis() % (int)config->getNumber("roundDuration") < 10;
 	for(it = planets->begin();it < end; ++it) {
 		if(newRound) {
 			(*it).clearModificator();
@@ -54,12 +51,14 @@ void View::windowResize(int w, int h) {
 }
 
 void View::draw(vector<Planet*> planets) {
+	config->getCam()->begin();
 	if(this->type == "overview") {
 		this->drawOverview(planets);
 	}
 	else if(this->type == "singlePlanet") {
 		this->drawPlanet(planets);
 	}
+	config->getCam()->end();
 }
 void View::drawOverview(vector<Planet*> planets) {
 	ofPushStyle();
@@ -115,7 +114,7 @@ string View::getType() {
 ofVec2f View::getMiddle() {
 	return this->middle;
 }
-void View::setConfig(Config config) {
+void View::setConfig(Config* config) {
 	this->config = config;
 }
 View::~View() {

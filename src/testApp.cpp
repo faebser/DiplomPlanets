@@ -22,7 +22,6 @@ void testApp::setup(){
 
 
 	ofSetFrameRate(60);
-	cam1.setDistance(200);
 
 
 	/**
@@ -64,13 +63,13 @@ void testApp::setup(){
 	vector<string> viewList = config.getViewTypes();
 	views.push_back(View(viewList[0]));
 	views.push_back(View(viewList[1]));
-	views[0].setConfig(config);
+	views[0].setConfig(&config);
 	views[0].setModificators(&modificators);
-	views[1].setConfig(config);
+	views[1].setConfig(&config);
 	views[1].setModificators(&modificators);
 	activeView = &views[0];
 	config.setMiddle(&activeView->middle);
-	cam1.setTarget(ofVec3f(activeView->middle.x, activeView->middle.y, 0));
+	config.setCam(&cam);
 }
 void testApp::getNames() {
 	if(waitForInput == true) {
@@ -106,9 +105,7 @@ void testApp::draw(){
 		this->getNames();
 	}
 	else {
-		cam1.begin();
 		activeView->draw(this->planetsToDisplay);
-		cam1.end();
 	}
 	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
 	ofDrawBitmapString(fpsStr, 20,20);
@@ -156,8 +153,8 @@ void testApp::keyPressed(int key){
 	switch(key) {
 			case 'M':
 			case 'm':
-				if(cam1.getMouseInputEnabled()) cam1.disableMouseInput();
-				else cam1.enableMouseInput();
+				if(cam.getMouseInputEnabled()) cam.disableMouseInput();
+				else cam.enableMouseInput();
 				break;
 
 			case 'F':

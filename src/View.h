@@ -25,14 +25,14 @@ public:
 	string getType();
 	ofVec2f getMiddle();
 	virtual ~View();
-	void setConfig(Config config);
+	void setConfig(Config* config);
 	void setModificators(vector<Modificator>* modificators);
 	ofVec2f middle;
 private:
 	ofLight sun;
 	ofVec3f sunPos;
 	string type;
-	Config config;
+	Config* config;
 	vector<Modificator>* modificators;
 };
 

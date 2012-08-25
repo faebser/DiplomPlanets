@@ -128,12 +128,14 @@ Config::~Config() {
 	// TODO Auto-generated destructor stub
 }
 
-ofEasyCam Config::getCam() const {
+ofEasyCam* Config::getCam() {
 	return cam;
 }
 
-void Config::setCam(ofEasyCam cam) {
+void Config::setCam(ofEasyCam* cam) {
 	this->cam = cam;
+	this->cam->setDistance(100);
+	this->cam->setTarget(ofVec3f(middle->x, middle->y, 0));
 }
 
 
