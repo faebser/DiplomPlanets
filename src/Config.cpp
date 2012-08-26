@@ -131,10 +131,10 @@ Config::~Config() {
 ofEasyCam* Config::getCam() {
 	return cam;
 }
-
 void Config::setCam(ofEasyCam* cam) {
 	this->cam = cam;
-	this->cam->setDistance(100);
+	//this->cam->setPosition(1560, 1066, 190);
+	this->cam->setDistance(200);
 	this->cam->setTarget(ofVec3f(middle->x, middle->y, 0));
 }
 

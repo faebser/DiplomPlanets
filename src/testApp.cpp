@@ -107,8 +107,12 @@ void testApp::draw(){
 	else {
 		activeView->draw(this->planetsToDisplay);
 	}
-	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2)+ " // player: " + ofToString(player);
+	string fpsStr = "frame rate: "+ofToString(ofGetFrameRate(), 2);
+//	string camStr = "camera pos: " + ofToString(cam.getOrientationEuler().x) + " / " + ofToString(cam.getOrientationEuler().y) + " / " + ofToString(cam.getOrientationEuler().z);
+//	string camStr2 = "camera roll: " + ofToString(cam.getRoll());
 	ofDrawBitmapString(fpsStr, 20,20);
+//	ofDrawBitmapString(camStr, 20, 35);
+//	ofDrawBitmapString(camStr2, 20, 45);
 }
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
@@ -151,15 +155,15 @@ void testApp::keyPressed(int key){
 		player = 2;
 	}
 	switch(key) {
-			case 'M':
-			case 'm':
-				if(cam.getMouseInputEnabled()) cam.disableMouseInput();
-				else cam.enableMouseInput();
-				break;
-
 			case 'F':
 			case 'f':
 				ofToggleFullscreen();
+				break;
+			case OF_KEY_LEFT:
+				cam.roll(-.5);
+				break;
+			case OF_KEY_RIGHT:
+				cam.roll(+0.5);
 				break;
 		}
 }

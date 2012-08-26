@@ -69,17 +69,31 @@ void Planet::updateSound() {
 void Planet::updateSoundOnDraw() {
 	ofVec3f cameraPos = config->getCam()->getPosition();
 	float maxYDist, minYDist, maxXDist, minXDist;
-	maxYDist = cameraPos.y - config->getMiddle().y + radius;
-	minYDist = cameraPos.y - config->getMiddle().y - radius;
-	maxXDist = cameraPos.x + radius;
-	minXDist = cameraPos.x - radius;
+	maxYDist = cameraPos.y - config->getMiddle().y + getResizedRadius();
+	minYDist = cameraPos.y - config->getMiddle().y - getResizedRadius();
+	maxXDist = cameraPos.x + getResizedRadius();
+	minXDist = cameraPos.x - getResizedRadius();
 	ofVec3f dist;
 	dist.y = cameraPos.y - pos.y;
-	dist.x = pos.x - cameraPos.x;
+	dist.x = cameraPos.x - pos.x;
 	// setting the volume
 	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
 	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
 	float pan = ofMap(dist.x, minXDist, maxXDist, config->getNumber("panMin"), config->getNumber("panMax"));
+
+	string fpsStr = "Distance: X -> "+ ofToString(dist.x) + " Y -> " + ofToString(dist.y) + "\n";
+	string str2 = "Volume: Element-> " + ofToString(volumeElement) + " Space-> " + ofToString(volumeSpace) + "\n";
+	string str3 = "Pan-> " + ofToString(pan) + "\n";
+	cout << "radius -> " << ofToString(getResizedRadius()) << "\n";
+	cout << "pos     X-> " + ofToString(pos.x) + " Y -> " + ofToString(pos.y) << "\n";
+	cout << "cam     X-> " + ofToString(config->getCam()->getPosition().x) + " Y -> " + ofToString(config->getCam()->getPosition().y) << "\n";
+	cout << "minDist X-> " + ofToString(minXDist) + " Y -> " + ofToString(minYDist) << "\n";
+	cout << "maxDist X-> " + ofToString(maxXDist) + " Y -> " + ofToString(maxYDist) << "\n";
+	cout << fpsStr;
+	cout << str2;
+	cout << str3 << "\n" << endl;
+
+
 
 	map<string, ofSoundPlayer>::iterator it = elementSounds.begin(), end = elementSounds.end();
 	for(;it != end; ++it) {

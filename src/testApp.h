@@ -79,5 +79,4 @@ class testApp : public ofBaseApp{
 		Sound sound;
 		ofEasyCam cam;
 		//ofxUDPManager udpConnection;
-
 };
