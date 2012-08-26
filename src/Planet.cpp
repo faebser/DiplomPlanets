@@ -77,8 +77,8 @@ void Planet::updateSoundOnDraw() {
 	dist.y = cameraPos.y - pos.y;
 	dist.x = cameraPos.x - pos.x;
 	// setting the volume
-	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
-	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
+	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
+	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
 	float pan = ofMap(dist.x, minXDist, maxXDist, config->getNumber("panMin"), config->getNumber("panMax"));
 
 	string fpsStr = "Distance: X -> "+ ofToString(dist.x) + " Y -> " + ofToString(dist.y) + "\n";
