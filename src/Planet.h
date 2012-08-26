@@ -50,9 +50,11 @@ public:
 	void clicked(int player);
 	void newRound();
 	void setSound(Sound* sound);
+	void playAllSounds();
 private:
 	void baseConstructor();
 	map<string, ofSoundPlayer> elementSounds, spaceSounds;
+	map<string, float> realVolume;
 	Sound* sound;
 	Config* config;
 	vector<Resource> resources;

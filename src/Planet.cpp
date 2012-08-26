@@ -17,7 +17,6 @@ Planet::Planet() { //used for a really new planet
 	this->velocity = ofRandom(-0.003, 0.003); //TODO fix velocity
 	this->angle = ofRandom(0,TWO_PI);
 	baseConstructor();
-	// ::update and ::generateTexture will be called after creation of Planet
 }
 Planet::Planet(Config* config, Sound* sound) { //used for a really new planet
 	this->config = config;
@@ -39,10 +38,6 @@ void Planet::addModificator(Modificator* newMod) {
 }
 
 void Planet::clearModificator() {
-	/*vector<Modificator*>::iterator it = modificators.begin(), end = modificators.end();
-	for(; it < end; ++it) {
-		delete it;
-	}*/
 	modificators.clear();
 }
 float Planet::getResourceValueNormalized(string resName) {
@@ -52,24 +47,67 @@ float Planet::getResourceValueNormalized(string resName) {
 void Planet::updateSound() {
 	vector<Resource>::iterator it;
 	map<string, ofSoundPlayer>::iterator soundIt;
-	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
+	map<string, float>::iterator volumeIt;
+	for(it = this->resources.begin(); it < this->resources.end(); ++it) { //todo Speed
 		string type = it->getType();
-		float volume = ofMap(getResourceValueNormalized(type), config->getNumber("setVolumeMin"),config->getNumber("setVolumeMax"), 0, 1);
+		float volume = ofMap(getResourceValueNormalized(type), 0, 1, config->getNumber("setVolumeMin"),config->getNumber("setVolumeMax"));
 		soundIt = elementSounds.find(type);
-		soundIt->second.play();
 		soundIt->second.setVolume(volume);
-		soundIt->second.setSpeed(2);
-		cout << "volume " << soundIt->second.getVolume() << endl;
-		//soundIt = spaceSounds.find(type);
-		//soundIt->second.setVolume(volume * config->getNumber("dampFromElementToSpace");
+		soundIt = spaceSounds.find(type);
+		soundIt->second.setVolume(volume*config->getNumber("dampFromElementToSpace"));
+		volumeIt = realVolume.find(type);
+		if(volumeIt != realVolume.end()) {
+			volumeIt->second = volume;
+		}
+		else {
+			realVolume.insert(pair<string, float>(type, volume));
+		}
 	}
-	float distance = ((getResizedRadius() - pos.y) / ofGetWindowWidth() * 0.5) * config->getNumber("maxDampingOnYForElements");
-	cout << "distance-> " << distance << endl;
+	playAllSounds();
 }
 
 void Planet::updateSoundOnDraw() {
-	ofVec2f cameraPos = ofVec2f(0,0);
-	ofVec2f dist = cameraPos - pos;
+	ofVec3f cameraPos = config->getCam()->getPosition();
+	float maxYDist, minYDist, maxXDist, minXDist;
+	maxYDist = cameraPos.y - config->getMiddle().y + radius;
+	minYDist = cameraPos.y - config->getMiddle().y - radius;
+	maxXDist = cameraPos.x + radius;
+	minXDist = cameraPos.x - radius;
+	ofVec3f dist;
+	dist.y = cameraPos.y - pos.y;
+	dist.x = pos.x - cameraPos.x;
+	// setting the volume
+	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
+	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
+	float pan = ofMap(dist.x, minXDist, maxXDist, config->getNumber("panMin"), config->getNumber("panMax"));
+
+	map<string, ofSoundPlayer>::iterator it = elementSounds.begin(), end = elementSounds.end();
+	for(;it != end; ++it) {
+		it->second.setVolume(realVolume.find(it->first)->second * volumeElement);
+		it->second.setPan(pan);
+	}
+	it = spaceSounds.begin();
+	end = spaceSounds.end();
+	for(;it != end; ++it) {
+		it->second.setVolume(realVolume.find(it->first)->second * volumeSpace);
+		it->second.setPan(pan);
+	}
+}
+
+void Planet::playAllSounds() {
+	map<string, ofSoundPlayer>::iterator it = elementSounds.begin(), end = elementSounds.end();
+	for(;it != end; ++it) {
+		if(!it->second.getIsPlaying()) {
+			it->second.play();
+		}
+	}
+	it = spaceSounds.begin();
+	end = spaceSounds.end();
+	for(;it != end; ++it) {
+		if(!it->second.getIsPlaying()) {
+			it->second.play();
+		}
+	}
 }
 
 void Planet::baseConstructor() {
@@ -104,6 +142,7 @@ void Planet::sendResource(Resource* outgoingResource, string* planetName) {
 void Planet::update() {
 	angle += velocity;
 	this->pos.set( sin(this->angle) * this->getResizedRadius() , cos(this->angle) * this->getResizedRadius());
+	updateSoundOnDraw();
 }
 void Planet::generateTexture() {
 	sort(resources.begin(), resources.end(), compareByAmount);
@@ -209,16 +248,14 @@ float Planet::getResizedRadius() {
 }
 float Planet::getResourceValueAsPercent(string resName) {
 	float total = 0, amount = 0;
-	vector<Resource>::iterator it, end;
-	it = resources.begin();
-	end = resources.end();
+	vector<Resource>::iterator it = resources.begin(), end = resources.end();
 	for(;it < end; ++it) {
 		total += (*it).getAmount();
 		if((*it).getType() == resName) {
 			amount = (*it).getAmount();
 		}
 	}
-	return total/amount;
+	return amount/total*100;
 }
 // setter
 void Planet::setPlanetName(string name) {

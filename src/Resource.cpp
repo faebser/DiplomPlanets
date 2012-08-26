@@ -12,7 +12,7 @@ Resource::Resource() {
 }
 Resource::Resource(string type) {
 	this->type = type;
-	//this->amount = parent->getRandomStartAmount();
+	this->amount = ofRandom(1,10);
 }
 string Resource::getType() {
 	return type;
