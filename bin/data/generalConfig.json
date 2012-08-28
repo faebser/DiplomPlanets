@@ -1,6 +1,8 @@
 {
 	"udpPort" : 11999,
 	"multicastPort" : 11998,
+	"minSpeed" : -0.3,
+	"maxSpeed" : 0.3,
 	"multicastGroup" : "planetsFabu",
 	"habitableZone" : 500,
 	"maxRadius" : 10000,
@@ -44,14 +46,14 @@
 			]
 	},
 	"spaceCompareString" : "space",
+	"dampFromElementToSpace": 0.1,
 	"setVolumeMax" : 1.0,
 	"setVolumeMin" : 0.1,
-	"dampFromElementToSpace" : 0.1,
-	"maxDampingOnYForElements" : 0.3,
-	"maxDamingOnYForSpace" : 1.0,
+	"distanceDampMin" : 0.3,
+	"distanceDampMax" : 1.0,
 	"startPos" : 0.0,
-	"setSpeedMin" : 0.125,
-	"setSpeedMax" : 4.0,
-	"panMaxLeft" : -0.7,
-	"panMaxRight" : 0.7
+	"soundSpeedMin" : 0.125,
+	"soundSpeedMax" : 8.0,
+	"panMin" : -0.7,
+	"panMax" : 0.7
 }
