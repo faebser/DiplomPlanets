@@ -52,8 +52,8 @@
 	"distanceDampMin" : 0.1,
 	"distanceDampMax" : 1.0,
 	"startPos" : 0.0,
-	"setSpeedMin" : 0.5,
-	"setSpeedMax" : 2.0,
+	"soundSpeedMin" : 0.5,
+	"soundSpeedMax" : 2.0,
 	"panMin" : -1.0,
 	"panMax" : 1.0
 }

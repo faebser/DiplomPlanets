@@ -43,18 +43,20 @@ void Planet::clearModificator() {
 float Planet::getResourceValueNormalized(string resName) {
 	return getResourceValueAsPercent(resName)*0.01;
 }
-
 void Planet::updateSound() {
 	vector<Resource>::iterator it;
 	map<string, ofSoundPlayer>::iterator soundIt;
 	map<string, float>::iterator volumeIt;
-	for(it = this->resources.begin(); it < this->resources.end(); ++it) { //todo Speed
+	float speed = ofMap(velocity, config->getNumber("minSpeed"), config->getNumber("maxSpeed"), config->getNumber("soundSpeedMin"), config->getNumber("soundSpeedMax"));
+	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
 		string type = it->getType();
 		float volume = ofMap(getResourceValueNormalized(type), 0, 1, config->getNumber("setVolumeMin"),config->getNumber("setVolumeMax"));
 		soundIt = elementSounds.find(type);
 		soundIt->second.setVolume(volume);
+		soundIt->second.setSpeed(speed);
 		soundIt = spaceSounds.find(type);
 		soundIt->second.setVolume(volume*config->getNumber("dampFromElementToSpace"));
+		soundIt->second.setSpeed(speed);
 		volumeIt = realVolume.find(type);
 		if(volumeIt != realVolume.end()) {
 			volumeIt->second = volume;
@@ -65,7 +67,6 @@ void Planet::updateSound() {
 	}
 	playAllSounds();
 }
-
 void Planet::updateSoundOnDraw() {
 	ofVec3f cameraPos = config->getCam()->getPosition();
 	float maxYDist, minYDist, maxXDist, minXDist;
@@ -75,7 +76,7 @@ void Planet::updateSoundOnDraw() {
 	minXDist = cameraPos.x - getResizedRadius();
 	ofVec3f dist;
 	dist.y = cameraPos.y + pos.y;
-	dist.x = cameraPos.x + pos.x;
+	dist.x = config->getMiddle().x + pos.x;
 	// setting the volume
 	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
 	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
