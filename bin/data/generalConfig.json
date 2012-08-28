@@ -1,0 +1,57 @@
+{
+	"udpPort" : 11999,
+	"multicastPort" : 11998,
+	"multicastGroup" : "planetsFabu",
+	"habitableZone" : 500,
+	"maxRadius" : 10000,
+	"minRadius" : 50,
+	"minStartAmount" : 0,
+	"maxStartAmount" : 5,
+	"roundDuration" : 10000,
+	"planets" : [
+		"star",
+		"rock",
+		"gas",
+		"water",
+		"sun"
+	],
+	"resources" : [
+		"fire",
+		"water",
+		"gas",
+		"rock"
+	],
+	"views" : [
+		"overview",
+		"singlePlanet"
+	],
+	"colors": {
+		"fire" : [
+			[241, 135, 72]
+			],
+		"water" : [
+			[60, 65, 84]
+			],
+		"gas"	: [
+			[131, 189, 228],
+			[199, 161, 99]
+		],
+		"rock" : [
+			[65, 52, 52]
+			],
+		"gras" : [
+			[12, 90, 29]
+			]
+	},
+	"spaceCompareString" : "space",
+	"setVolumeMax" : 1.0,
+	"setVolumeMin" : 0.1,
+	"dampFromElementToSpace" : 0.1,
+	"maxDampingOnYForElements" : 0.3,
+	"maxDamingOnYForSpace" : 1.0,
+	"startPos" : 0.0,
+	"setSpeedMin" : 0.125,
+	"setSpeedMax" : 4.0,
+	"panMaxLeft" : -0.7,
+	"panMaxRight" : 0.7
+}
