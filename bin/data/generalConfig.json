@@ -49,11 +49,11 @@
 	"dampFromElementToSpace": 0.1,
 	"setVolumeMax" : 1.0,
 	"setVolumeMin" : 0.1,
-	"distanceDampMin" : 0.1,
+	"distanceDampMin" : 0.3,
 	"distanceDampMax" : 1.0,
 	"startPos" : 0.0,
-	"setSpeedMin" : 0.5,
-	"setSpeedMax" : 2.0,
-	"panMin" : -1.0,
-	"panMax" : 1.0
+	"setSpeedMin" : 0.125,
+	"setSpeedMax" : 4.0,
+	"panMin" : -0.7,
+	"panMax" : 0.7
 }
