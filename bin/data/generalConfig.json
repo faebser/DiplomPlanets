@@ -1,8 +1,8 @@
 {
 	"udpPort" : 11999,
 	"multicastPort" : 11998,
-	"minSpeed" : -0.3,
-	"maxSpeed" : 0.3,
+	"minSpeed" : -0.003,
+	"maxSpeed" : 0.003,
 	"multicastGroup" : "planetsFabu",
 	"habitableZone" : 500,
 	"maxRadius" : 10000,

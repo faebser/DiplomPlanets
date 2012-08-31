@@ -66,8 +66,6 @@ void Planet::updateSound() {
 			realVolume.insert(pair<string, float>(type, volume));
 		}
 	}
-	cout << "velocity   -> " << ofToString(velocity) << endl;
-	cout << "soundSpeed -> " << ofToString(speed) << endl;
 	playAllSounds();
 }
 void Planet::updateSoundOnDraw() {
@@ -85,7 +83,7 @@ void Planet::updateSoundOnDraw() {
 	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
 	float pan = ofMap(dist.x, minXDist, maxXDist, config->getNumber("panMin"), config->getNumber("panMax"));
 
-	/*string fpsStr = "Distance: X -> "+ ofToString(dist.x) + " Y -> " + ofToString(dist.y) + "\n";
+	string fpsStr = "Distance: X -> "+ ofToString(dist.x) + " Y -> " + ofToString(dist.y) + "\n";
 	string str2 = "Volume: Element-> " + ofToString(volumeElement) + " Space-> " + ofToString(volumeSpace) + "\n";
 	string str3 = "Pan-> " + ofToString(pan) + "\n";
 	cout << "radius -> " << ofToString(getResizedRadius()) << "\n";
@@ -96,7 +94,7 @@ void Planet::updateSoundOnDraw() {
 	cout << "maxDist X-> " + ofToString(maxXDist) + " Y -> " + ofToString(maxYDist) << "\n";
 	cout << fpsStr;
 	cout << str2;
-	cout << str3 << endl;*/
+	cout << str3 << endl;
 
 	map<string, ofSoundPlayer>::iterator it = elementSounds.begin(), end = elementSounds.end();
 	for(;it != end; ++it) {
