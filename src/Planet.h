@@ -51,6 +51,7 @@ public:
 	void newRound();
 	void setSound(Sound* sound);
 	void playAllSounds();
+	void stopAllSounds();
 private:
 	void baseConstructor();
 	map<string, ofSoundPlayer> elementSounds, spaceSounds;

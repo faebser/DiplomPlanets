@@ -265,6 +265,9 @@ float testApp::getRandomPlanetRadius() {
 int testApp::getRandomStartAmount() {
 	return (int)ofRandom(config.getNumber("minStartAmount"), config.getNumber("maxStartAmount"));
 }
+void testApp::exit() {
+}
+
 Config testApp::getConfig() {
 		return config;
 	}

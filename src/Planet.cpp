@@ -77,7 +77,7 @@ void Planet::updateSoundOnDraw() {
 	minXDist = cameraPos.x - getResizedRadius();
 	ofVec3f dist;
 	dist.y = cameraPos.y + pos.y;
-	dist.x = config->getMiddle().x + pos.x;
+	dist.x = cameraPos.x + pos.x;
 	// setting the volume
 	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
 	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
@@ -95,6 +95,8 @@ void Planet::updateSoundOnDraw() {
 	cout << fpsStr;
 	cout << str2;
 	cout << str3 << endl;
+	cout << "velocity  -> " + ofToString(velocity) << endl;
+	cout << "soundSpeed-> " + ofToString(elementSounds.begin()->second.getSpeed()) << endl;
 
 	map<string, ofSoundPlayer>::iterator it = elementSounds.begin(), end = elementSounds.end();
 	for(;it != end; ++it) {
@@ -121,6 +123,22 @@ void Planet::playAllSounds() {
 	for(;it != end; ++it) {
 		if(!it->second.getIsPlaying()) {
 			it->second.play();
+		}
+	}
+}
+
+void Planet::stopAllSounds() {
+	map<string, ofSoundPlayer>::iterator it = elementSounds.begin(), end = elementSounds.end();
+	for(;it != end; ++it) {
+		if(!it->second.getIsPlaying()) {
+			it->second.stop();
+		}
+	}
+	it = spaceSounds.begin();
+	end = spaceSounds.end();
+	for(;it != end; ++it) {
+		if(!it->second.getIsPlaying()) {
+			it->second.stop();
 		}
 	}
 }
@@ -291,14 +309,15 @@ void Planet::setVelocity(float v) {
 void Planet::setPos(float x, float y) {
 	this->pos.set(x,y);
 }
-Planet::~Planet() {
-}
 
 vector<Resource> Planet::getResources() const {
 	return resources;
 }
 void Planet::setSound(Sound* sound) {
 	this->sound = sound;
+}
+Planet::~Planet() {
+	stopAllSounds();
 }
 
 
