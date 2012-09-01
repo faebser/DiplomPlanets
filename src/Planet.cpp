@@ -51,19 +51,27 @@ void Planet::updateSound() {
 	float speed = ofMap(velocity, config->getNumber("minSpeed"), config->getNumber("maxSpeed"), config->getNumber("soundSpeedMin"), config->getNumber("soundSpeedMax"));
 	for(it = this->resources.begin(); it < this->resources.end(); ++it) {
 		string type = it->getType();
-		float volume = ofMap(getResourceValueNormalized(type), 0, 1, config->getNumber("setVolumeMin"),config->getNumber("setVolumeMax"));
+		float volumeElement = ofMap(getResourceValueNormalized(type), 0, 1, config->getNumber("setVolumeElementMin"),config->getNumber("setVolumeElementMax"));
+		float volumeSpace = ofMap(getResourceValueNormalized(type), 0, 1, config->getNumber("setVolumeSpaceMin"),config->getNumber("setVolumeSpaceMin"));
 		soundIt = elementSounds.find(type);
-		soundIt->second.setVolume(volume);
+		soundIt->second.setVolume(volumeElement);
 		soundIt->second.setSpeed(speed);
 		soundIt = spaceSounds.find(type);
-		soundIt->second.setVolume(volume*config->getNumber("dampFromElementToSpace"));
+		soundIt->second.setVolume(volumeSpace);
 		soundIt->second.setSpeed(speed);
-		volumeIt = realVolume.find(type);
-		if(volumeIt != realVolume.end()) {
-			volumeIt->second = volume;
+		volumeIt = realElementVolume.find(type);
+		if(volumeIt != realElementVolume.end()) {
+			volumeIt->second = volumeElement;
 		}
 		else {
-			realVolume.insert(pair<string, float>(type, volume));
+			realElementVolume.insert(pair<string, float>(type, volumeElement));
+		}
+		volumeIt = realSpaceVolume.find(type);
+		if(volumeIt != realSpaceVolume.end()) {
+			volumeIt->second = volumeSpace;
+		}
+		else {
+			realSpaceVolume.insert(pair<string, float>(type, volumeSpace));
 		}
 	}
 	playAllSounds();
@@ -100,13 +108,13 @@ void Planet::updateSoundOnDraw() {
 
 	map<string, ofSoundPlayer>::iterator it = elementSounds.begin(), end = elementSounds.end();
 	for(;it != end; ++it) {
-		it->second.setVolume(realVolume.find(it->first)->second * volumeElement);
+		it->second.setVolume(realElementVolume.find(it->first)->second * volumeElement);
 		it->second.setPan(pan);
 	}
 	it = spaceSounds.begin();
 	end = spaceSounds.end();
 	for(;it != end; ++it) {
-		it->second.setVolume(realVolume.find(it->first)->second * volumeSpace);
+		it->second.setVolume(realSpaceVolume.find(it->first)->second * volumeSpace);
 		it->second.setPan(pan);
 	}
 }

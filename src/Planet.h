@@ -55,7 +55,7 @@ public:
 private:
 	void baseConstructor();
 	map<string, ofSoundPlayer> elementSounds, spaceSounds;
-	map<string, float> realVolume;
+	map<string, float> realElementVolume, realSpaceVolume;
 	Sound* sound;
 	Config* config;
 	vector<Resource> resources;

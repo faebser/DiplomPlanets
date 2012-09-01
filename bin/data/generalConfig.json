@@ -46,9 +46,12 @@
 			]
 	},
 	"spaceCompareString" : "space",
-	"dampFromElementToSpace": 0.3,
 	"setVolumeMax" : 1.0,
 	"setVolumeMin" : 0.1,
+	"setVolumeElementMin" : 0.1,
+	"setVolumeElementMax" : 1.0,
+	"setVolumeSpaceMin" : 0.1,
+	"setVolumeSpaceMax" : 1.0,
 	"distanceDampMin" : 0.2,
 	"distanceDampMax" : 1.0,
 	"startPos" : 0.0,
