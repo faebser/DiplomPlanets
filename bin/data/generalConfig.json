@@ -46,14 +46,14 @@
 			]
 	},
 	"spaceCompareString" : "space",
-	"dampFromElementToSpace": 0.1,
+	"dampFromElementToSpace": 0.3,
 	"setVolumeMax" : 1.0,
 	"setVolumeMin" : 0.1,
-	"distanceDampMin" : 0.3,
+	"distanceDampMin" : 0.2,
 	"distanceDampMax" : 1.0,
 	"startPos" : 0.0,
-	"soundSpeedMin" : 0.125,
-	"soundSpeedMax" : 8.0,
-	"panMin" : -0.7,
-	"panMax" : 0.7
+	"soundSpeedMin" : 0.25,
+	"soundSpeedMax" : 4.0,
+	"panMin" : -0.6,
+	"panMax" : 0.6
 }
