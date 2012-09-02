@@ -20,7 +20,8 @@ void testApp::setup(){
 	inputString = "";
 	newPlayer = false;
 
-	testFbo.allocate(ofGetWidth()/2, ofGetHeight()/2, GL_RGB, 1);
+	testFbo.allocate(ofGetWidth()/2, ofGetHeight()/2, GL_RGBA, 1);
+	doPick = false;
 	lastTestedFrame = 0;
 	ofSetFrameRate(60);
 
@@ -114,6 +115,11 @@ void testApp::draw(){
 	ofDrawBitmapString(fpsStr, 20,20);
 //	ofDrawBitmapString(camStr, 20, 35);
 //	ofDrawBitmapString(camStr2, 20, 45);
+
+	if(doPick){
+		selectFromGL(pickPos.x, pickPos.y);
+		doPick = false;
+	}
 }
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
@@ -197,7 +203,9 @@ void testApp::mouseReleased(int x, int y, int button){
 		cout << "planet.pos -> " << it->getPos() << endl;
 	}
 	cout << ofMap(x, 0, ofGetWindowHeight(), 0, 1) << " , " << ofMap(y, 0, ofGetWindowWidth(), 0, 1) << endl;
-	selectFromGL(x, y);
+	doPick = true;
+	pickPos.set(x, y);
+	//selectFromGL(x, y);
 	/*if(activeView->getType() == "overview"){
 		vector<Planet>::iterator it = planets.begin(), en = planets.end();
 		for(;it < en; it++) {
@@ -239,7 +247,7 @@ void testApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void testApp::dragEvent(ofDragInfo dragInfo){
 
 }
 void testApp::udpBroadcast() {
@@ -280,14 +288,16 @@ void testApp::exit() {
 void testApp::selectFromGL(int x, int y) {
 	float mult = ofGetWidth() / testFbo.getWidth();
 
-	if(ofGetFrameNum() - lastTestedFrame > 5) {
+	//if(ofGetFrameNum() - lastTestedFrame > 5) {
 		testFbo.begin();
 			activeView->basicDraw(planetsToDisplay);
 		testFbo.end();
-	}
+	//}
 	ofPixels_<unsigned char> pixels;
 	testFbo.readToPixels(pixels);
-	ofColor testColor = pixels.getColor(x / mult, y / mult);
+	cout << pixels.getWidth() << endl;
+	ofColor testColor = pixels.getColor(5,5);
+	cout << testColor << endl;
 	pixels.clear();
 	vector<Planet>::iterator it = planets.begin(), end = planets.end();
 	for(; it != end; ++it) {
