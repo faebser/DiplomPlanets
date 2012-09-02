@@ -29,6 +29,7 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+		void selectFromGL(int x, int y);
 
 		void showNotification(string title, string message);
 
@@ -79,5 +80,7 @@ class testApp : public ofBaseApp{
 		Config config;
 		Sound sound;
 		ofEasyCam cam;
+		ofFbo testFbo;
+		int lastTestedFrame;
 		//ofxUDPManager udpConnection;
 };

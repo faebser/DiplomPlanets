@@ -121,6 +121,14 @@ View::~View() {
 	// TODO Auto-generated destructor stub
 }
 
+void View::basicDraw(vector<Planet*> planets) {
+	ofTranslate(middle.x, middle.y);
+	vector<Planet*>::iterator it = planets.begin(), end = planets.end();
+	for(;it != end; ++it) {
+		(*it)->basicDraw();
+	}
+}
+
 void View::setModificators(vector<Modificator>* modificators) {
 	this->modificators = modificators;
 }

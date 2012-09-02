@@ -26,6 +26,7 @@ public:
 	void sendResource(Resource* outgoingResource, string* planetName);
 	void update();
 	void draw();
+	void basicDraw();
 	void generateTexture();
 	void updateSound();
 	void updateSoundOnDraw();
@@ -52,6 +53,8 @@ public:
 	void setSound(Sound* sound);
 	void playAllSounds();
 	void stopAllSounds();
+	ofColor getIdentifier() const;
+	void setIdentifier(ofColor identifier);
 private:
 	void baseConstructor();
 	map<string, ofSoundPlayer> elementSounds, spaceSounds;
@@ -67,6 +70,7 @@ private:
 	string playerName, planetName;
 	ofColor* groundColor;
 	ofVec2f pos;
+	ofColor identifier;
 };
 
 #endif /* PLANET_H_ */

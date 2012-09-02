@@ -20,7 +20,8 @@ void testApp::setup(){
 	inputString = "";
 	newPlayer = false;
 
-
+	testFbo.allocate(ofGetWidth()/2, ofGetHeight()/2, GL_RGB, 1);
+	lastTestedFrame = 0;
 	ofSetFrameRate(60);
 
 
@@ -189,6 +190,14 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
+	cout << "cam.screentoWorld -> " << cam.screenToWorld(ofVec3f(x,y,0)) << endl;
+	cout << "mouse.x -> " << ofToString(x) << " mouse.y -> " << ofToString(y) << endl;
+	vector<Planet>::iterator it = planets.begin(), en = planets.end();
+	for(;it < en; it++) {
+		cout << "planet.pos -> " << it->getPos() << endl;
+	}
+	cout << ofMap(x, 0, ofGetWindowHeight(), 0, 1) << " , " << ofMap(y, 0, ofGetWindowWidth(), 0, 1) << endl;
+	selectFromGL(x, y);
 	/*if(activeView->getType() == "overview"){
 		vector<Planet>::iterator it = planets.begin(), en = planets.end();
 		for(;it < en; it++) {
@@ -268,6 +277,25 @@ int testApp::getRandomStartAmount() {
 void testApp::exit() {
 }
 
+void testApp::selectFromGL(int x, int y) {
+	float mult = ofGetWidth() / testFbo.getWidth();
+
+	if(ofGetFrameNum() - lastTestedFrame > 5) {
+		testFbo.begin();
+			activeView->basicDraw(planetsToDisplay);
+		testFbo.end();
+	}
+	ofPixels_<unsigned char> pixels;
+	testFbo.readToPixels(pixels);
+	ofColor testColor = pixels.getColor(x / mult, y / mult);
+	pixels.clear();
+	vector<Planet>::iterator it = planets.begin(), end = planets.end();
+	for(; it != end; ++it) {
+		if(testColor == it->getIdentifier()) {
+			cam.lookAt(ofVec3f(it->getPos().x, it->getPos().y, 0));
+		}
+	}
+}
 Config testApp::getConfig() {
 		return config;
 	}
@@ -358,6 +386,7 @@ void testApp::relayResource(Resource* resource, string* planetName) {
 	}
 }
 void testApp::addPlanet(Planet planet) {
+	planet.setIdentifier(ofColor(ofRandom(255), ofRandom(255), ofRandom(255)));
 	if(this->activeView->getType() == "overview") {
 		this->planets.push_back(planet);
 		this->planetsToDisplay.push_back(&(this->planets.back()));

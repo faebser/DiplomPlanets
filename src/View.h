@@ -18,6 +18,7 @@ public:
 	View(string type);
 	void update(vector<Planet>* planets);
 	void draw(vector<Planet*> planets);
+	void basicDraw(vector<Planet*> planets);
 	void drawOverview(vector<Planet*> planets);
 	void drawPlanet(vector<Planet*> planets);
 	void windowResize(int w, int h);
