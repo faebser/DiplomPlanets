@@ -134,7 +134,12 @@ ofEasyCam* Config::getCam() {
 void Config::setCam(ofEasyCam* cam) {
 	this->cam = cam;
 	//this->cam->setPosition(1560, 1066, 190);
-	this->cam->setDistance(200);
+	//this->cam->setDistance(200);
+	//position -> 1066.46, 1249.73, 408.888
+	//orientation -> 24.2623, 179.047, -112.967
+
+	this->cam->setPosition(ofVec3f(1066.46, 1249.73, 408.888));
+	this->cam->setOrientation(ofVec3f(24.2623, 179.047, -112.967));
 	this->cam->setTarget(ofVec3f(middle->x, middle->y, 0));
 }
 

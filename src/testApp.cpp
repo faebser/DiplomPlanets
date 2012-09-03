@@ -5,6 +5,7 @@
  * @brief Default-class from ofx
  * This class is the starting-point to the whole game.
  * It sets all other needed classes up.
+ *ffmpeg -f image2 -i sun_%06d.png -b 1500k sun.mpg
  *
  */
 
@@ -20,7 +21,7 @@ void testApp::setup(){
 	inputString = "";
 	newPlayer = false;
 
-	testFbo.allocate(ofGetWidth()/2, ofGetHeight()/2, GL_RGB, 1);
+	testFbo.allocate(ofGetWidth()/2, ofGetHeight()/2, GL_RGBA, 1);
 	lastTestedFrame = 0;
 	ofSetFrameRate(60);
 
@@ -190,14 +191,16 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-	cout << "cam.screentoWorld -> " << cam.screenToWorld(ofVec3f(x,y,0)) << endl;
+	cout << "position -> " << cam.getPosition() << endl;
+	cout << "orientation -> " << cam.getOrientationEuler() << endl;
+	/*cout << "cam.screentoWorld -> " << cam.screenToWorld(ofVec3f(x,y,0)) << endl;
 	cout << "mouse.x -> " << ofToString(x) << " mouse.y -> " << ofToString(y) << endl;
 	vector<Planet>::iterator it = planets.begin(), en = planets.end();
 	for(;it < en; it++) {
 		cout << "planet.pos -> " << it->getPos() << endl;
 	}
-	cout << ofMap(x, 0, ofGetWindowHeight(), 0, 1) << " , " << ofMap(y, 0, ofGetWindowWidth(), 0, 1) << endl;
-	selectFromGL(x, y);
+	cout << ofMap(x, 0, ofGetWindowHeight(), 0, 1) << " , " << ofMap(y, 0, ofGetWindowWidth(), 0, 1) << endl;*/
+	//selectFromGL(x, y);
 	/*if(activeView->getType() == "overview"){
 		vector<Planet>::iterator it = planets.begin(), en = planets.end();
 		for(;it < en; it++) {
