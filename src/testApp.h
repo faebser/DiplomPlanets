@@ -82,5 +82,8 @@ class testApp : public ofBaseApp{
 		ofEasyCam cam;
 		ofFbo testFbo;
 		int lastTestedFrame;
+
+		bool doPick;
+		ofVec2f pickPos;
 		//ofxUDPManager udpConnection;
 };
