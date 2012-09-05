@@ -50,13 +50,13 @@
 	"setVolumeMin" : 0.1,
 	"setVolumeElementMin" : 0.1,
 	"setVolumeElementMax" : 1.0,
-	"setVolumeSpaceMin" : 0.1,
+	"setVolumeSpaceMin" : 0.3,
 	"setVolumeSpaceMax" : 1.0,
 	"distanceDampMin" : 0.2,
 	"distanceDampMax" : 1.0,
 	"startPos" : 0.0,
-	"soundSpeedMin" : 0.25,
-	"soundSpeedMax" : 4.0,
-	"panMin" : -0.6,
-	"panMax" : 0.6
+	"soundSpeedMin" : 0.4,
+	"soundSpeedMax" : 2.0,
+	"panMin" : -0.7,
+	"panMax" : 0.7
 }
