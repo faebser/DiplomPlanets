@@ -79,11 +79,10 @@ class testApp : public ofBaseApp{
 		int player;
 		Config config;
 		Sound sound;
-		ofEasyCam cam;
+		ofCamera cam, fboCam;
 		ofFbo testFbo;
 		int lastTestedFrame;
-
-		bool doPick;
-		ofVec2f pickPos;
+		bool followPlanet;
+		void followPlanetCam();
 		//ofxUDPManager udpConnection;
 };

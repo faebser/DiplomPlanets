@@ -18,12 +18,12 @@ View::View(string type) {
 	this->middle = ofVec2f(ofGetWindowWidth() * 0.5, ofGetWindowHeight() * 0.5);
 	// Point lights emit light in all directions //
 	// set the diffuse color, color reflected from the light source //
-	sun.setDiffuseColor( ofColor(249, 245, 224));
+	//sun.setDiffuseColor( ofColor(50, 50, 50, 128));
 	sunPos = ofVec3f(middle.x, middle.y, 0);
 	sun.setPosition(sunPos);
 
 	// specular color, the highlight/shininess color //
-	sun.setSpecularColor( ofColor(255.f, 255.f, 0.f));
+	sun.setAmbientColor( ofColor(255.f, 255.f, 255.f));
 	sun.setPointLight();
 }
 
@@ -48,6 +48,7 @@ void View::update(vector<Planet>* planets) {
 void View::windowResize(int w, int h) {
 	this->middle.set(w*0.5, h*0.5);
 	sunPos = middle;
+	config->getCam()->lookAt(ofVec3f(w * 0.5, h * 0.5, 0));
 }
 
 void View::draw(vector<Planet*> planets) {
@@ -66,8 +67,6 @@ void View::drawOverview(vector<Planet*> planets) {
 	ofTranslate(middle.x, middle.y);
 	ofSetColor(255, 255, 255, 230);
 
-
-	ofEnableLighting();
 	vector<Planet*>::iterator it, end;
 	end = planets.end();
 	ofSetCircleResolution(150);
@@ -77,6 +76,8 @@ void View::drawOverview(vector<Planet*> planets) {
 			ofCircle(0, 0, (*it)->getResizedRadius());
 		ofDisableSmoothing();
 		ofFill();
+		ofEnableLighting();
+		sun.enable();
 		ofPushMatrix();
 		ofPushStyle();
 			(*it)->draw();
@@ -90,8 +91,8 @@ void View::drawOverview(vector<Planet*> planets) {
 	ofPopMatrix();
 	ofSetCircleResolution(22);
 	ofPushStyle();
-		ofSetColor(255, 0, 0);
-		ofBox(sunPos, 20);
+		ofSetColor(255, 255, 255);
+		ofSphere(sunPos, 20);
 	ofPopStyle();
 }
 
@@ -122,11 +123,13 @@ View::~View() {
 }
 
 void View::basicDraw(vector<Planet*> planets) {
-	ofTranslate(middle.x, middle.y);
-	vector<Planet*>::iterator it = planets.begin(), end = planets.end();
-	for(;it != end; ++it) {
-		(*it)->basicDraw();
-	}
+	ofPushMatrix();
+		ofTranslate(middle.x, middle.y);
+			vector<Planet*>::iterator it = planets.begin(), end = planets.end();
+			for(;it != end; ++it) {
+				(*it)->basicDraw();
+			}
+	ofPopMatrix();
 }
 
 void View::setModificators(vector<Modificator>* modificators) {

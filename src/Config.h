@@ -34,8 +34,8 @@ public:
 	int getRandomStartAmount();
 	ofVec2f getMiddle() const;
 	void setMiddle(ofVec2f* middle);
-	ofEasyCam* getCam();
-	void setCam(ofEasyCam* cam);
+	ofCamera* getCam();
+	void setCam(ofCamera* cam);
 private:
 	Json::Value json;
 	map<string, float> configNumbers;
@@ -45,7 +45,7 @@ private:
 	vector<string> viewTypes;
 	map<string, vector<ofColor> > colors;
 	ofVec2f* middle;
-	ofEasyCam* cam;
+	ofCamera* cam;
 };
 
 #endif /* CONFIG_H_ */

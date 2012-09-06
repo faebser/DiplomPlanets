@@ -87,8 +87,8 @@ void Planet::updateSoundOnDraw() {
 	dist.y = cameraPos.y + pos.y;
 	dist.x = cameraPos.x + pos.x;
 	// setting the volume
-	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
-	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
+	float volumeElement = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMax"), config->getNumber("distanceDampMin"));
+	float volumeSpace = ofMap(dist.y, minYDist, maxYDist, config->getNumber("distanceDampMin"), config->getNumber("distanceDampMax"));
 	float pan = ofMap(dist.x, minXDist, maxXDist, config->getNumber("panMin"), config->getNumber("panMax"));
 
 //	string fpsStr = "Distance: X -> "+ ofToString(dist.x) + " Y -> " + ofToString(dist.y) + "\n";
@@ -154,8 +154,8 @@ void Planet::stopAllSounds() {
 void Planet::basicDraw() {
 	ofPushStyle();
 		ofSetColor(identifier);
-		ofTranslate(pos.x/2, pos.y/2);
-		ofSphere(getSize()/2);
+		ofTranslate(pos.x, -pos.y);
+		ofSphere(getSize());
 	ofPopStyle();
 }
 
@@ -167,13 +167,20 @@ void Planet::baseConstructor() {
 		string resourceType = resources[i];
 		this->resources.push_back(Resource(resourceType));
 		PlanetFbo newFbo;
-		newFbo.allocate(800, 600, GL_RGBA, 4);
+		ofFbo::Settings set;
+		set.width = 800;
+		set.height = 600;
+		set.numSamples = 2;
+		set.textureTarget = GL_TEXTURE_2D;
+		set.internalformat = GL_RGBA;
+		newFbo.allocate(set);
 		fbos.push_back(newFbo);
 	}
 	elementSounds = sound->getAllElementPlayers();
 	spaceSounds = sound->getAllSpacePlayers();
 	updateSound();
 	generateTexture();
+	ofDisableArbTex();
 }
 void Planet::getResource(Resource* incomingResource) {
 	vector<Resource>::iterator it;
@@ -292,7 +299,7 @@ ofColor* Planet::getColor() {
 	return this->groundColor;
 }
 float Planet::getResizedRadius() {
-	float realMax = (ofGetWindowWidth() * 0.5), realMin = 30;
+	float realMax = (ofGetWindowWidth() * 0.5), realMin = 50;
 	return ofMap(radius, config->getNumber("minRadius"), config->getNumber("maxRadius"), realMin, realMax);
 }
 float Planet::getResourceValueAsPercent(string resName) {

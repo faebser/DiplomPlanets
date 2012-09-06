@@ -128,19 +128,30 @@ Config::~Config() {
 	// TODO Auto-generated destructor stub
 }
 
-ofEasyCam* Config::getCam() {
+ofCamera* Config::getCam() {
 	return cam;
 }
-void Config::setCam(ofEasyCam* cam) {
+void Config::setCam(ofCamera* cam) {
 	this->cam = cam;
-	//this->cam->setPosition(1560, 1066, 190);
-	//this->cam->setDistance(200);
-	//position -> 1066.46, 1249.73, 408.888
-	//orientation -> 24.2623, 179.047, -112.967
-
-	this->cam->setPosition(ofVec3f(1066.46, 1249.73, 408.888));
-	this->cam->setOrientation(ofVec3f(24.2623, 179.047, -112.967));
-	this->cam->setTarget(ofVec3f(middle->x, middle->y, 0));
+//	position -> 1306.15, -556.454, -349.006
+//	orientation -> -33.164, 178.619, 72.0519
+//	global matrix -> 0.83204, 0.554643, 0.00896968,        0
+//	-0.17106, 0.241165, 0.955289,        0
+//	0.527681, -0.796374, 0.295537,        0
+//	 1306.15, -556.454,  349.006,        1
+//	ofMatrix4x4 m;
+//	m._mat[0].set(0.83204, 0.554643, 0.00896968, 0);
+//	m._mat[1].set(-0.17106, 0.241165, 0.955289, 0);
+//	m._mat[2].set(0.527681, -0.796374, 0.295537, 0);
+//	m._mat[3].set(1306.15, -556.454,  349.006, 1);
+//
+//
+//
+	this->cam->lookAt(ofVec3f(middle->x, middle->y, 0));
+	this->cam->setGlobalPosition(ofVec3f(1306.15, -556.454, 349.006));
+//	this->cam->setTransformMatrix(m);
+	this->cam->setOrientation(ofVec3f(33.6859, -0.617645, 73.1518));
+	//this->cam->setTarget(ofVec3f((*middle)));
 }
 
 

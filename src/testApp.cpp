@@ -21,11 +21,8 @@ void testApp::setup(){
 	inputString = "";
 	newPlayer = false;
 
-	testFbo.allocate(ofGetWidth()/2, ofGetHeight()/2, GL_RGBA, 1);
-	doPick = false;
-	lastTestedFrame = 0;
+	testFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA, 1);
 	ofSetFrameRate(60);
-
 
 	/**
 	 * fire up the methods that load the files and sets up the config, the sound
@@ -116,11 +113,6 @@ void testApp::draw(){
 	ofDrawBitmapString(fpsStr, 20,20);
 //	ofDrawBitmapString(camStr, 20, 35);
 //	ofDrawBitmapString(camStr2, 20, 45);
-
-	if(doPick){
-		selectFromGL(pickPos.x, pickPos.y);
-		doPick = false;
-	}
 }
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
@@ -163,15 +155,25 @@ void testApp::keyPressed(int key){
 		player = 2;
 	}
 	switch(key) {
-			case 'F':
-			case 'f':
-				ofToggleFullscreen();
+			case 'o':
+				cam.move(+10, 0, 0);
+				cam.lookAt(ofVec3f(config.getMiddle()));
+				break;
+			case 'l':
+				cam.move(-10,0,0);
+				cam.lookAt(ofVec3f(config.getMiddle()));
 				break;
 			case OF_KEY_LEFT:
 				cam.roll(-.5);
 				break;
 			case OF_KEY_RIGHT:
 				cam.roll(+0.5);
+				break;
+			case OF_KEY_UP:
+				cam.rotateAround(+1, cam.getYAxis(), ofVec3f(config.getMiddle()));
+				break;
+			case OF_KEY_DOWN:
+				cam.tilt(-0.5);
 				break;
 		}
 }
@@ -197,47 +199,47 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-	cout << "position -> " << cam.getPosition() << endl;
-	cout << "orientation -> " << cam.getOrientationEuler() << endl;
-	/*cout << "cam.screentoWorld -> " << cam.screenToWorld(ofVec3f(x,y,0)) << endl;
-	cout << "mouse.x -> " << ofToString(x) << " mouse.y -> " << ofToString(y) << endl;
-	vector<Planet>::iterator it = planets.begin(), en = planets.end();
-	for(;it < en; it++) {
-		cout << "planet.pos -> " << it->getPos() << endl;
-	}
 
-	cout << ofMap(x, 0, ofGetWindowHeight(), 0, 1) << " , " << ofMap(y, 0, ofGetWindowWidth(), 0, 1) << endl;*/
-	doPick = true;
-	pickPos.set(x, y);
-	//selectFromGL(x, y);
-	/*if(activeView->getType() == "overview"){
-		vector<Planet>::iterator it = planets.begin(), en = planets.end();
-		for(;it < en; it++) {
-			ofVec2f pos = (*it).getPos();
-			if(ofDist(pos.x, pos.y, x, y) < (*it).getSize()) {
-				this->planetsToDisplay.clear();
-				this->planetsToDisplay.push_back(&(*it));
-				this->activeView = &views[1];
-				break;
-			}
-		}
-	}
-	else if(activeView->getType() == "singlePlanet") {
-		this->planetsToDisplay.clear();
-		vector<Planet>::iterator it = this->planets.begin(), end = this->planets.end();
-		for(;it < end; ++it) {
-			this->planetsToDisplay.push_back(&(*it));
-		}
-		this->activeView = &views[0];
-	}
-	vector<Planet>::iterator it = planets.begin(), en = planets.end();
-	for(;it < en; ++it) {
-		ofVec2f* pos = (*it).getPos();
-		if(ofDist(pos->x, pos->y, x, y) < (*it).getSize()) {
-			(*it).clicked(player);
-			break;
-		}
-	}*/
+////	cout << "position -> " << cam.getPosition() << endl;
+////	cout << "orientation -> " << cam.getOrientationEuler() << endl;
+////	cout << "global matrix ->" << cam.getLocalTransformMatrix() << endl;
+//	/*cout << "cam.screentoWorld -> " << cam.screenToWorld(ofVec3f(x,y,0)) << endl;
+//	cout << "mouse.x -> " << ofToString(x) << " mouse.y -> " << ofToString(y) << endl;
+//	vector<Planet>::iterator it = planets.begin(), en = planets.end();
+//	for(;it < en; it++) {
+//		cout << "planet.pos -> " << it->getPos() << endl;
+//	}
+//
+//	cout << ofMap(x, 0, ofGetWindowHeight(), 0, 1) << " , " << ofMap(y, 0, ofGetWindowWidth(), 0, 1) << endl;*/
+//	selectFromGL(x, y);
+//	if(activeView->getType() == "overview"){
+//		vector<Planet>::iterator it = planets.begin(), en = planets.end();
+//		for(;it < en; it++) {
+//			ofVec2f pos = (*it).getPos();
+//			if(ofDist(pos.x, pos.y, x, y) < (*it).getSize()) {
+//				this->planetsToDisplay.clear();
+//				this->planetsToDisplay.push_back(&(*it));
+//				this->activeView = &views[1];
+//				break;
+//			}
+//		}
+//	}
+//	else if(activeView->getType() == "singlePlanet") {
+//		this->planetsToDisplay.clear();
+//		vector<Planet>::iterator it = this->planets.begin(), end = this->planets.end();
+//		for(;it < end; ++it) {
+//			this->planetsToDisplay.push_back(&(*it));
+//		}
+//		this->activeView = &views[0];
+//	}
+//	vector<Planet>::iterator it = planets.begin(), en = planets.end();
+//	for(;it < en; ++it) {
+//		ofVec2f* pos = (*it).getPos();
+//		if(ofDist(pos->x, pos->y, x, y) < (*it).getSize()) {
+//			(*it).clicked(player);
+//			break;
+//		}
+//	}
 }
 
 //--------------------------------------------------------------
@@ -290,25 +292,27 @@ void testApp::exit() {
 }
 
 void testApp::selectFromGL(int x, int y) {
-	float mult = ofGetWidth() / testFbo.getWidth();
-
-	//if(ofGetFrameNum() - lastTestedFrame > 5) {
-		testFbo.begin();
-			activeView->basicDraw(planetsToDisplay);
-		testFbo.end();
-	//}
-	ofPixels_<unsigned char> pixels;
-	testFbo.readToPixels(pixels);
-	cout << pixels.getWidth() << endl;
-	ofColor testColor = pixels.getColor(5,5);
-	cout << testColor << endl;
-	pixels.clear();
-	vector<Planet>::iterator it = planets.begin(), end = planets.end();
-	for(; it != end; ++it) {
-		if(testColor == it->getIdentifier()) {
-			cam.lookAt(ofVec3f(it->getPos().x, it->getPos().y, 0));
-		}
-	}
+//	//if(ofGetFrameNum() - lastTestedFrame > 5) {
+//		testFbo.begin();
+//			cam.begin();
+//				ofPushMatrix();
+//				ofScale(1, 1, 1);
+//				activeView->basicDraw(planetsToDisplay);
+//				ofPopMatrix();
+//			cam.end();
+//		testFbo.end();
+//	//}
+//	ofPixels_<unsigned char> pixels;
+////	testFbo.readToPixels(pixels);
+////	ofColor testColor = pixels.getColor(x,-y);
+////	cout << testColor << endl;
+////	pixels.clear();
+////	vector<Planet>::iterator it = planets.begin(), end = planets.end();
+////	for(; it != end; ++it) {
+////		if(testColor == it->getIdentifier()) {
+////			cam.lookAt(ofVec3f(it->getPos().x, it->getPos().y, 0));
+////		}
+////	}
 }
 Config testApp::getConfig() {
 		return config;
@@ -386,7 +390,6 @@ void testApp::deserializeModificator() {
 					modificators.push_back(newMod);
 				}
 		}
-		//maybe quit here if file cannot be read
 	}
 }
 void testApp::relayResource(Resource* resource, string* planetName) {
@@ -409,3 +412,9 @@ void testApp::addPlanet(Planet planet) {
 		this->planets.push_back(planet);
 	}
 }
+
+//void testApp::followPlanetCam() {
+//	vector<Planet>::iterator it = planets.begin();
+//	cam.setTarget(it->getPos());
+//}
+
