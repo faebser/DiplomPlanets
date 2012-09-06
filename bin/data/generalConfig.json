@@ -7,7 +7,7 @@
 	"habitableZone" : 500,
 	"maxRadius" : 10000,
 	"minRadius" : 50,
-	"minStartAmount" : 0,
+	"minStartAmount" : 1,
 	"maxStartAmount" : 5,
 	"roundDuration" : 10000,
 	"planets" : [
