@@ -48,15 +48,15 @@
 	"spaceCompareString" : "space",
 	"setVolumeMax" : 1.0,
 	"setVolumeMin" : 0.1,
-	"setVolumeElementMin" : 0.1,
-	"setVolumeElementMax" : 1.0,
-	"setVolumeSpaceMin" : 0.3,
-	"setVolumeSpaceMax" : 1.0,
+	"setVolumeElementMin" : 0.05,
+	"setVolumeElementMax" : 1.6,
+	"setVolumeSpaceMin" : 0.8,
+	"setVolumeSpaceMax" : 1.6,
 	"distanceDampMin" : 0.2,
 	"distanceDampMax" : 1.0,
 	"startPos" : 0.0,
-	"soundSpeedMin" : 0.4,
-	"soundSpeedMax" : 2.0,
-	"panMin" : -0.7,
-	"panMax" : 0.7
+	"soundSpeedMin" : 0.6,
+	"soundSpeedMax" : 2.6,
+	"panMin" : -1.0,
+	"panMax" : 1.0
 }
